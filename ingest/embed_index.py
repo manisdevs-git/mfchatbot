@@ -6,6 +6,7 @@ Gemini is not used here.
 from __future__ import annotations
 
 import argparse
+import functools
 import hashlib
 import json
 import os
@@ -138,8 +139,9 @@ def load_chunks(path: Path | None = None) -> list[dict]:
     return records
 
 
+@functools.lru_cache(maxsize=4)
 def load_model(name: str = MODEL_NAME) -> Any:
-    """Load the local MiniLM encoder. First run downloads weights."""
+    """Load MiniLM once per process. First run may download weights."""
     try:
         from sentence_transformers import SentenceTransformer
     except ImportError as exc:
@@ -147,7 +149,10 @@ def load_model(name: str = MODEL_NAME) -> Any:
             "sentence-transformers is required for Phase 2D. "
             "Install it with: pip install sentence-transformers"
         ) from exc
-    return SentenceTransformer(name)
+    try:
+        return SentenceTransformer(name, local_files_only=True)
+    except Exception:
+        return SentenceTransformer(name)
 
 
 def _rows_from_encode(raw: Any) -> list[list[float]]:

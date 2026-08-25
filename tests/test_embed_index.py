@@ -7,6 +7,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from unittest.mock import patch
+
 from ingest.embed_index import (
     EMBEDDING_DIM,
     MODEL_NAME,
@@ -21,6 +23,7 @@ from ingest.embed_index import (
     embeddings_digest,
     index_is_current,
     load_chunks,
+    load_model,
     load_pairs,
     named_scheme_id,
     persist_pairs,
@@ -138,6 +141,18 @@ class EmbedChunksTests(unittest.TestCase):
 
         with self.assertRaises(EmbedError):
             embed_texts(["expense ratio"], model=_Bad())
+
+    def test_load_model_reuses_the_same_encoder(self) -> None:
+        with patch("sentence_transformers.SentenceTransformer") as ctor:
+            ctor.side_effect = lambda *args, **kwargs: object()
+            load_model.cache_clear()
+            try:
+                first = load_model("cache-test-encoder")
+                second = load_model("cache-test-encoder")
+            finally:
+                load_model.cache_clear()
+        self.assertIs(first, second)
+        self.assertEqual(ctor.call_count, 1)
 
 
 class ChromaStoreTests(unittest.TestCase):
