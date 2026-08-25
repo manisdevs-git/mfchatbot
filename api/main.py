@@ -12,7 +12,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 
-from ingest.embed_index import DEFAULT_INDEX_DIR, open_collection
+from ingest.embed_index import DEFAULT_INDEX_DIR, ensure_persisted_index, open_collection
 from src.format import winning_citation
 from src.generate import pii_block_for_gemini, policy_block_for_gemini
 from src.guard import classify
@@ -108,10 +108,17 @@ class HealthResponse(BaseModel):
     index_ready: bool
 
 
+def ensure_index() -> None:
+    if not ensure_persisted_index():
+        logger.info("Groww index is not ready")
+
+
 app = FastAPI(title="Groww FAQ API", version="0.6.0")
+ensure_index()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=frontend_origins(),
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=False,
     allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
@@ -125,7 +132,6 @@ def root() -> dict[str, object]:
         "docs": "/docs",
         "health": "/health",
         "ask": "POST /v1/ask",
-        "ui": "http://127.0.0.1:5173/",
     }
 
 

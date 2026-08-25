@@ -8,10 +8,17 @@ web/dist/
 .pytest_cache/
 *.egg-info/
 
-# Official downloads, cleaned text, and the local vector index (rebuilt from the manifest)
+# Official downloads (rebuild locally from the manifest)
 data/raw/*
 !data/raw/.gitkeep
-data/processed/*
-!data/processed/.gitkeep
+
+# Chroma is rebuilt from data/processed/embeddings.jsonl
 data/index/*
 !data/index/.gitkeep
+data/index.bak/
+data/index.next/
+
+# Ingest staging and failed swap leftovers
+data/.ingest-staging/
+data/processed.bak/
+data/processed.next/

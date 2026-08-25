@@ -18,12 +18,15 @@ from ingest.embed_index import (
     embed_chunks,
     embed_corpus,
     embed_texts,
+    embeddings_digest,
+    index_is_current,
     load_chunks,
     load_pairs,
     named_scheme_id,
     persist_pairs,
     query_index,
     smoke_search,
+    write_embeddings_stamp,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -266,6 +269,24 @@ class ChromaStoreTests(unittest.TestCase):
             top = smoke_search(index_dir, model=_QueryMiniLM())
             self.assertEqual(top["source_url"], SMOKE_SOURCE_URL)
             self.assertEqual(top["doc_type"], "groww_scheme")
+
+
+class EmbeddingsStampTests(unittest.TestCase):
+    def test_index_is_current_tracks_embeddings_hash(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            embeddings = Path(tmp) / "embeddings.jsonl"
+            index_dir = Path(tmp) / "index"
+            embeddings.write_text("alpha\n", encoding="utf-8")
+            index_dir.mkdir()
+            self.assertFalse(index_is_current(index_dir, embeddings))
+            write_embeddings_stamp(embeddings, index_dir)
+            self.assertTrue(index_is_current(index_dir, embeddings))
+            embeddings.write_text("beta\n", encoding="utf-8")
+            self.assertFalse(index_is_current(index_dir, embeddings))
+            self.assertNotEqual(
+                embeddings_digest(embeddings),
+                (index_dir / ".embeddings_sha256").read_text(encoding="utf-8").strip(),
+            )
 
 
 class LiveExitCheckTests(unittest.TestCase):

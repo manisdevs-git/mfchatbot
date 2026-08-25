@@ -27,8 +27,11 @@ REQUIRED_FILES = (
     "ingest/validate_manifest.py",
     "ingest/fetch_official.py",
     "ingest/build_index.py",
+    "ingest/refresh_corpus.py",
+    "ingest/atomic.py",
     "scripts/smoke_gemini.py",
     "tests/test_validate_manifest.py",
+    ".github/workflows/refresh-corpus.yml",
     "data/raw/.gitkeep",
     "data/processed/.gitkeep",
     "data/index/.gitkeep",
@@ -40,6 +43,7 @@ GITIGNORE_MUST_CONTAIN = (
     "__pycache__/",
     "data/raw/",
     "data/index/",
+    "data/.ingest-staging/",
 )
 
 

@@ -6,6 +6,7 @@ Gemini is not used here.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import sys
@@ -25,6 +26,7 @@ from ingest.validate_manifest import ManifestError, validate_url
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_EMBEDDINGS_PATH = DEFAULT_PROCESSED_DIR / "embeddings.jsonl"
 DEFAULT_INDEX_DIR = ROOT / "data" / "index"
+EMBEDDINGS_STAMP_NAME = ".embeddings_sha256"
 
 MODEL_NAME = "all-MiniLM-L6-v2"
 EMBEDDING_DIM = 384
@@ -38,6 +40,48 @@ INDEX_METADATA_FIELDS = (
 )
 SMOKE_QUERY = "Large Cap expense ratio"
 SMOKE_SOURCE_URL = "https://groww.in/mutual-funds/hdfc-large-cap-fund-direct-growth"
+
+
+def embeddings_digest(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def embeddings_stamp_path(index_dir: Path | None = None) -> Path:
+    return (index_dir or DEFAULT_INDEX_DIR) / EMBEDDINGS_STAMP_NAME
+
+
+def index_is_current(
+    index_dir: Path | None = None,
+    embeddings_path: Path | None = None,
+) -> bool:
+    """True when the Chroma folder was built from this embeddings.jsonl."""
+    src = embeddings_path or DEFAULT_EMBEDDINGS_PATH
+    if not src.is_file():
+        return False
+    stamp = embeddings_stamp_path(index_dir)
+    if not stamp.is_file():
+        return False
+    try:
+        return stamp.read_text(encoding="utf-8").strip() == embeddings_digest(src)
+    except OSError:
+        return False
+
+
+def write_embeddings_stamp(embeddings_path: Path, index_dir: Path) -> None:
+    embeddings_stamp_path(index_dir).write_text(
+        embeddings_digest(embeddings_path) + "\n",
+        encoding="utf-8",
+    )
+
+
+def forget_chroma_client(index_dir: Path) -> None:
+    """Drop a cached PersistentClient so the folder can be replaced or rebuilt."""
+    import gc
+
+    key = str(Path(index_dir).resolve())
+    _CLIENTS.pop(key, None)
+    gc.collect()
+
 
 # Query phrases → scheme_id. Used so a named scheme beats a Groww primer.
 SCHEME_QUERY_HINTS = (
@@ -310,10 +354,45 @@ def persist_index(
     index_dir: Path | None = None,
 ) -> tuple[int, Path]:
     """Load embeddings.jsonl and persist the pairs in Chroma."""
-    pairs = load_pairs(embeddings_path)
+    src = embeddings_path or DEFAULT_EMBEDDINGS_PATH
+    pairs = load_pairs(src)
     folder = index_dir or DEFAULT_INDEX_DIR
     count = persist_pairs(pairs, folder)
+    write_embeddings_stamp(src, folder)
     return count, folder
+
+
+def ensure_persisted_index(
+    embeddings_path: Path | None = None,
+    index_dir: Path | None = None,
+) -> bool:
+    """Open or rebuild data/index/ from embeddings.jsonl.
+
+    A missing stamp on an already-populated index is treated as current so a
+    running API is not rebuilt (and is not renamed) on first boot. When the
+    embeddings hash changes, Chroma is rewritten in place from embeddings.jsonl.
+    """
+    src = Path(embeddings_path or DEFAULT_EMBEDDINGS_PATH)
+    folder = Path(index_dir or DEFAULT_INDEX_DIR)
+    if not src.is_file():
+        return False
+    ready = False
+    try:
+        ready = int(open_collection(folder, reset=False).count()) > 0
+    except Exception:
+        ready = False
+    if ready and index_is_current(folder, src):
+        return True
+    if ready and not embeddings_stamp_path(folder).is_file():
+        write_embeddings_stamp(src, folder)
+        return True
+    forget_chroma_client(folder)
+    persist_index(src, folder)
+    try:
+        return int(open_collection(folder, reset=False).count()) > 0
+    except Exception:
+        return False
+
 
 
 def named_scheme_id(query: str) -> str | None:
