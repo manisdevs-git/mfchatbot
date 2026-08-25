@@ -30,6 +30,7 @@ REQUIRED_FILES = (
     "ingest/refresh_corpus.py",
     "ingest/atomic.py",
     "scripts/smoke_gemini.py",
+    "scripts/wait_railway_corpus.py",
     "tests/test_validate_manifest.py",
     ".github/workflows/refresh-corpus.yml",
     "data/raw/.gitkeep",

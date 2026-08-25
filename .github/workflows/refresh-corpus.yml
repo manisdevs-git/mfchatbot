@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       dry_run:
-        description: Build and validate a new corpus without replacing git files
+        description: Build and validate a new corpus without committing or deploying
         type: boolean
         default: false
   schedule:
@@ -19,9 +19,9 @@ permissions:
 
 jobs:
   refresh:
-    name: Fetch, chunk, embed
+    name: Ingest, commit, deploy API
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 75
     env:
       ANONYMIZED_TELEMETRY: "False"
       HF_HUB_DISABLE_TELEMETRY: "1"
@@ -60,8 +60,28 @@ jobs:
           git add corpus_manifest.json data/processed
           if git diff --cached --quiet; then
             echo "Corpus files are unchanged."
-            exit 0
+          else
+            git commit -m "Refresh Groww corpus from corpus_manifest."
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
+            git push
           fi
-          git commit -m "Refresh Groww corpus from corpus_manifest."
-          git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
-          git push
+
+      - name: Deploy API to Railway
+        if: success() && github.event.inputs.dry_run != 'true'
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          if [ -n "$RAILWAY_TOKEN" ]; then
+            npm i -g @railway/cli
+            railway up --ci -y \
+              --service mfchatbot \
+              --project 78e6d37a-3901-4bc0-9c5f-da233d0fc515 \
+              --environment production \
+              --message "corpus refresh ${GITHUB_SHA}"
+          else
+            echo "RAILWAY_TOKEN is not set. Waiting for the GitHub-connected Railway service to build this push."
+          fi
+
+      - name: Confirm Railway is serving the new corpus
+        if: success() && github.event.inputs.dry_run != 'true'
+        run: python scripts/wait_railway_corpus.py
