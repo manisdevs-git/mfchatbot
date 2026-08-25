@@ -36,16 +36,16 @@ def main(argv: list[str] | None = None) -> int:
     base = args[0] if args else DEFAULT_API
     wanted = expected_as_of()
     print(f"waiting for {base} as_of_date={wanted}")
-    for attempt in range(1, 37):
+    for attempt in range(1, 61):
         try:
             payload = ask(base)
         except (urllib.error.URLError, TimeoutError, json.JSONDecodeError, OSError) as exc:
-            print(f"attempt {attempt}/36: {exc}")
+            print(f"attempt {attempt}/60: {exc}")
             time.sleep(15)
             continue
         got = payload.get("as_of_date")
         text = str(payload.get("text") or "")[:180]
-        print(f"attempt {attempt}/36: as_of_date={got} {text}")
+        print(f"attempt {attempt}/60: as_of_date={got} {text}")
         if got == wanted:
             print("Railway is serving the refreshed corpus.")
             return 0
