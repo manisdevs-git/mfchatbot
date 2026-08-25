@@ -1,0 +1,11 @@
+google-genai
+python-dotenv
+streamlit
+fastapi
+uvicorn
+httpx
+sentence-transformers
+chromadb
+pypdf
+beautifulsoup4
+certifi

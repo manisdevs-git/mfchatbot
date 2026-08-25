@@ -1,0 +1,71 @@
+:root {
+  --paper: #efe6d4;
+  --ink: #14110d;
+  --muted: #5a5348;
+  --rule: #c9b89a;
+  --panel: #fff8ec;
+  --accent: #0c4a38;
+  --accent-soft: #cfe8d8;
+  --gold: #c4a35a;
+  --hero: #10261d;
+  --user: #ebe1cf;
+  --danger: #7a2e12;
+  --sans: 'Source Sans 3', 'Segoe UI', sans-serif;
+  --serif: 'Fraunces', Georgia, serif;
+  --mono: 'IBM Plex Mono', ui-monospace, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(180deg, rgba(16, 38, 29, 0.06), transparent 28%),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 47px,
+      rgba(16, 38, 29, 0.035) 47px,
+      rgba(16, 38, 29, 0.035) 48px
+    );
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+button,
+textarea {
+  font: inherit;
+}
+
+a {
+  color: var(--accent);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
