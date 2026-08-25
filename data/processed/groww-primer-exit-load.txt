@@ -1,0 +1,120 @@
+Groww — Exit load in mutual funds
+
+Exit Load in Mutual Funds
+Mutual funds are a pool of investments drawn from various investors having the same investment objectives. However, managing these funds alone is quite difficult for investors; here, the Asset Management Companies (AMC) come into the scene.
+These AMCs manage the funds by the investors and ensure the investments go towards growth. These AMCs charge a small amount of fees whenever an investor exits or redeems the units of a fund. This fee is called the Exit load.
+What is an Exit Load in Mutual Funds ? Why is it Levied?
+An exit load is the fee AMCs (Asset management companies) charge the investor at the time of exiting or retrieving the units of the fund. The primary reason for levying exit load is to discourage investors from backing out and pulling out their investments before the lock-in period is over.
+Additionally, the exit load fee may also reduce the withdrawal numbers from the mutual fund schemes. However, not all funds levy an exit charge on investors. Hence, you need to keep in mind the ‘exit load aspect’ while choosing a plan to invest in.
+Exit load meaning in mutual funds, can be understood as a percentage of the Net Asset Value (NAV) of the mutual fund an investor possesses. The Net Asset value is the net value of an entity and is calculated as the entity’s assets minus the value of its liabilities.
+Usually, the AMCs deduct the exit load from the total NAV and the remaining amount gets credited to the investor’s account.
+Let's understand with an example
+For instance, if the exit load levied on a one-year scheme is 2% and is redeemed within 4 months, which would be much before the agreed period of investment.
+So, here an exit load comes into the scene. If the NAV of the fund is Rs.40 during the time of redemption, the exit fee charged would be 2% of Rs. 40, which is equal to 0.8. After deducting this amount from the NAV, which is Rs. 39.20 gets credited to the investor.
+Moreover, if the investor completes the agreed tenure of the funds, then he/she won’t have to pay the exit load at the time of redemption.
+How to Calculate Exit Load in Mutual Funds
+The rates of exit load depend on the type of mutual funds; different mutual funds charge different exit loads.
+Suppose an investor invested Rs. 30,000 in a
+mutual fund scheme
+in January 2022. The plan has an exit load of 1% if redeemed before 1 year. The NAV is Rs. 100, which means that the investor has 300 units.
+Now, if the investor wants to redeem the units after 4 months, i.e. in May 2022. In this case, the investor will be paying an exit load as per the calculation:
+Amount invested in January 2017
+30,000
+Net Asset value
+at the time of investment
+100
+Units Bought
+30000/100=300
+NAV at the time of redemption
+90
+Exit Load
+1% of (90*300)= 270
+Final Redemption Amount
+27000-270=26730
+Exit Loads on Various Types of Mutual Funds
+Different
+mutual funds
+charge different rates of exit load. However, not all mutual funds levy exit load on investors. It is advisable to check the exit load of the mutual fund schemes you are interested to invest in.
+Let’s check out some rates on mutual funds
+There is usually no entry or exit load on liquid funds. This means that the investors can redeem the investments whenever they want, and the money will be credited to their bank accounts the very next day.
+Debt funds may or may not have an exit load. However, one can ignore the expense by adjusting the investment tenure with the time period for which the fund charges an exit load.
+Same with equity funds. It varies but is usually around 1% if redeemed within the first 12 months. However, it differs from
+AMC
+to AMC.
+Exit Load on SIP
+Most investors are usually perplexed to understand the ‘Exit Load’ concept when investing through
+SIP
+.
+Exit load on SIP
+might be a tad bit different. Every investment in SIP is treated as a fresh purchase, so exit load may be charged accordingly depending on your SIP instalment amount and your redemption amount.
+Exit Fee is a vital factor for an investor to be aware of while investing. You should be meticulous before proceeding with a
+Mutual Fund scheme
+as it helps you to estimate the returns once all the other expenses are settled.
+No investor would ever want to get a fine in the form of an exit load unknowingly. Exit Load can take a toll on you and your planned investments; it can be avoided if you plan your sale of units judiciously.
+Related Mutual Fund Pages
+SIP
+Lumpsum
+AUM
+Systematic Transfer Plan
+Exit Load
+Mutual Fund Units
+Expense Ratio
+Childrens Fund
+NAV
+Interval Funds
+Systematic Withdrawal Plan (SWP)
+Emerging Market Funds
+Hedge Funds
+Benchmark
+List of AMC in India
+Asset Management Company
+Axis Mutual Fund
+PGIM India Mutual Fund
+BOI Axa Mutual Fund
+Kotak Mutual Fund
+Sundaram Mutual Fund
+Union Mutual Fund
+Nippon Mutual Fund
+Invesco Mutual Fund
+Taurus Mutual Fund
+HDFC Mutual Fund
+LIC Mutual Fund
+Edelweiss Mutual Fund
+SBI Mutual Fund
+JM Financial Mutual Fund
+Navi Mutual Fund
+ICICI Prudential Mutual Fund
+Baroda Mutual Fund
+Mahindra Mutual Fund
+Aditya Birla Sunlife Mutual Fund
+Canara Robeco Mutual Fund
+Quantum Mutual Fund
+UTI Mutual Fund
+HSBC Mutual Fund
+PPFAS Mutual Fund
+Franklin Templeton Mutual Fund
+IDBI Mutual Fund
+IIFL Mutual Fund
+IDFC Mutual Fund
+Indiabulls Mutual Fund
+Quant Mutual Fund
+DSP Mutual Fund
+Motilal Oswal Mutual Fund
+Shriram Mutual Fund
+TATA Mutual Fund
+BNP Paribas Mutual Fund
+Sahara Mutual Fund
+L and T Mutual Fund
+Mirae Asset Mutual Fund
+ITI Mutual Fund
+Q: What does exit load mean in mutual funds?
+Exit load is a fee levied by mutual funds when investors withdraw their investment before the exit load term expires. It is used to reimburse the fund's expenditures incurred due to early redemption and varies based on the kind and duration of the investment.
+Q: What is entry load and exit load in mutual funds?
+Entry and exit loads are fees that investors may be charged when purchasing or selling mutual fund units. The entry load is levied when buying, and the exit load is levied when selling.
+They are used to cover the fund's expenditures and might vary based on the kind and term of the investment.
+Q: Will I would be required to pay exit load if I choose the SWP option?
+Yes. You will be required to pay the exit load if you withdraw before the exit load period ends.
+Q: What is a good exit load for mutual funds?
+Usually a low exit load is considered good from investment perspective.
+Q: What is the exit load if I switch from one mutual fund scheme to another in the same Asset Management Company?
+The exit load may or may not change while you switch from one mutual fund scheme to another in the same AMC, it depends on the fund you are switching from and to.
