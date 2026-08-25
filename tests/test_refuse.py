@@ -27,6 +27,7 @@ class RefuseCopyTests(unittest.TestCase):
         self.assertIn(SCHEME_URLS["hdfc-large-cap-fund-direct-growth"], text)
         self.assertIn(AS_OF_DATE, text)
         self.assertNotIn("%", text)
+        self.assertNotIn(" or NAV", text)
 
     def test_out_of_scope_names_no_other_amc_page(self) -> None:
         text = policy_block_for_gemini("SBI Bluechip expense ratio")

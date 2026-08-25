@@ -51,6 +51,12 @@ class CatalogRoutingTests(unittest.TestCase):
         self.assertEqual(scheme_ids, list(CATALOG_SCHEME_IDS))
         self.assertEqual(topic, "exit_load")
 
+    def test_nav_of_all_schemes_is_catalog(self) -> None:
+        decision = classify("NAV of all schemes")
+        self.assertEqual(decision.intent, "catalog")
+        self.assertEqual(decision.topic, "nav")
+        self.assertIsNone(policy_block_for_gemini("NAV of all schemes"))
+
 
 class CatalogFormatTests(unittest.TestCase):
     def test_table_has_one_row_and_url_per_scheme(self) -> None:
@@ -75,6 +81,15 @@ class CatalogFormatTests(unittest.TestCase):
         self.assertIn("Nil", text)
         self.assertIn(f"Last updated from sources: {AS_OF_DATE}", text)
         self.assertEqual(text.count("https://groww.in/mutual-funds/"), 5)
+
+    def test_nav_table_copies_snapshot_line(self) -> None:
+        chunks = [
+            _scheme_chunk(scheme_id, "NAV: ₹1245.13 as of 2026-08-21")
+            for scheme_id in CATALOG_SCHEME_IDS
+        ]
+        text = format_catalog(chunks, "nav")
+        self.assertIn("| Scheme | NAV | Source |", text)
+        self.assertIn("NAV: ₹1245.13 as of 2026-08-21", text)
 
 
 class CatalogPipelineTests(unittest.TestCase):

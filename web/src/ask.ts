@@ -30,6 +30,11 @@ export const EXAMPLE_QUESTIONS = [
     topic: 'minimum SIP amount',
     question: 'What is the minimum SIP amount for HDFC Mid Cap Fund Direct Growth?',
   },
+  {
+    label: 'NAV',
+    topic: 'NAV',
+    question: 'What is the NAV of HDFC Large Cap Fund Direct Growth?',
+  },
 ] as const
 
 export const IN_SCOPE_SCHEMES = [

@@ -84,6 +84,7 @@ TOPIC_LABELS = {
     "lock_in": "Lock-in",
     "riskometer": "Riskometer",
     "benchmark": "Benchmark",
+    "nav": "NAV",
 }
 
 TOPIC_CELL_HINTS = {
@@ -93,6 +94,7 @@ TOPIC_CELL_HINTS = {
     "lock_in": ("lock-in", "lock in", "lockin"),
     "riskometer": ("riskometer",),
     "benchmark": ("benchmark",),
+    "nav": ("nav", "latest nav", "net asset value"),
 }
 
 CATALOG_MISSING = "Not available on the current Groww page."

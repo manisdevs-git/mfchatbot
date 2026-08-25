@@ -440,7 +440,7 @@ function App() {
             disabled={busy}
             placeholder={
               picked
-                ? `Now pick Expense ratio, Exit load, or Min SIP for ${picked.code}`
+                ? `Now pick Expense ratio, Exit load, Min SIP, or NAV for ${picked.code}`
                 : 'Ask a factual question, or tap a fund below'
             }
             value={draft}

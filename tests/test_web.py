@@ -32,6 +32,7 @@ class WebContractTests(unittest.TestCase):
         self.assertIn("What is the expense ratio of HDFC Large Cap Fund Direct Growth?", ASK)
         self.assertIn("What is the exit load of HDFC ELSS Tax Saver Direct Plan?", ASK)
         self.assertIn("What is the minimum SIP amount for HDFC Mid Cap Fund Direct Growth?", ASK)
+        self.assertIn("What is the NAV of HDFC Large Cap Fund Direct Growth?", ASK)
         self.assertIn("Facts-only. No investment advice.", ASK)
         for title in (
             "HDFC Large Cap Fund Direct Growth",

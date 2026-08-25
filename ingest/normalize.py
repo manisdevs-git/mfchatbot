@@ -182,6 +182,44 @@ def _inr(value: object) -> str:
     return text if text.startswith("₹") else f"₹{text}"
 
 
+def _nav_amount(value: object) -> str:
+    if value is None or value == "":
+        return ""
+    if isinstance(value, dict):
+        return _nav_amount(value.get("value") or value.get("amount") or value.get("nav"))
+    if isinstance(value, (int, float)):
+        return f"₹{float(value):.2f}"
+    text = str(value).strip()
+    return text if text.startswith("₹") else f"₹{text}"
+
+
+def _format_nav(data: dict) -> str:
+    """Snapshot NAV from Groww JSON. Empty when the page has no NAV field."""
+    amount = ""
+    as_on = ""
+    raw = data.get("nav")
+    if isinstance(raw, dict):
+        amount = _nav_amount(raw)
+        as_on = str(raw.get("date") or raw.get("as_on") or raw.get("nav_date") or "").strip()
+    elif raw not in (None, ""):
+        amount = _nav_amount(raw)
+    if not amount:
+        for key in ("scheme_nav", "latest_nav", "current_nav", "nav_value"):
+            if data.get(key) not in (None, ""):
+                amount = _nav_amount(data[key])
+                break
+    if not as_on:
+        for key in ("nav_date", "latest_nav_date", "nav_as_on", "as_on"):
+            if data.get(key):
+                as_on = str(data[key]).strip()
+                break
+    if not amount:
+        return ""
+    if as_on:
+        return f"NAV: {amount} as of {as_on}"
+    return f"NAV: {amount}"
+
+
 def _format_lock_in(value: object) -> str:
     if not isinstance(value, dict):
         return str(value) if value else ""
@@ -208,8 +246,14 @@ def extract_scheme_facts(page_props: dict) -> list[str]:
     if name:
         lines.append(str(name))
 
+    expense = _pct(data.get("expense_ratio"))
+    if expense:
+        lines.append(f"Expense ratio: {expense}")
+    nav_line = _format_nav(data)
+    if nav_line:
+        lines.append(nav_line)
+
     rows = (
-        ("Expense ratio", _pct(data.get("expense_ratio"))),
         ("Minimum SIP", _inr(data.get("min_sip_investment"))),
         ("Minimum lumpsum", _inr(data.get("min_investment_amount"))),
         ("Exit load", data.get("exit_load") or ""),

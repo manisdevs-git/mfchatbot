@@ -24,12 +24,12 @@ OUT_OF_SCOPE_REFUSAL = (
 
 INCOMPLETE_SCHEME = (
     "Please name one in-scope scheme (Large Cap, Mid Cap, Small Cap, Gold FoF, "
-    "or ELSS) and one topic such as expense ratio, exit load, or SIP."
+    "or ELSS) and one topic such as expense ratio, exit load, SIP, or NAV."
 )
 
 INCOMPLETE_TOPIC = (
     "Please ask one factual topic for that scheme: expense ratio, exit load, "
-    "minimum SIP, lock-in, riskometer, or benchmark."
+    "minimum SIP, lock-in, riskometer, benchmark, or NAV."
 )
 
 INCOMPLETE_EMPTY = "Please type a factual question about an in-scope Groww scheme or help page."
@@ -44,13 +44,13 @@ def _performance_body(decision: GuardDecision) -> str:
     if url:
         title = SCHEME_TITLES.get(decision.scheme_id or "", "this scheme")
         return (
-            f"I cannot calculate or quote returns or NAV. See the official Groww page "
+            f"I cannot calculate or quote returns. See the official Groww page "
             f"for {title}.\n\n"
             f"Source: {url}\n\n"
             f"Last updated from sources: {AS_OF_DATE}"
         )
     return (
-        "I cannot calculate or quote returns or NAV. Name one in-scope scheme "
+        "I cannot calculate or quote returns. Name one in-scope scheme "
         "and open its Groww page for official figures."
     )
 

@@ -9,6 +9,7 @@ from pathlib import Path
 
 from ingest.normalize import (
     NormalizeError,
+    extract_scheme_facts,
     html_to_text,
     normalize_corpus,
     normalize_one,
@@ -56,6 +57,8 @@ SCHEME_NEXT = {
                 "exit_load": "Exit load of 1% if redeemed within 1 year",
                 "benchmark_name": "NIFTY 100 Total Return Index",
                 "lock_in": {"years": 0, "months": 0, "days": 0},
+                "nav": 1245.13,
+                "nav_date": "2026-08-21",
                 "return_stats": [{"risk": "Very High"}],
             }
         }
@@ -111,6 +114,7 @@ class HtmlToTextTests(unittest.TestCase):
         html = SCHEME_HTML.replace("__NEXT_JSON__", json.dumps(SCHEME_NEXT))
         text = html_to_text(html)
         self.assertIn("Expense ratio: 1.03%", text)
+        self.assertIn("NAV: ₹1245.13 as of 2026-08-21", text)
         self.assertIn("Minimum SIP: ₹100", text)
         self.assertIn("Exit load of 1% if redeemed within 1 year", text)
         self.assertNotIn("Would've become", text)
@@ -128,6 +132,17 @@ class HtmlToTextTests(unittest.TestCase):
         self.assertNotIn("Invest in Stocks", text)
 
 
+class ExtractSchemeFactsTests(unittest.TestCase):
+    def test_formats_nav_from_groww_json(self) -> None:
+        lines = extract_scheme_facts(SCHEME_NEXT["props"]["pageProps"])
+        self.assertIn("NAV: ₹1245.13 as of 2026-08-21", lines)
+
+    def test_skips_nav_when_missing(self) -> None:
+        props = {"mfServerSideData": {"scheme_name": "Example Fund", "expense_ratio": "1.03"}}
+        lines = extract_scheme_facts(props)
+        self.assertTrue(all(not line.startswith("NAV:") for line in lines))
+
+
 class NormalizeOneTests(unittest.TestCase):
     def test_writes_text_and_sidecar(self) -> None:
         html = SCHEME_HTML.replace("__NEXT_JSON__", json.dumps(SCHEME_NEXT))
@@ -141,6 +156,7 @@ class NormalizeOneTests(unittest.TestCase):
             self.assertTrue(result.text_path.name.endswith(".txt"))
             self.assertTrue(result.meta_path.name.endswith(".meta.json"))
             self.assertIn("1.03%", text)
+            self.assertIn("NAV: ₹1245.13 as of 2026-08-21", text)
             self.assertEqual(meta["scheme_id"], "hdfc-large-cap-fund-direct-growth")
             self.assertEqual(
                 meta["source_url"],

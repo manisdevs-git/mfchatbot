@@ -59,8 +59,6 @@ PERFORMANCE_RES = (
     re.compile(r"\b(?:\d+\s*[- ]\s*year|1 year|3 year|5 year|since inception)\s+returns?\b", re.I),
     re.compile(r"\b(?:cagr|xirr|outperform(?:ed)?)\b", re.I),
     re.compile(r"\b(?:historic |past |annual )?returns?\b", re.I),
-    re.compile(r"\bcurrent nav\b", re.I),
-    re.compile(r"\bnav of\b", re.I),
     re.compile(r"\bif i invested\b", re.I),
     re.compile(r"\bwould (?:i|it) have\b", re.I),
     re.compile(r"\bbeat the benchmark\b", re.I),
@@ -82,6 +80,7 @@ FACT_TOPIC_RES: tuple[tuple[str, re.Pattern[str]], ...] = (
     ("lock_in", re.compile(r"\block[ -]?ins?\b", re.I)),
     ("riskometer", re.compile(r"\briskometers?\b", re.I)),
     ("benchmark", re.compile(r"\bbenchmarks?\b", re.I)),
+    ("nav", re.compile(r"\bnavs?\b", re.I)),
 )
 
 ALL_SCHEMES_RE = re.compile(

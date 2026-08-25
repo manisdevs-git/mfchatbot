@@ -69,6 +69,14 @@ class IntentTableTests(unittest.TestCase):
         self.assertTrue(decision.allow_retrieve)
         self.assertTrue(decision.allow_gemini)
 
+    def test_factual_nav_is_not_performance(self) -> None:
+        decision = classify("What is the current NAV of HDFC Large Cap Fund Direct Growth?")
+        self.assertEqual(decision.intent, "factual")
+        self.assertEqual(decision.scheme_id, "hdfc-large-cap-fund-direct-growth")
+        self.assertEqual(decision.topic, "nav")
+        self.assertTrue(decision.allow_retrieve)
+        self.assertTrue(decision.allow_gemini)
+
     def test_process_capital_gains(self) -> None:
         decision = classify("How do I download a capital gains report?")
         self.assertEqual(decision.intent, "process")
@@ -189,10 +197,16 @@ class GeminiSideGuardTests(unittest.TestCase):
         self.assertIn("PAN", prompt)
         self.assertIn("which fund is better", prompt)
         self.assertIn("CAGR", prompt)
+        self.assertIn("factsheet snapshot", prompt)
         self.assertIn(EDUCATION_URL, prompt)
         self.assertIn("hdfc-large-cap-fund-direct-growth", prompt)
         self.assertIn("At most three sentences", prompt)
         self.assertIn("Incomplete", prompt)
+
+    def test_nav_is_not_refused_at_gemini_boundary(self) -> None:
+        query = "What is the current NAV of HDFC Large Cap Fund Direct Growth?"
+        self.assertEqual(classify(query).intent, "factual")
+        self.assertIsNone(policy_block_for_gemini(query))
 
 
 if __name__ == "__main__":
