@@ -8,7 +8,9 @@ on:
         type: boolean
         default: false
   schedule:
-    - cron: "17 2 * * 1"
+    # 10:03 AM IST = 04:33 UTC; 11:00 PM IST = 17:30 UTC. GitHub cron is UTC.
+    - cron: "33 4 * * *"
+    - cron: "30 17 * * *"
 
 concurrency:
   group: refresh-corpus
