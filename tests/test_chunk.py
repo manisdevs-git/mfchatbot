@@ -16,6 +16,7 @@ from ingest.chunk import (
     token_count,
 )
 from ingest.normalize import SIDECAR_FIELDS
+from tests.live_facts import assert_live_scheme_facts
 
 ROOT = Path(__file__).resolve().parents[1]
 PROCESSED = ROOT / "data" / "processed"
@@ -150,6 +151,23 @@ class ChunkCorpusTests(unittest.TestCase):
             (folder / f"{doc['doc_id']}.meta.json").write_text(json.dumps(doc), encoding="utf-8")
 
 
+class LiveFactShapeTests(unittest.TestCase):
+    def test_accepts_updated_groww_numbers(self) -> None:
+        text = (
+            "HDFC Large Cap Fund Direct Growth\n"
+            "Expense ratio: 1.02%\n"
+            "Minimum SIP: ₹100\n"
+            "Exit load: Exit load of 1% if redeemed within 1 year\n"
+            "NAV: 24 Aug '26\n"
+            "₹1,243.69\n"
+        )
+        assert_live_scheme_facts(self, text)
+
+    def test_rejects_a_page_without_expense_ratio(self) -> None:
+        with self.assertRaises(AssertionError):
+            assert_live_scheme_facts(self, "Minimum SIP: ₹100\nExit load: Nil\nNAV: ₹1")
+
+
 class LiveExitCheckTests(unittest.TestCase):
     @unittest.skipUnless(
         (PROCESSED / "groww-large-cap-direct-growth.txt").is_file(),
@@ -169,7 +187,7 @@ class LiveExitCheckTests(unittest.TestCase):
             large = next(
                 item for item in records if item["doc_id"] == "groww-large-cap-direct-growth"
             )
-            self.assertIn("1.03", large["text"])
+            assert_live_scheme_facts(self, large["text"])
             self.assertEqual(
                 large["source_url"],
                 "https://groww.in/mutual-funds/hdfc-large-cap-fund-direct-growth",

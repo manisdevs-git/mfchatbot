@@ -16,6 +16,7 @@ from ingest.normalize import (
     sidecar_for,
 )
 from ingest.validate_manifest import ManifestError
+from tests.live_facts import assert_live_scheme_facts
 
 ROOT = Path(__file__).resolve().parents[1]
 LARGE_CAP_RAW = ROOT / "data" / "raw" / "groww-large-cap-direct-growth.html"
@@ -196,11 +197,7 @@ class LiveLargeCapTests(unittest.TestCase):
             by_id = {item.doc_id: item for item in results}
             self.assertIn("groww-large-cap-direct-growth", by_id)
             text = by_id["groww-large-cap-direct-growth"].text_path.read_text(encoding="utf-8")
-            self.assertIn("1.03", text)
-            self.assertRegex(text, r"(Minimum SIP: ₹100|Min\. for SIP ₹100)")
-            self.assertRegex(text.lower(), r"exit load of 1%")
-            self.assertNotIn("Would've become", text)
-            self.assertNotIn("Compare similar funds", text)
+            assert_live_scheme_facts(self, text)
             meta = json.loads(by_id["groww-large-cap-direct-growth"].meta_path.read_text(encoding="utf-8"))
             self.assertIn("groww.in", meta["source_url"])
 
