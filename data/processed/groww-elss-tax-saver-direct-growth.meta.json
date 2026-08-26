@@ -4,13 +4,14 @@
   "doc_type": "groww_scheme",
   "source_url": "https://groww.in/mutual-funds/hdfc-elss-tax-saver-fund-direct-plan-growth",
   "source_title": "Groww — HDFC ELSS Tax Saver Fund Direct Plan Growth",
-  "as_of_date": "2026-08-25",
+  "as_of_date": "2026-08-26",
   "topic_tags": [
     "expense_ratio",
     "exit_load",
     "sip",
     "lock_in",
     "riskometer",
-    "benchmark"
+    "benchmark",
+    "nav"
   ]
 }
