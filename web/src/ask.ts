@@ -120,6 +120,192 @@ export function isAbortError(cause: unknown): boolean {
   return cause instanceof Error && cause.name === 'AbortError'
 }
 
+export type LatencyMode = 'full' | 'extractive' | 'catalog'
+
+export type LatencyLayer = {
+  id: string
+  label: string
+  group: string
+  ms: number
+  skipped: boolean
+  detail?: string
+}
+
+export type LatencyReport = {
+  ok: boolean
+  index_ready: boolean
+  encoder_cached: boolean
+  mode: LatencyMode
+  probe: string
+  intent: string | null
+  scheme_id: string | null
+  topic: string | null
+  writer: string
+  chunks: number
+  pii_blocked: boolean
+  layers: LatencyLayer[]
+  server_ms: number
+}
+
+export type ClientTiming = {
+  round_trip_ms: number
+  network_ms: number
+  parse_ms: number
+  dns_ms: number
+  connect_ms: number
+  tls_ms: number
+  ttfb_ms: number
+  download_ms: number
+}
+
+export type LatencyReview = {
+  report: LatencyReport
+  client: ClientTiming
+  url: string
+}
+
+function asLayer(raw: Partial<LatencyLayer> | undefined, fallback: LatencyLayer): LatencyLayer {
+  if (!raw || typeof raw.id !== 'string') {
+    return fallback
+  }
+  return {
+    id: raw.id,
+    label: typeof raw.label === 'string' ? raw.label : fallback.label,
+    group: typeof raw.group === 'string' ? raw.group : fallback.group,
+    ms: typeof raw.ms === 'number' ? raw.ms : 0,
+    skipped: Boolean(raw.skipped),
+    detail: typeof raw.detail === 'string' ? raw.detail : undefined,
+  }
+}
+
+function resourceTiming(url: string): PerformanceResourceTiming | undefined {
+  const entries = performance.getEntriesByType('resource') as PerformanceResourceTiming[]
+  const matches = entries.filter((entry) => {
+    if (entry.name === url) {
+      return true
+    }
+    return entry.name.split('?')[0] === url.split('?')[0] && entry.name.includes('/latency')
+  })
+  return matches.at(-1)
+}
+
+function clientTiming(url: string, roundTripMs: number, parseMs: number, serverMs: number): ClientTiming {
+  const entry = resourceTiming(url)
+  const dns =
+    entry && entry.domainLookupEnd >= entry.domainLookupStart
+      ? Math.max(0, entry.domainLookupEnd - entry.domainLookupStart)
+      : 0
+  const connect =
+    entry && entry.connectEnd >= entry.connectStart
+      ? Math.max(0, entry.connectEnd - entry.connectStart)
+      : 0
+  const tls =
+    entry && entry.secureConnectionStart > 0
+      ? Math.max(0, entry.connectEnd - entry.secureConnectionStart)
+      : 0
+  const ttfb =
+    entry && entry.responseStart >= entry.requestStart
+      ? Math.max(0, entry.responseStart - entry.requestStart)
+      : 0
+  const download =
+    entry && entry.responseEnd >= entry.responseStart
+      ? Math.max(0, entry.responseEnd - entry.responseStart)
+      : 0
+  return {
+    round_trip_ms: roundTripMs,
+    network_ms: Math.max(0, roundTripMs - serverMs),
+    parse_ms: parseMs,
+    dns_ms: dns,
+    connect_ms: connect,
+    tls_ms: tls,
+    ttfb_ms: ttfb,
+    download_ms: download,
+  }
+}
+
+export async function fetchLatency(
+  mode: LatencyMode,
+  query?: string,
+  signal?: AbortSignal,
+): Promise<LatencyReview> {
+  const base = apiBaseUrl()
+  if (!base) {
+    throw new Error(MISSING_API_URL)
+  }
+
+  const trimmed = query?.trim() ?? ''
+  const url = trimmed ? `${base}/latency` : `${base}/latency?mode=${encodeURIComponent(mode)}`
+  const started = performance.now()
+  let response: Response
+  try {
+    response = trimmed
+      ? await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query: trimmed, mode }),
+          signal,
+        })
+      : await fetch(url, { method: 'GET', signal })
+  } catch (cause) {
+    if (isAbortError(cause)) {
+      throw cause
+    }
+    throw new Error('Could not reach the FAQ API. Confirm it is running and VITE_API_BASE_URL is correct.')
+  }
+
+  const parseStarted = performance.now()
+  let body: Partial<LatencyReport> & { text?: string; layers?: Partial<LatencyLayer>[] } = {}
+  try {
+    body = (await response.json()) as typeof body
+  } catch (cause) {
+    if (isAbortError(cause)) {
+      throw cause
+    }
+    throw new Error('The FAQ API returned an unreadable latency report.')
+  }
+  const parseMs = performance.now() - parseStarted
+  const roundTripMs = performance.now() - started
+
+  if (!response.ok && response.status !== 503 && response.status !== 400) {
+    throw new Error(typeof body.text === 'string' ? body.text : 'Latency probe failed.')
+  }
+  if (response.status === 400 && !Array.isArray(body.layers)) {
+    throw new Error(typeof body.text === 'string' ? body.text : 'Latency probe failed.')
+  }
+
+  const layers = Array.isArray(body.layers)
+    ? body.layers.map((layer, index) =>
+        asLayer(layer, {
+          id: `layer-${index}`,
+          label: 'Unknown',
+          group: 'api',
+          ms: 0,
+          skipped: true,
+        }),
+      )
+    : []
+  const report: LatencyReport = {
+    ok: Boolean(body.ok),
+    index_ready: Boolean(body.index_ready),
+    encoder_cached: Boolean(body.encoder_cached),
+    mode: body.mode === 'extractive' || body.mode === 'catalog' ? body.mode : 'full',
+    probe: typeof body.probe === 'string' ? body.probe : 'unknown',
+    intent: body.intent ?? null,
+    scheme_id: body.scheme_id ?? null,
+    topic: body.topic ?? null,
+    writer: typeof body.writer === 'string' ? body.writer : 'unknown',
+    chunks: typeof body.chunks === 'number' ? body.chunks : 0,
+    pii_blocked: Boolean(body.pii_blocked),
+    layers,
+    server_ms: typeof body.server_ms === 'number' ? body.server_ms : 0,
+  }
+  return {
+    report,
+    client: clientTiming(url, roundTripMs, parseMs, report.server_ms),
+    url,
+  }
+}
+
 export async function askQuestion(query: string, signal?: AbortSignal): Promise<AskResponse> {
   const base = apiBaseUrl()
   if (!base) {

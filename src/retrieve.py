@@ -12,10 +12,11 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
 
-from ingest.embed_index import DEFAULT_INDEX_DIR, embed_texts, open_collection
+from ingest.embed_index import DEFAULT_INDEX_DIR, embed_texts, load_model, open_collection
 from ingest.validate_manifest import ManifestError, validate_url
 from src.guard import GuardDecision, classify, truncate_query
 from src.schemes import CATALOG_SCHEME_IDS
+from src.timing import Stopwatch, skip_if, span_if
 
 DEFAULT_K = 5
 MIN_K = 3
@@ -138,6 +139,7 @@ def retrieve(
     index_dir: Path | None = None,
     model: Any | None = None,
     query_vector: list[float] | None = None,
+    watch: Stopwatch | None = None,
 ) -> list[dict]:
     """Return up to k official Groww chunks, or [] when nothing is relevant.
 
@@ -158,30 +160,79 @@ def retrieve(
 
     folder = index_dir or DEFAULT_INDEX_DIR
     try:
-        collection = open_collection(folder, reset=False)
-        count = int(collection.count())
+        with span_if(watch, "chroma_open", "Open Chroma collection", "retrieve"):
+            collection = open_collection(folder, reset=False)
+            count = int(collection.count())
     except Exception as exc:
         raise RetrieveError(f"cannot open Chroma index at {folder}: {exc}") from exc
     if count <= 0:
         return []
 
     try:
-        vector = query_vector if query_vector is not None else embed_texts([text], model)[0]
+        vector = _query_vector(text, model, query_vector, watch)
     except Exception as exc:
         raise RetrieveError(f"cannot embed query: {exc}") from exc
 
     if routed.intent == "catalog":
-        return _retrieve_each_scheme(collection, vector, topic, count)
+        with span_if(
+            watch,
+            "chroma_search",
+            "Vector search",
+            "retrieve",
+            "one filtered search per in-scope scheme",
+        ):
+            return _retrieve_each_scheme(collection, vector, topic, count)
 
     limit = clamp_k(k)
     where = chroma_where(scheme_ids)
     n_results = min(limit, count)
     try:
-        raw = _query_collection(collection, vector, n_results, where)
+        with span_if(
+            watch,
+            "chroma_search",
+            "Vector search",
+            "retrieve",
+            f"k={n_results}",
+        ):
+            raw = _query_collection(collection, vector, n_results, where)
     except Exception:
         return []
     hits = _prefer_topic(_unpack_hits(raw), topic)
     return hits[:limit]
+
+
+def _query_vector(
+    text: str,
+    model: Any | None,
+    query_vector: list[float] | None,
+    watch: Stopwatch | None,
+) -> list[float]:
+    if query_vector is not None:
+        skip_if(watch, "minilm_load", "MiniLM encoder load", "retrieve", "precomputed vector")
+        skip_if(watch, "query_embed", "Query embedding", "retrieve", "precomputed vector")
+        return query_vector
+    cached = model is not None or load_model.cache_info().currsize > 0
+    if watch is not None:
+        watch.meta["encoder_cached"] = cached
+    if cached:
+        skip_if(
+            watch,
+            "minilm_load",
+            "MiniLM encoder load",
+            "retrieve",
+            "already in process memory",
+        )
+    else:
+        with span_if(
+            watch,
+            "minilm_load",
+            "MiniLM encoder load",
+            "retrieve",
+            "all-MiniLM-L6-v2 first load in this process",
+        ):
+            load_model()
+    with span_if(watch, "query_embed", "Query embedding", "retrieve"):
+        return embed_texts([text], model)[0]
 
 
 def _retrieve_each_scheme(

@@ -12,10 +12,16 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 
-from ingest.embed_index import DEFAULT_INDEX_DIR, ensure_persisted_index, open_collection
+from ingest.embed_index import (
+    DEFAULT_INDEX_DIR,
+    boot_retriever,
+    encoder_is_cached,
+    open_collection,
+)
 from src.format import winning_citation
 from src.generate import pii_block_for_gemini, policy_block_for_gemini
 from src.guard import classify
+from src.latency import LatencyError, measure_latency
 from src.pipeline import handle
 from src.refuse import INCOMPLETE_EMPTY
 
@@ -106,14 +112,50 @@ class AskResponse(BaseModel):
 class HealthResponse(BaseModel):
     ok: bool
     index_ready: bool
+    encoder_ready: bool
+
+
+class LatencyRequest(BaseModel):
+    query: str = ""
+    mode: str = "full"
+
+
+class LayerTiming(BaseModel):
+    id: str
+    label: str
+    group: str
+    ms: float
+    skipped: bool
+    detail: str | None = None
+
+
+class LatencyResponse(BaseModel):
+    ok: bool
+    index_ready: bool
+    encoder_cached: bool
+    mode: str
+    probe: str
+    intent: str | None
+    scheme_id: str | None
+    topic: str | None
+    writer: str
+    chunks: int
+    pii_blocked: bool
+    layers: list[LayerTiming]
+    server_ms: float
+
+
+def encoder_ready() -> bool:
+    """True when MiniLM is already loaded in this process."""
+    return encoder_is_cached()
 
 
 def ensure_index() -> None:
-    if not ensure_persisted_index():
+    if not boot_retriever():
         logger.info("Groww index is not ready")
 
 
-app = FastAPI(title="Groww FAQ API", version="0.6.0")
+app = FastAPI(title="Groww FAQ API", version="0.7.0")
 ensure_index()
 app.add_middleware(
     CORSMiddleware,
@@ -122,7 +164,16 @@ app.add_middleware(
     allow_credentials=False,
     allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
+    expose_headers=["Server-Timing"],
 )
+
+
+@app.middleware("http")
+async def allow_resource_timing(request: Any, call_next: Any) -> Any:
+    """Let the Vercel page split DNS / TLS / TTFB on cross-origin /latency."""
+    response = await call_next(request)
+    response.headers["Timing-Allow-Origin"] = "*"
+    return response
 
 
 @app.get("/")
@@ -132,12 +183,55 @@ def root() -> dict[str, object]:
         "docs": "/docs",
         "health": "/health",
         "ask": "POST /v1/ask",
+        "latency": "GET /latency",
     }
 
 
 @app.get("/health", response_model=HealthResponse)
 def health() -> dict[str, bool]:
-    return {"ok": True, "index_ready": index_ready()}
+    return {
+        "ok": True,
+        "index_ready": index_ready(),
+        "encoder_ready": encoder_ready(),
+    }
+
+
+def _latency_response(mode: str, query: str | None) -> JSONResponse:
+    try:
+        body, timing = measure_latency(
+            mode=mode,
+            query=query,
+            check_index=index_ready,
+        )
+    except LatencyError as exc:
+        return JSONResponse(status_code=400, content={"ok": False, "text": str(exc)})
+    headers = {
+        "Server-Timing": timing,
+        "Timing-Allow-Origin": "*",
+        "Cache-Control": "no-store",
+    }
+    status = 200 if body.get("ok") else 503
+    logger.info(
+        "latency status=%s mode=%s writer=%s server_ms=%s encoder_cached=%s pii_blocked=%s",
+        status,
+        body.get("mode"),
+        body.get("writer"),
+        body.get("server_ms"),
+        body.get("encoder_cached"),
+        body.get("pii_blocked"),
+    )
+    return JSONResponse(status_code=status, content=body, headers=headers)
+
+
+@app.get("/latency", response_model=LatencyResponse)
+def latency_get(mode: str = "full") -> JSONResponse:
+    return _latency_response(mode, None)
+
+
+@app.post("/latency", response_model=LatencyResponse)
+def latency_post(body: LatencyRequest) -> JSONResponse:
+    query = body.query if isinstance(body.query, str) else ""
+    return _latency_response(body.mode or "full", query.strip() or None)
 
 
 @app.post("/v1/ask", response_model=AskResponse)

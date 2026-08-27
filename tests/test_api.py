@@ -55,6 +55,7 @@ class HealthTests(unittest.TestCase):
         body = response.json()
         self.assertTrue(body["ok"])
         self.assertTrue(body["index_ready"])
+        self.assertIn("encoder_ready", body)
 
     def test_health_stays_ok_when_index_is_missing(self) -> None:
         with patch("api.main.index_ready", return_value=False):
@@ -63,6 +64,7 @@ class HealthTests(unittest.TestCase):
         body = response.json()
         self.assertTrue(body["ok"])
         self.assertFalse(body["index_ready"])
+        self.assertIn("encoder_ready", body)
 
 
 class AskContractTests(unittest.TestCase):

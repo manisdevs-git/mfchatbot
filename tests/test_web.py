@@ -9,6 +9,8 @@ ROOT = Path(__file__).resolve().parents[1]
 WEB = ROOT / "web"
 APP = (WEB / "src" / "App.tsx").read_text(encoding="utf-8")
 ASK = (WEB / "src" / "ask.ts").read_text(encoding="utf-8")
+MAIN = (WEB / "src" / "main.tsx").read_text(encoding="utf-8")
+LATENCY = (WEB / "src" / "Latency.tsx").read_text(encoding="utf-8")
 ENV_EXAMPLE = (WEB / ".env.example").read_text(encoding="utf-8")
 
 
@@ -20,6 +22,8 @@ class WebContractTests(unittest.TestCase):
             WEB / ".env.example",
             WEB / "src" / "App.tsx",
             WEB / "src" / "ask.ts",
+            WEB / "src" / "Latency.tsx",
+            WEB / "vercel.json",
         )
         missing = [str(path.relative_to(ROOT)) for path in required if not path.is_file()]
         self.assertEqual(missing, [], f"missing Phase 7 files: {missing}")
@@ -61,6 +65,21 @@ class WebContractTests(unittest.TestCase):
         self.assertNotIn("GEMINI", ENV_EXAMPLE)
         self.assertNotIn("GEMINI", ASK)
         self.assertNotIn("GEMINI", APP)
+        self.assertNotIn("GEMINI", LATENCY)
+        self.assertNotIn("GEMINI", MAIN)
+
+    def test_latency_review_is_routed_and_measures_layers(self) -> None:
+        self.assertNotIn('href="/latency"', APP)
+        self.assertNotIn("latency-link", APP)
+        self.assertIn('path === \'/latency\'', MAIN)
+        self.assertIn("fetchLatency", ASK)
+        self.assertIn("Frontend → backend", LATENCY)
+        self.assertIn("/latency", ASK)
+        self.assertIn("extractive", LATENCY)
+        self.assertIn("catalog", LATENCY)
+        self.assertIn("fe_network", LATENCY)
+        vercel = (WEB / "vercel.json").read_text(encoding="utf-8")
+        self.assertIn("/index.html", vercel)
 
     def test_chat_input_has_no_identity_fields(self) -> None:
         lowered = APP.lower()

@@ -17,6 +17,7 @@ from ingest.embed_index import (
     EmbedError,
     EmbeddedChunk,
     chroma_metadata,
+    boot_retriever,
     embed_chunks,
     embed_corpus,
     embed_texts,
@@ -28,6 +29,7 @@ from ingest.embed_index import (
     named_scheme_id,
     persist_pairs,
     query_index,
+    should_warm_encoder,
     smoke_search,
     write_embeddings_stamp,
 )
@@ -153,6 +155,21 @@ class EmbedChunksTests(unittest.TestCase):
                 load_model.cache_clear()
         self.assertIs(first, second)
         self.assertEqual(ctor.call_count, 1)
+        self.assertEqual(ctor.call_args.kwargs.get("device"), "cpu")
+        self.assertTrue(ctor.call_args.kwargs.get("local_files_only"))
+
+    def test_pytest_skips_encoder_warmup(self) -> None:
+        self.assertFalse(should_warm_encoder())
+        with patch("ingest.embed_index.warm_encoder") as warmed:
+            with patch("ingest.embed_index.ensure_persisted_index", return_value=True):
+                self.assertTrue(boot_retriever())
+        warmed.assert_not_called()
+
+    def test_dockerfile_prefetches_minilm_weights(self) -> None:
+        text = (ROOT / "Dockerfile").read_text(encoding="utf-8")
+        self.assertIn("all-MiniLM-L6-v2", text)
+        self.assertIn("SentenceTransformer", text)
+        self.assertIn("HF_HOME=/app/.cache/huggingface", text)
 
 
 class ChromaStoreTests(unittest.TestCase):

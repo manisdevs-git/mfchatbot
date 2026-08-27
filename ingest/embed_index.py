@@ -9,13 +9,19 @@ import argparse
 import functools
 import hashlib
 import json
+import logging
 import os
 import sys
+from concurrent.futures import ThreadPoolExecutor
+from contextlib import nullcontext
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
 os.environ.setdefault("ANONYMIZED_TELEMETRY", "False")
+os.environ.setdefault("HF_HUB_DISABLE_PROGRESS_BARS", "1")
+os.environ.setdefault("TRANSFORMERS_NO_ADVISORY_WARNINGS", "1")
+os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
 
 if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -31,7 +37,10 @@ EMBEDDINGS_STAMP_NAME = ".embeddings_sha256"
 
 MODEL_NAME = "all-MiniLM-L6-v2"
 EMBEDDING_DIM = 384
+WARMUP_TEXT = "expense ratio"
 COLLECTION_NAME = "groww_chunks"
+_LOGGER = logging.getLogger("ingest.embed_index")
+_TORCH_TUNED = False
 INDEX_METADATA_FIELDS = (
     "scheme_id",
     "topic_tags",
@@ -139,20 +148,115 @@ def load_chunks(path: Path | None = None) -> list[dict]:
     return records
 
 
+def encoder_is_cached() -> bool:
+    """True when this process already holds a MiniLM encoder."""
+    return load_model.cache_info().currsize > 0
+
+
+def should_warm_encoder() -> bool:
+    """Skip warmup in the test runner so unit tests do not load MiniLM."""
+    flag = os.environ.get("SKIP_ENCODER_WARMUP", "").strip().lower()
+    if flag in {"1", "true", "yes"}:
+        return False
+    if flag in {"0", "false", "no"}:
+        return True
+    if any(name == "tests" or name.startswith("tests.") for name in sys.modules):
+        return False
+    if "pytest" in sys.modules:
+        return False
+    return True
+
+
+def _hub_snapshot_exists(name: str) -> bool:
+    slug = "models--" + name.replace("/", "--")
+    homes: list[Path] = []
+    for key in ("HF_HOME", "HUGGINGFACE_HUB_CACHE"):
+        raw = os.environ.get(key, "").strip()
+        if raw:
+            homes.append(Path(raw))
+    homes.append(Path.home() / ".cache" / "huggingface")
+    for home in homes:
+        candidates = (home / "hub" / slug, home / slug, home / "hub" / slug)
+        if any(path.is_dir() for path in candidates):
+            return True
+    return False
+
+
+def _tune_torch() -> None:
+    global _TORCH_TUNED
+    if _TORCH_TUNED:
+        return
+    try:
+        import torch
+
+        threads = max(1, min(4, os.cpu_count() or 1))
+        torch.set_num_threads(threads)
+        try:
+            torch.set_num_interop_threads(1)
+        except RuntimeError:
+            pass
+        torch.set_grad_enabled(False)
+    except Exception:
+        return
+    _TORCH_TUNED = True
+
+
+def _build_encoder(source: str, *, local_only: bool) -> Any:
+    from sentence_transformers import SentenceTransformer
+
+    kwargs: dict[str, Any] = {"device": "cpu", "local_files_only": local_only}
+    try:
+        return SentenceTransformer(source, **kwargs)
+    except TypeError:
+        if local_only:
+            return SentenceTransformer(source, local_files_only=True)
+        return SentenceTransformer(source)
+
+
 @functools.lru_cache(maxsize=4)
 def load_model(name: str = MODEL_NAME) -> Any:
-    """Load MiniLM once per process. First run may download weights."""
+    """Load MiniLM once per process. Prefers a local Hugging Face snapshot."""
     try:
-        from sentence_transformers import SentenceTransformer
+        from sentence_transformers import SentenceTransformer  # noqa: F401
     except ImportError as exc:
         raise EmbedError(
             "sentence-transformers is required for Phase 2D. "
             "Install it with: pip install sentence-transformers"
         ) from exc
+    _tune_torch()
+    cached = _hub_snapshot_exists(name)
+    if cached:
+        os.environ.setdefault("HF_HUB_OFFLINE", "1")
     try:
-        return SentenceTransformer(name, local_files_only=True)
+        encoder = _build_encoder(name, local_only=True)
     except Exception:
-        return SentenceTransformer(name)
+        if cached:
+            os.environ.pop("HF_HUB_OFFLINE", None)
+        encoder = _build_encoder(name, local_only=False)
+    try:
+        encoder.eval()
+    except Exception:
+        pass
+    return encoder
+
+
+def warm_encoder(name: str = MODEL_NAME) -> Any:
+    """Load MiniLM and run one encode so the first ask does not pay init cost."""
+    encoder = load_model(name)
+    embed_texts([WARMUP_TEXT], model=encoder)
+    _LOGGER.info("MiniLM encoder ready (%s)", name)
+    return encoder
+
+
+def boot_retriever() -> bool:
+    """Open Chroma and warm MiniLM in parallel. Returns whether the index has chunks."""
+    if not should_warm_encoder():
+        return bool(ensure_persisted_index())
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        index_job = pool.submit(ensure_persisted_index)
+        encoder_job = pool.submit(warm_encoder)
+        encoder_job.result()
+        return bool(index_job.result())
 
 
 def _rows_from_encode(raw: Any) -> list[list[float]]:
@@ -174,12 +278,21 @@ def embed_texts(texts: list[str], model: Any | None = None) -> list[list[float]]
     if not texts:
         return []
     encoder = model if model is not None else load_model()
-    raw = encoder.encode(
-        texts,
-        convert_to_numpy=True,
-        normalize_embeddings=True,
-        show_progress_bar=False,
-    )
+    inference = nullcontext()
+    try:
+        import torch
+
+        inference = torch.inference_mode()
+    except Exception:
+        inference = nullcontext()
+    with inference:
+        raw = encoder.encode(
+            texts,
+            convert_to_numpy=True,
+            normalize_embeddings=True,
+            show_progress_bar=False,
+            batch_size=min(32, len(texts)),
+        )
     rows = _rows_from_encode(raw)
     if len(rows) != len(texts):
         raise EmbedError(f"encoder returned {len(rows)} vectors for {len(texts)} texts")

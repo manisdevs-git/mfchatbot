@@ -12,6 +12,7 @@ from typing import Any
 
 from src.format import cap_sentences, split_sentences
 from src.guard import classify, contains_pii
+from src.timing import Stopwatch, skip_if, span_if
 from src.refuse import (
     ADVISORY_REFUSAL,
     OUT_OF_SCOPE_REFUSAL,
@@ -238,20 +239,53 @@ def generate_answer(
     *,
     client: Any | None = None,
     force_extractive: bool = False,
+    watch: Stopwatch | None = None,
 ) -> str:
     """All guards run here before any Gemini call. Returns body text only."""
     blocked = policy_block_for_gemini(query)
     if blocked is not None:
+        if watch is not None:
+            watch.meta["writer"] = "refusal"
         return blocked
     hits = [chunk for chunk in (chunks or []) if isinstance(chunk, dict)]
     if not hits:
+        if watch is not None:
+            watch.meta["writer"] = "refusal"
         return OUT_OF_SCOPE_REFUSAL
     if force_extractive:
-        return screen_model_output(extractive_fallback(query, hits))
-    try:
-        text = call_gemini(query, hits, client=client)
-        if not text:
+        skip_if(watch, "gemini", "Gemini writer", "writer", "extractive mode")
+        with span_if(watch, "extractive", "Extractive fallback", "writer"):
             text = extractive_fallback(query, hits)
+        if watch is not None:
+            watch.meta["writer"] = "extractive"
+        return screen_model_output(text)
+    try:
+        with span_if(watch, "gemini", "Gemini writer", "writer", MODEL_ID):
+            text = call_gemini(query, hits, client=client)
+        if not text:
+            with span_if(
+                watch,
+                "extractive",
+                "Extractive fallback",
+                "writer",
+                "empty Gemini text",
+            ):
+                text = extractive_fallback(query, hits)
+            if watch is not None:
+                watch.meta["writer"] = "extractive"
+        else:
+            skip_if(watch, "extractive", "Extractive fallback", "writer", "Gemini returned text")
+            if watch is not None:
+                watch.meta["writer"] = "gemini"
     except Exception:
-        text = extractive_fallback(query, hits)
+        with span_if(
+            watch,
+            "extractive",
+            "Extractive fallback",
+            "writer",
+            "Gemini error",
+        ):
+            text = extractive_fallback(query, hits)
+        if watch is not None:
+            watch.meta["writer"] = "extractive"
     return screen_model_output(text)

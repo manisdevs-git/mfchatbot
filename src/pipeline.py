@@ -11,6 +11,7 @@ from src.generate import generate_answer, llm_system_prompt, policy_block_for_ge
 from src.guard import GuardDecision, classify
 from src.refuse import format_refusal
 from src.retrieve import RetrieveError, retrieve
+from src.timing import Stopwatch, skip_if, span_if
 
 
 @dataclass(frozen=True)
@@ -24,25 +25,42 @@ class PipelineResult:
     chunks: list[dict] = field(default_factory=list)
 
 
-def handle(query: str, *, force_extractive: bool = False) -> PipelineResult:
+def handle(
+    query: str,
+    *,
+    force_extractive: bool = False,
+    watch: Stopwatch | None = None,
+) -> PipelineResult:
     """Route, retrieve official chunks, then apply Gemini-side policy and format."""
-    decision: GuardDecision = classify(query)
+    with span_if(watch, "classify", "Classify / route", "api"):
+        decision: GuardDecision = classify(query)
     if decision.reason == "empty":
+        skip_if(watch, "policy", "Policy gate", "api", "empty query")
+        if watch is not None:
+            watch.meta["writer"] = "refusal"
+        with span_if(watch, "format", "Format + citation", "api"):
+            text = format_refusal(decision)
         return PipelineResult(
             intent=decision.intent,
             scheme_id=decision.scheme_id,
             topic=decision.topic,
             allow_retrieve=False,
             allow_gemini=False,
-            text=format_refusal(decision),
+            text=text,
         )
     try:
-        chunks = retrieve(query, decision=decision)
+        chunks = retrieve(query, decision=decision, watch=watch)
     except RetrieveError:
         chunks = []
 
-    blocked = policy_block_for_gemini(query)
+    with span_if(watch, "policy", "Policy gate", "api"):
+        blocked = policy_block_for_gemini(query)
     if blocked is not None:
+        skip_if(watch, "gemini", "Gemini writer", "writer", "policy blocked")
+        skip_if(watch, "extractive", "Extractive fallback", "writer", "policy blocked")
+        if watch is not None:
+            watch.meta["writer"] = "refusal"
+        skip_if(watch, "format", "Format + citation", "api", "refusal copy")
         return PipelineResult(
             intent=decision.intent,
             scheme_id=decision.scheme_id,
@@ -54,6 +72,12 @@ def handle(query: str, *, force_extractive: bool = False) -> PipelineResult:
         )
 
     if decision.intent == "catalog":
+        skip_if(watch, "gemini", "Gemini writer", "writer", "catalog is extractive")
+        skip_if(watch, "extractive", "Extractive fallback", "writer", "catalog formatter")
+        if watch is not None:
+            watch.meta["writer"] = "catalog"
+        with span_if(watch, "format", "Format + citation", "api", "catalog table"):
+            text = format_catalog(chunks, decision.topic)
         return PipelineResult(
             intent=decision.intent,
             scheme_id=None,
@@ -61,11 +85,17 @@ def handle(query: str, *, force_extractive: bool = False) -> PipelineResult:
             allow_retrieve=True,
             allow_gemini=True,
             chunks=chunks,
-            text=format_catalog(chunks, decision.topic),
+            text=text,
         )
 
-    body = generate_answer(query, chunks, force_extractive=force_extractive)
+    body = generate_answer(
+        query,
+        chunks,
+        force_extractive=force_extractive,
+        watch=watch,
+    )
     if not chunks:
+        skip_if(watch, "format", "Format + citation", "api", "no chunks")
         return PipelineResult(
             intent=decision.intent,
             scheme_id=decision.scheme_id,
@@ -75,6 +105,8 @@ def handle(query: str, *, force_extractive: bool = False) -> PipelineResult:
             chunks=[],
             text=body,
         )
+    with span_if(watch, "format", "Format + citation", "api"):
+        text = format_response(body, chunks[0])
     return PipelineResult(
         intent=decision.intent,
         scheme_id=decision.scheme_id,
@@ -82,7 +114,7 @@ def handle(query: str, *, force_extractive: bool = False) -> PipelineResult:
         allow_retrieve=True,
         allow_gemini=True,
         chunks=chunks,
-        text=format_response(body, chunks[0]),
+        text=text,
     )
 
 
