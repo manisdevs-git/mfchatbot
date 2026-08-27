@@ -1,5 +1,12 @@
 name: Refresh Groww corpus
 
+# Order is fixed: ingest → commit/push → deploy API.
+# Railway boots Chroma from data/processed/embeddings.jsonl in the image.
+# Deploying first would still serve the previous scrape.
+#
+# Do not rebase two ingest dumps by hand. This job keeps THIS run's
+# processed files if origin/main also refreshed while we were scraping.
+
 on:
   workflow_dispatch:
     inputs:
@@ -28,8 +35,11 @@ jobs:
       ANONYMIZED_TELEMETRY: "False"
       HF_HUB_DISABLE_TELEMETRY: "1"
     steps:
-      - name: Checkout
+      - name: Checkout latest main
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -51,22 +61,58 @@ jobs:
       - name: Run unit tests
         run: python -m unittest discover -s tests -v
 
+      - name: Fast-forward to origin before ingest
+        run: |
+          git fetch origin "${{ github.event.repository.default_branch }}"
+          git merge --ff-only "origin/${{ github.event.repository.default_branch }}"
+
       - name: Rebuild corpus from corpus_manifest.json
         run: python -m ingest.refresh_corpus ${{ github.event.inputs.dry_run == 'true' && '--dry-run --keep-staging' || '' }}
 
       - name: Commit processed corpus
         if: success() && github.event.inputs.dry_run != 'true'
         run: |
+          set -euo pipefail
+          BRANCH="${{ github.event.repository.default_branch }}"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Two jsonl refreshes always conflict on rebase. Snapshot this scrape,
+          # reset --hard to origin, overlay the snapshot, then push.
+          SNAP="$(mktemp -d)"
+          trap 'rm -rf "$SNAP"' EXIT
+          cp corpus_manifest.json "$SNAP/corpus_manifest.json"
+          cp -a data/processed "$SNAP/processed"
+
+          overlay_scrape() {
+            cp "$SNAP/corpus_manifest.json" corpus_manifest.json
+            rm -rf data/processed
+            cp -a "$SNAP/processed" data/processed
+          }
+
+          git fetch origin "$BRANCH"
+          git reset --hard "origin/$BRANCH"
+          overlay_scrape
+
           git add corpus_manifest.json data/processed
           if git diff --cached --quiet; then
-            echo "Corpus files are unchanged."
-          else
-            git commit -m "Refresh Groww corpus from corpus_manifest."
-            git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
-            git push
+            echo "Corpus files match origin/main."
+            exit 0
           fi
+          git commit -m "Refresh Groww corpus from corpus_manifest."
+          if git push origin "HEAD:refs/heads/$BRANCH"; then
+            exit 0
+          fi
+          git fetch origin "$BRANCH"
+          git reset --hard "origin/$BRANCH"
+          overlay_scrape
+          git add corpus_manifest.json data/processed
+          if git diff --cached --quiet; then
+            echo "Corpus files match origin/main after retry."
+            exit 0
+          fi
+          git commit -m "Refresh Groww corpus from corpus_manifest."
+          git push origin "HEAD:refs/heads/$BRANCH"
 
       - name: Deploy API to Railway
         if: success() && github.event.inputs.dry_run != 'true'
@@ -79,7 +125,7 @@ jobs:
               --service mfchatbot \
               --project 78e6d37a-3901-4bc0-9c5f-da233d0fc515 \
               --environment production \
-              --message "corpus refresh ${GITHUB_SHA}"
+              --message "corpus refresh $(git rev-parse --short HEAD)"
           else
             echo "RAILWAY_TOKEN is not set. Waiting for the GitHub-connected Railway service to build this push."
           fi

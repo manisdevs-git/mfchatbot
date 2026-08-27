@@ -86,3 +86,17 @@ class Phase0BootstrapTests(unittest.TestCase):
         self.assertTrue(all("groww.in" in url for url in urls))
         self.assertFalse(any("hdfcfund.com" in url for url in urls))
         self.assertIn("hdfc-large-cap-fund-direct-growth", json.dumps(manifest))
+
+    def test_corpus_refresh_ingests_then_deploys(self) -> None:
+        text = (ROOT / ".github/workflows/refresh-corpus.yml").read_text(encoding="utf-8")
+        ingest_at = text.index("Rebuild corpus from corpus_manifest.json")
+        commit_at = text.index("Commit processed corpus")
+        deploy_at = text.index("Deploy API to Railway")
+        self.assertLess(ingest_at, commit_at)
+        self.assertLess(commit_at, deploy_at)
+        self.assertIn("fetch-depth: 0", text)
+        self.assertIn("Fast-forward to origin before ingest", text)
+        self.assertIn("overlay the snapshot", text)
+        self.assertIn('git reset --hard "origin/$BRANCH"', text)
+        self.assertNotIn("git pull --rebase", text)
+        self.assertNotIn('git pull --rebase --autostash origin "${GITHUB_REF_NAME}"', text)
