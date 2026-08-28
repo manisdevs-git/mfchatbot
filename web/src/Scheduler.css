@@ -1,0 +1,228 @@
+.scheduler-shell {
+  height: 100%;
+  overflow: auto;
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 1rem 1rem 2.5rem;
+  color: var(--ink);
+}
+
+.scheduler-intro {
+  padding: 0.85rem 1rem 1rem;
+  color: #f4efe3;
+  background: #10261d;
+  border: 1px solid #1d3d30;
+}
+
+.scheduler-kicker {
+  margin-bottom: 0.35rem;
+  font-size: 0.82rem;
+}
+
+.scheduler-kicker a {
+  color: #f3e2b0;
+}
+
+.scheduler-intro h1 {
+  font-family: var(--serif);
+  font-size: 1.7rem;
+  font-weight: 560;
+}
+
+.scheduler-intro h1 em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.scheduler-intro p {
+  margin-top: 0.45rem;
+  max-width: 40rem;
+  color: #d9d0c0;
+  font-size: 0.95rem;
+}
+
+.scheduler-card {
+  margin-top: 0.85rem;
+  padding: 0.85rem 1rem 1rem;
+  background: var(--panel);
+  border: 1px solid var(--rule);
+}
+
+.scheduler-card h2 {
+  font-size: 0.95rem;
+  font-weight: 650;
+}
+
+.scheduler-card form,
+.scheduler-times {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 0.65rem;
+}
+
+.scheduler-card label {
+  display: grid;
+  gap: 0.25rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.scheduler-card input {
+  font: inherit;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--rule);
+  padding: 0.4rem 0.5rem;
+}
+
+.scheduler-times {
+  grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
+  align-items: end;
+}
+
+.scheduler-time-row {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.scheduler-time-row button {
+  justify-self: start;
+  padding: 0.15rem 0.35rem;
+  font-size: 0.78rem;
+  color: var(--danger);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.scheduler-presets,
+.scheduler-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.scheduler-presets button,
+.scheduler-actions button,
+.scheduler-card form > button[type='submit'] {
+  padding: 0.4rem 0.7rem;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  cursor: pointer;
+}
+
+.scheduler-card form > button[type='submit'] {
+  justify-self: start;
+  color: #f4efe3;
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.scheduler-presets button:hover,
+.scheduler-actions button:hover:not(:disabled) {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.scheduler-actions button:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+.scheduler-error {
+  margin-top: 0.65rem;
+  color: var(--danger);
+}
+
+.scheduler-empty {
+  margin-top: 0.65rem;
+  color: var(--muted);
+}
+
+.scheduler-list {
+  list-style: none;
+  margin: 0.7rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.scheduler-list > li {
+  padding: 0.7rem 0.75rem;
+  border: 1px solid var(--rule);
+  background: #fffdf8;
+}
+
+.scheduler-list header {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: baseline;
+}
+
+.scheduler-list h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.scheduler-flag {
+  font-size: 0.78rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.scheduler-flag.is-on {
+  color: var(--accent);
+}
+
+.scheduler-list p {
+  margin-top: 0.35rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.scheduler-history {
+  list-style: none;
+  margin: 0.7rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.scheduler-history li {
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--rule);
+  background: #fffdf8;
+}
+
+.scheduler-history header {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.scheduler-history .ok {
+  color: var(--accent);
+}
+
+.scheduler-history .bad {
+  color: var(--danger);
+}
+
+.scheduler-history pre {
+  margin: 0.45rem 0 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.scheduler-shell footer {
+  margin-top: 1.25rem;
+  color: var(--muted);
+  font-size: 0.88rem;
+}

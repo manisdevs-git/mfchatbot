@@ -11,6 +11,7 @@ APP = (WEB / "src" / "App.tsx").read_text(encoding="utf-8")
 ASK = (WEB / "src" / "ask.ts").read_text(encoding="utf-8")
 MAIN = (WEB / "src" / "main.tsx").read_text(encoding="utf-8")
 LATENCY = (WEB / "src" / "Latency.tsx").read_text(encoding="utf-8")
+SCHEDULER = (WEB / "src" / "Scheduler.tsx").read_text(encoding="utf-8")
 ENV_EXAMPLE = (WEB / ".env.example").read_text(encoding="utf-8")
 
 
@@ -23,6 +24,7 @@ class WebContractTests(unittest.TestCase):
             WEB / "src" / "App.tsx",
             WEB / "src" / "ask.ts",
             WEB / "src" / "Latency.tsx",
+            WEB / "src" / "Scheduler.tsx",
             WEB / "vercel.json",
         )
         missing = [str(path.relative_to(ROOT)) for path in required if not path.is_file()]
@@ -67,6 +69,7 @@ class WebContractTests(unittest.TestCase):
         self.assertNotIn("GEMINI", APP)
         self.assertNotIn("GEMINI", LATENCY)
         self.assertNotIn("GEMINI", MAIN)
+        self.assertNotIn("GEMINI", SCHEDULER)
 
     def test_latency_review_is_routed_and_measures_layers(self) -> None:
         self.assertNotIn('href="/latency"', APP)
@@ -80,6 +83,18 @@ class WebContractTests(unittest.TestCase):
         self.assertIn("fe_network", LATENCY)
         vercel = (WEB / "vercel.json").read_text(encoding="utf-8")
         self.assertIn("/index.html", vercel)
+
+    def test_scheduler_page_is_routed_without_chat_link(self) -> None:
+        self.assertNotIn('href="/scheduler"', APP)
+        self.assertIn('path === \'/scheduler\'', MAIN)
+        self.assertIn("fetchSchedules", ASK)
+        self.assertIn("Pause", SCHEDULER)
+        self.assertIn("Delete", SCHEDULER)
+        self.assertIn("Run history", SCHEDULER)
+        self.assertIn("/v1/schedules", ASK)
+        self.assertIn("IST", SCHEDULER)
+        self.assertIn("GitHub", SCHEDULER)
+        self.assertIn("main", SCHEDULER)
 
     def test_chat_input_has_no_identity_fields(self) -> None:
         lowered = APP.lower()

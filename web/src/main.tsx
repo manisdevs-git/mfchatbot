@@ -3,11 +3,15 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import LatencyPage from './Latency.tsx'
+import SchedulerPage from './Scheduler.tsx'
 
 function Root() {
   const path = window.location.pathname.replace(/\/+$/, '') || '/'
   if (path === '/latency') {
     return <LatencyPage />
+  }
+  if (path === '/scheduler') {
+    return <SchedulerPage />
   }
   return <App />
 }

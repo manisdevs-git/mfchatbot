@@ -6,6 +6,8 @@ import logging
 import os
 from typing import Any
 
+from contextlib import asynccontextmanager
+
 from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -24,6 +26,19 @@ from src.guard import classify
 from src.latency import LatencyError, measure_latency
 from src.pipeline import handle
 from src.refuse import INCOMPLETE_EMPTY
+from src.scheduler import (
+    SchedulerError,
+    create_schedule,
+    delete_schedule,
+    get_schedule,
+    load_runs,
+    load_schedules,
+    public_schedule,
+    start_loop,
+    start_run,
+    stop_loop,
+    update_schedule,
+)
 
 load_dotenv()
 
@@ -145,6 +160,17 @@ class LatencyResponse(BaseModel):
     server_ms: float
 
 
+class ScheduleCreate(BaseModel):
+    name: str = "Corpus refresh"
+    times: list[str] = Field(default_factory=list)
+
+
+class SchedulePatch(BaseModel):
+    name: str | None = None
+    times: list[str] | None = None
+    enabled: bool | None = None
+
+
 def encoder_ready() -> bool:
     """True when MiniLM is already loaded in this process."""
     return encoder_is_cached()
@@ -155,7 +181,14 @@ def ensure_index() -> None:
         logger.info("Groww index is not ready")
 
 
-app = FastAPI(title="Groww FAQ API", version="0.7.0")
+@asynccontextmanager
+async def lifespan(_app: FastAPI):
+    start_loop()
+    yield
+    stop_loop()
+
+
+app = FastAPI(title="Groww FAQ API", version="0.8.0", lifespan=lifespan)
 ensure_index()
 app.add_middleware(
     CORSMiddleware,
@@ -184,6 +217,7 @@ def root() -> dict[str, object]:
         "health": "/health",
         "ask": "POST /v1/ask",
         "latency": "GET /latency",
+        "scheduler": "GET /v1/schedules",
     }
 
 
@@ -232,6 +266,65 @@ def latency_get(mode: str = "full") -> JSONResponse:
 def latency_post(body: LatencyRequest) -> JSONResponse:
     query = body.query if isinstance(body.query, str) else ""
     return _latency_response(body.mode or "full", query.strip() or None)
+
+
+def _scheduler_error(exc: SchedulerError, status: int = 400) -> JSONResponse:
+    return JSONResponse(status_code=status, content={"ok": False, "text": str(exc)})
+
+
+@app.get("/v1/schedules")
+def schedules_list() -> dict[str, object]:
+    rows = [public_schedule(item) for item in load_schedules()]
+    return {"ok": True, "timezone": "Asia/Kolkata", "schedules": rows}
+
+
+@app.post("/v1/schedules", response_model=None)
+def schedules_create(body: ScheduleCreate) -> dict[str, object] | JSONResponse:
+    try:
+        row = create_schedule(body.name, body.times)
+    except SchedulerError as exc:
+        return _scheduler_error(exc)
+    return {"ok": True, "schedule": row}
+
+
+@app.patch("/v1/schedules/{schedule_id}", response_model=None)
+def schedules_patch(schedule_id: str, body: SchedulePatch) -> dict[str, object] | JSONResponse:
+    try:
+        row = update_schedule(
+            schedule_id,
+            name=body.name,
+            times=body.times,
+            enabled=body.enabled,
+        )
+    except SchedulerError as exc:
+        return _scheduler_error(exc)
+    if row is None:
+        return _scheduler_error(SchedulerError("schedule not found"), 404)
+    return {"ok": True, "schedule": row}
+
+
+@app.delete("/v1/schedules/{schedule_id}", response_model=None)
+def schedules_delete(schedule_id: str) -> dict[str, object] | JSONResponse:
+    if not delete_schedule(schedule_id):
+        return _scheduler_error(SchedulerError("schedule not found"), 404)
+    return {"ok": True}
+
+
+@app.post("/v1/schedules/{schedule_id}/run", response_model=None)
+def schedules_run_now(schedule_id: str) -> dict[str, object] | JSONResponse:
+    if get_schedule(schedule_id) is None:
+        return _scheduler_error(SchedulerError("schedule not found"), 404)
+    try:
+        run = start_run(schedule_id, trigger="manual")
+    except SchedulerError as exc:
+        return _scheduler_error(exc)
+    return {"ok": True, "run": run}
+
+
+@app.get("/v1/scheduler/runs")
+def scheduler_runs(limit: int = 50, schedule_id: str | None = None) -> dict[str, object]:
+    rows = load_runs(limit=limit, schedule_id=schedule_id)
+    return {"ok": True, "runs": rows}
 
 
 @app.post("/v1/ask", response_model=AskResponse)

@@ -23,6 +23,7 @@ REQUIRED_FILES = (
     "src/format.py",
     "src/refuse.py",
     "src/schemes.py",
+    "src/scheduler.py",
     "ingest/__init__.py",
     "ingest/validate_manifest.py",
     "ingest/fetch_official.py",
@@ -36,6 +37,7 @@ REQUIRED_FILES = (
     "data/raw/.gitkeep",
     "data/processed/.gitkeep",
     "data/index/.gitkeep",
+    "data/scheduler/.gitkeep",
 )
 
 GITIGNORE_MUST_CONTAIN = (
@@ -45,6 +47,7 @@ GITIGNORE_MUST_CONTAIN = (
     "data/raw/",
     "data/index/",
     "data/.ingest-staging/",
+    "data/scheduler/",
 )
 
 
@@ -58,6 +61,9 @@ class Phase0BootstrapTests(unittest.TestCase):
         self.assertIn("GEMINI_API_KEY=", text)
         self.assertNotRegex(text, r"GEMINI_API_KEY=\S+")
         self.assertIn("FRONTEND_ORIGINS=", text)
+        self.assertIn("SCHEDULER_GITHUB_TOKEN=", text)
+        self.assertNotRegex(text, r"SCHEDULER_GITHUB_TOKEN=\S+")
+        self.assertIn("SCHEDULER_GITHUB_REF=main", text)
 
     def test_gitignore_covers_secrets_and_generated_data(self) -> None:
         text = (ROOT / ".gitignore").read_text(encoding="utf-8")

@@ -356,3 +356,113 @@ export async function askQuestion(query: string, signal?: AbortSignal): Promise<
     pii_blocked: Boolean(body.pii_blocked),
   }
 }
+
+export type Schedule = {
+  id: string
+  name: string
+  times: string[]
+  timezone: string
+  enabled: boolean
+  paused: boolean
+  action: string
+  created_at: string | null
+  updated_at: string | null
+  last_run_at: string | null
+  last_status: string | null
+  next_run_at: string | null
+}
+
+export type ScheduleRun = {
+  id: string
+  schedule_id: string
+  schedule_name: string
+  trigger: string
+  status: string
+  started_at: string
+  finished_at: string | null
+  duration_ms: number | null
+  result: string | null
+}
+
+async function schedulerRequest<T>(path: string, init?: RequestInit): Promise<T> {
+  const base = apiBaseUrl()
+  if (!base) {
+    throw new Error(MISSING_API_URL)
+  }
+  let response: Response
+  try {
+    response = await fetch(`${base}${path}`, {
+      ...init,
+      headers: {
+        ...(init?.body ? { 'Content-Type': 'application/json' } : {}),
+        ...(init?.headers ?? {}),
+      },
+    })
+  } catch {
+    throw new Error('Could not reach the FAQ API. Is it running on VITE_API_BASE_URL?')
+  }
+  let body: ({ ok?: boolean; text?: string } & T) | undefined
+  try {
+    body = (await response.json()) as { ok?: boolean; text?: string } & T
+  } catch {
+    throw new Error('The FAQ API returned an unreadable scheduler response.')
+  }
+  if (!body) {
+    throw new Error('The FAQ API returned an empty scheduler response.')
+  }
+  if (!response.ok) {
+    throw new Error(typeof body.text === 'string' ? body.text : 'Scheduler request failed.')
+  }
+  return body
+}
+
+export async function fetchSchedules(): Promise<Schedule[]> {
+  const body = await schedulerRequest<{ schedules?: Schedule[] }>('/v1/schedules')
+  return Array.isArray(body.schedules) ? body.schedules : []
+}
+
+export async function createSchedule(name: string, times: string[]): Promise<Schedule> {
+  const body = await schedulerRequest<{ schedule?: Schedule }>('/v1/schedules', {
+    method: 'POST',
+    body: JSON.stringify({ name, times }),
+  })
+  if (!body.schedule) {
+    throw new Error('The API did not return the new schedule.')
+  }
+  return body.schedule
+}
+
+export async function patchSchedule(
+  id: string,
+  changes: { name?: string; times?: string[]; enabled?: boolean },
+): Promise<Schedule> {
+  const body = await schedulerRequest<{ schedule?: Schedule }>(`/v1/schedules/${id}`, {
+    method: 'PATCH',
+    body: JSON.stringify(changes),
+  })
+  if (!body.schedule) {
+    throw new Error('The API did not return the updated schedule.')
+  }
+  return body.schedule
+}
+
+export async function deleteSchedule(id: string): Promise<void> {
+  await schedulerRequest(`/v1/schedules/${id}`, { method: 'DELETE' })
+}
+
+export async function runScheduleNow(id: string): Promise<ScheduleRun> {
+  const body = await schedulerRequest<{ run?: ScheduleRun }>(`/v1/schedules/${id}/run`, {
+    method: 'POST',
+  })
+  if (!body.run) {
+    throw new Error('The API did not start a run.')
+  }
+  return body.run
+}
+
+export async function fetchScheduleRuns(limit = 40): Promise<ScheduleRun[]> {
+  const body = await schedulerRequest<{ runs?: ScheduleRun[] }>(
+    `/v1/scheduler/runs?limit=${encodeURIComponent(String(limit))}`,
+  )
+  return Array.isArray(body.runs) ? body.runs : []
+}

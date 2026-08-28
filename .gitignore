@@ -22,3 +22,7 @@ data/index.next/
 data/.ingest-staging/
 data/processed.bak/
 data/processed.next/
+
+# Local scheduler state (times, run history)
+data/scheduler/*
+!data/scheduler/.gitkeep
