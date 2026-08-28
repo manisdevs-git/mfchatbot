@@ -39,7 +39,7 @@ The assistant is a **two-process** RAG application: a static chat page (Vercel) 
 1. The UI accepts a free-text question and `POST`s it to `/v1/ask`.
 2. **Retrieve routing** (`src/guard.py`) labels `scheme_id` and topic. It does not refuse policy.
 3. Retrieval runs on the Groww index that ships with (or is built on) the API host.
-4. **`src/generate.py`** applies every guard (PII, advisory, performance, out of scope, incomplete) at the Gemini boundary: a programmatic block plus the same rules in the system prompt. Identifiers are never sent to Gemini.
+4. **`src/generate.py`** refuses PII, return math, listed out-of-scope, and incomplete in code (identifiers never reach Gemini). Advice, ranking, and “best scheme” (any wording) are **not** a phrase list in `guard.py`; they are judged by `llm_system_prompt()` when Gemini is called. If the model writes an advice refusal, the AMFI copy is pinned.
 5. For allowed factual / process questions, `gemini-3.5-flash-lite` writes at most three sentences from those chunks.
 6. A formatter attaches exactly one Groww citation and the last-updated footer.
 7. The API returns JSON (`text`, `intent`, `scheme_id`, `topic`, `source_url`, `as_of_date`, `pii_blocked`). The UI renders `text` and does not keep PII-flagged user input.
@@ -142,7 +142,7 @@ A single page hosted on Vercel (or Vite dev server locally) with:
 - Chat transcript (ephemeral, **browser** memory only)
 - Text input with no identity fields
 
-The UI never asks for, displays, or stores personal identifiers. It calls `POST {VITE_API_BASE_URL}/v1/ask`. On `pii_blocked`, it shows the refusal and does not append the user text to the transcript. It does not embed, retrieve, or call Gemini.
+The UI never asks for, displays, or stores personal identifiers. Local `npm run dev` calls `POST /v1/ask` on the Vite origin (proxy to the local API). Production uses `VITE_API_BASE_URL` (Railway). On `pii_blocked`, it shows the refusal and does not append the user text to the transcript. It does not embed, retrieve, or call Gemini.
 
 ### 5.2 Retrieve routing (`src/guard.py`)
 
@@ -153,21 +153,23 @@ Labels the question for search. It is not the policy layer. Empty / unusable inp
 | `factual` | “What is the exit load of HDFC Large Cap Fund Direct Growth?” | Filter by `scheme_id` + topic |
 | `catalog` | “Show exit loads of all schemes in a table” | One retrieve per in-scope scheme; table, not a 3-sentence cap |
 | `process` | “How do I download a capital gains report?” | Filter `generic` Groww help |
-| `performance` | “What was the 3-year return?” | May retrieve; Gemini-side policy refuses calculation |
-| `advisory` | “Should I invest?”, “Which fund is better?” | May retrieve; Gemini-side policy refuses |
-| `incomplete` | Topic without a scheme, or two schemes | May retrieve; Gemini-side policy asks for one scheme / topic |
-| `out_of_scope` | Other AMCs, news, tax planning, portfolio construction | May retrieve; Gemini-side policy refuses |
+| `performance` | “What was the 3-year return?” | May retrieve; code refuses calculation |
+| `incomplete` | Topic without a scheme | May retrieve; code asks for the missing piece |
+| `out_of_scope` | Other AMCs, news, tax planning, portfolio construction, or **unlabelled** questions | Listed OOS is refused in code. Unlabelled questions (`unknown`, scheme with no topic, two schemes) go to Gemini so the **system prompt** can refuse advice/compare. |
+
+`guard.py` does **not** label `advisory` with regex. Advice, ranking, and “say me a best scheme” look like `unknown` / `topic_required` / `multiple_schemes` until Gemini applies the prompt. The API `intent` becomes `advisory` when the writer returns the AMFI refusal.
 
 PII is **not** an intent here. A PAN-shaped token does not change the retrieve label. Identifiers are refused only in `src/generate.py`.
 
 ### 5.2.1 Gemini-side policy (`src/generate.py`)
 
-All refusals run at the Gemini call site, not before retrieve:
+Refusals at the Gemini call site:
 
-1. `policy_block_for_gemini()` — PII first (never send identifiers), then advisory, performance, out of scope, incomplete.
-2. `llm_system_prompt()` — the same rules, so the model applies them if a question still reaches the API.
+1. `policy_block_for_gemini()` — PII first (never send identifiers), then **performance**, **listed** out of scope, and **incomplete** (missing topic/scheme copy). Advisory is **not** blocked here.
+2. `llm_system_prompt()` — advice, ranking, comparison, and “best scheme” (any wording, including broken English). Gemini must reply with the AMFI refusal, not the Groww “not on these pages” copy.
+3. Catalog tables still run after a Gemini screen so “compare all schemes” cannot become a ranking table.
 
-Priority: `PII` > `advisory` / compare > `performance` > `out_of_scope` > `incomplete` > `catalog` > `process` / `factual`. A catalog question is not refused: it lists one fact per in-scope scheme. “Which is better among all schemes” stays `advisory`.
+Priority: `PII` > `advisory` / compare (prompt) > `performance` > `out_of_scope` > `incomplete` > `catalog` > `process` / `factual`.
 
 PII detection uses pattern checks (PAN / Aadhaar / account-like digits / OTP / email / phone). Matching text is not written to logs or history and is not sent to Gemini.
 
@@ -261,12 +263,14 @@ Template characteristics:
 
 - Polite and explicit
 - Restates the facts-only limitation
-- Includes **one** Groww education / primer link, not a scheme ranking
+- Includes the two **AMFI** education URLs (not in the RAG index), not a scheme ranking
 - No scheme ranking, no “it depends on your risk profile” disguised as advice
 
 Example shape (not the final copy):
 
-> I can only answer factual questions from Groww scheme and help pages, and I cannot recommend or compare funds. For investor education, see: \<Groww primer URL\>
+> I can only answer factual questions from Groww scheme and help pages, and I cannot recommend or compare funds.
+> AMFI investor education: https://www.amfiindia.com/investor
+> AMFI mutual fund risks: https://www.amfiindia.com/investor-corner/knowledge-center/risks-in-mutual-funds.html
 
 ## 6. End-to-End Query Flow
 
@@ -278,7 +282,7 @@ flowchart TD
     C --> D[Retrieve Groww chunks]
     D --> E[generate.py policy]
     E -->|PII| Z1[Refuse; do not store; never send to Gemini]
-    E -->|advisory / compare| Z2[Refuse + Groww education link]
+    E -->|advisory / compare| Z2[Refuse + two AMFI education URLs]
     E -->|performance / returns| Z3[Groww scheme page link only; no calculation]
     E -->|out of scope / incomplete| Z4[Not in corpus or ask for one scheme]
     E -->|factual / process| F{Relevant chunk found?}
@@ -302,7 +306,7 @@ flowchart TD
 | Catalog | Markdown table: one row per in-scope scheme | That scheme’s Groww URL in the Source column | Same |
 | Process | ≤ 3 sentences from Groww help | Exactly one Groww URL | Same |
 | Performance | No returns computed; point to the Groww scheme page | That scheme’s Groww URL | Same |
-| Advisory / compare | Refusal + facts-only reminder | One Groww primer URL | Optional; still allowed |
+| Advisory / compare | Refusal + facts-only reminder | Two AMFI URLs in `text`; `source_url` is the AMFI investor hub | None |
 | PII | Short refusal; no echo of identifiers | None required | None required |
 | Missing from corpus | “Not available on the current Groww pages” | None, or the closest Groww landing page | If a source was consulted |
 
@@ -310,8 +314,7 @@ flowchart TD
 
 ```
 mfchatbot/
-├── Architecture.md
-├── ProblemStatement.md
+├── @data/                 # Architecture, problem, eval, edge cases, plan
 ├── README.md
 ├── api/main.py            # FastAPI: /health, POST /v1/ask
 ├── web/                   # Vite + React chat UI (Vercel)
@@ -322,7 +325,7 @@ mfchatbot/
 │   ├── retrieve.py        # scheme/topic resolve + search
 │   ├── generate.py        # Gemini-side policy + grounded answer
 │   ├── format.py          # citation + footer + 3-sentence cap
-│   └── refuse.py          # refusal and Groww-page redirect
+│   └── refuse.py          # refusal templates (AMFI on advice; Groww page on returns)
 ├── ingest/
 │   ├── fetch_official.py  # Groww URLs from the manifest only
 │   └── build_index.py
@@ -354,7 +357,7 @@ The RAG core stays in one Python process. Hosting is split so the browser never 
 | --- | --- |
 | UI | Vite + React chat page on **Vercel** |
 | HTTP | FastAPI (`GET /health`, `POST /v1/ask`) on **Railway** |
-| Guard | Gemini-side only: `policy_block_for_gemini()` + system prompt. `guard.py` routes retrieve. |
+| Guard | `guard.py` labels retrieve. `policy_block_for_gemini()` refuses PII / performance / listed OOS / incomplete. Advice is the Gemini system prompt. |
 | Embeddings + index | MiniLM + file-backed Chroma **on the API host** |
 | Chat retrieval / generation | **Gemini 3.5 Flash-Lite** (`gemini-3.5-flash-lite`) with a strict system prompt |
 | Fallback | Extractive sentence from the top Groww chunk if Gemini fails |
@@ -372,7 +375,7 @@ Refresh model: pages are re-ingested when the Groww scheme or help content chang
 | Accurate factual retrieval | Curated Groww corpus + metadata-filtered retrieval; Gemini only reads those chunks |
 | Facts-only responses | Gemini-side policy + generator constraints + no comparison logic |
 | Valid source citations | Formatter requires one `source_url` from the winning chunk |
-| Proper advisory refusal | Gemini-side `advisory` / compare refuse with one education link |
+| Proper advisory refusal | System prompt + AMFI refusal copy (two public AMFI URLs, not in the index) |
 | Clean minimal UI | Vercel page: examples, fixed disclaimer; answers only from `/v1/ask` |
 
 ## 12. Known Limitations
@@ -412,8 +415,8 @@ flowchart LR
 
 | Target | Root | Start / build | Required env |
 | --- | --- | --- | --- |
-| Local API | repo | `uvicorn api.main:app --reload --port 8000` | `GEMINI_API_KEY`, `FRONTEND_ORIGINS` |
-| Local UI | `web/` | `npm run dev` | `VITE_API_BASE_URL=http://127.0.0.1:8000` |
+| Local API | repo | `uvicorn api.main:app --reload --port 8011` | `GEMINI_API_KEY`, `FRONTEND_ORIGINS` |
+| Local UI | `web/` | `npm run dev` (proxies `/v1` to port 8011) | Production builds: `VITE_API_BASE_URL`. Dev does not need it. |
 | Railway | repo | `uvicorn api.main:app --host 0.0.0.0 --port $PORT` | `GEMINI_API_KEY`, `FRONTEND_ORIGINS` (Vercel origin) |
 | Vercel | `web/` | `npm run build` | `VITE_API_BASE_URL=https://<railway-host>` |
 

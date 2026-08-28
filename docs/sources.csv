@@ -1,0 +1,25 @@
+url,title,role,in_rag_index
+https://groww.in/mutual-funds/hdfc-large-cap-fund-direct-growth,HDFC Large Cap Fund Direct Growth,scheme facts,yes
+https://groww.in/mutual-funds/hdfc-mid-cap-fund-direct-growth,HDFC Mid Cap Fund Direct Growth,scheme facts,yes
+https://groww.in/mutual-funds/hdfc-small-cap-fund-direct-growth,HDFC Small Cap Fund Direct Growth,scheme facts,yes
+https://groww.in/mutual-funds/hdfc-gold-etf-fund-of-fund-direct-plan-growth,HDFC Gold ETF Fund of Fund Direct Plan Growth,scheme facts,yes
+https://groww.in/mutual-funds/hdfc-elss-tax-saver-fund-direct-plan-growth,HDFC ELSS Tax Saver Fund Direct Plan Growth,scheme facts,yes
+https://groww.in/help/mutual-funds/mf-others/how-to-download-capital-gain-report--50,Groww Help — How to download capital gain report,process help,yes
+https://groww.in/help/mutual-funds/mf-track-and-switch/what-is-cas--why-is-it-needed--99,Groww Help — What is CAS and why is it needed,process help,yes
+https://groww.in/help/mutual-funds/order/how-to-download-tax-statement--for-elss--77,Groww Help — Mutual funds ELSS report / tax statement,process help,yes
+https://groww.in/p/expense-ratio,Groww — Expense ratio,education primer,yes
+https://groww.in/p/exit-load-in-mutual-funds,Groww — Exit load in mutual funds,education primer,yes
+https://groww.in/p/riskometer,Groww — Mutual fund riskometer,education primer,yes
+https://groww.in/p/nav,Groww — NAV,linked from ingested primers,no
+https://groww.in/p/sip-systematic-investment-plan,Groww — SIP,linked from ingested primers,no
+https://groww.in/p/benchmark,Groww — Benchmark,linked from ingested primers,no
+https://groww.in/p/lump-sum,Groww — Lumpsum,linked from ingested primers,no
+https://groww.in/p/asset-under-management,Groww — AUM,linked from ingested primers,no
+https://groww.in/p/mutual-fund-units,Groww — Mutual fund units,linked from ingested primers,no
+https://groww.in/p/sebi-securities-and-exchange-board-of-india,Groww — SEBI,linked from riskometer primer,no
+https://groww.in/mutual-funds,Groww — Mutual funds,linked from ingested primers,no
+https://groww.in/mutual-funds/amc/hdfc-mutual-funds,Groww — HDFC Mutual Fund AMC,linked from exit-load primer,no
+https://groww.in/mutual-funds/category,Groww — Mutual fund categories,linked from exit-load primer,no
+https://groww.in/help,Groww Help home,help hub around process pages,no
+https://www.amfiindia.com/investor,AMFI investor education hub,advisory refusal education,no
+https://www.amfiindia.com/investor-corner/knowledge-center/risks-in-mutual-funds.html,AMFI — risks in mutual funds,advisory refusal education,no

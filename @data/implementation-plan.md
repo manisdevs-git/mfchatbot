@@ -49,9 +49,7 @@ Do not add a database, user auth, or a live web-search tool. The Gemini key stay
 
 ```
 mfchatbot/
-├── ProblemStatement.md
-├── Architecture.md
-├── implementation-plan.md
+├── @data/                       # Architecture, problem, plan, eval, edge cases
 ├── README.md
 ├── requirements.txt
 ├── .env.example                 # GEMINI_API_KEY, FRONTEND_ORIGINS
@@ -242,25 +240,26 @@ Policy is **not** a front-door block. `src/guard.py` only labels the question. E
 
 1. `src/guard.py` — retrieve routing only
    - Scheme alias matching (short names: “large cap”, “ELSS”, “gold FoF”)
-   - Keyword labels for `advisory`, `performance`, `process`, `factual`, `out_of_scope`, `incomplete`
+   - Keyword labels for `performance`, `process`, `factual`, `catalog`, `out_of_scope`, `incomplete`
+   - Advice / compare / ranking is **not** a regex intent. Unlabelled questions go to Gemini.
    - Always `allow_retrieve` / `allow_gemini` except empty input
    - No Gemini intent classifier. PII is not an intent here.
-2. `src/generate.py` — all guards at the Gemini boundary
-   - `policy_block_for_gemini()`: PII first (never send identifiers), then advisory, performance, out of scope, incomplete
-   - `llm_system_prompt()`: the same rules for `gemini-3.5-flash-lite`
+2. `src/generate.py` — guards at the Gemini boundary
+   - `policy_block_for_gemini()`: PII first (never send identifiers), then performance, listed out of scope, incomplete
+   - `llm_system_prompt()`: advice, ranking, “best scheme” (any wording) → AMFI refusal
    - PII regex: PAN, Aadhaar, phone, email, OTP-like 4–8 digits, account-like long digits
 3. `src/refuse.py` templates:
-   - `advisory` / compare → polite refuse + one Groww primer URL
+   - `advisory` / compare → polite refuse + two AMFI education URLs (not in the RAG index)
    - `pii` → short refuse; do not echo identifiers; do not log the raw query
    - `performance` → no calculation; that scheme’s Groww URL + footer
    - `out_of_scope` / not in corpus → “not available on the current Groww pages”
 4. Unit tests for Architecture §5.2 / §5.2.1.
 
-**Exit check:** Front door allows retrieve for these; Gemini-side policy refuses them and the API is not called:
+**Exit check:** Front door allows retrieve. PII never reaches Gemini. Advice questions **do** call Gemini; the system prompt must produce the AMFI refusal (not the Groww OOS copy):
 
-- “Should I invest in this fund?”
-- “Which fund is better?”
-- A query containing a PAN-shaped token
+- “Should I invest in this fund?” → AMFI refusal; Gemini **is** called
+- “Which fund is better?” / “say me a best scheme” → same AMFI refusal
+- A query containing a PAN-shaped token → PII refuse; Gemini is **not** called
 
 “What was the 3-year return of the Large Cap fund?” is refused at the Gemini boundary with that Groww scheme page only.
 
@@ -285,7 +284,7 @@ Policy is **not** a front-door block. `src/guard.py` only labels the question. E
 1. `src/generate.py`
    - Model: `gemini-3.5-flash-lite`
    - System prompt: full guard policy (PII, advisory, performance, out of scope, incomplete), max three sentences, no invented numbers / URLs / dates, no parametric fill-in
-   - `policy_block_for_gemini()` runs before any API call
+   - `policy_block_for_gemini()` runs before any API call for PII / performance / listed OOS / incomplete. Advisory is prompt-only.
    - User payload: question + retrieved chunks (`text`, `scheme_id`, `source_title`, `as_of_date`)
    - On API failure: extractive fallback (first supporting sentence from the top chunk)
 2. `src/format.py`
@@ -333,9 +332,9 @@ No frontend in this phase. `src/pipeline.py.handle` is the only answer path. Str
 **Exit check (curl against local Uvicorn — no browser):**
 
 ```
-uvicorn api.main:app --reload --port 8000
+uvicorn api.main:app --reload --port 8011
 
-curl -s -X POST http://127.0.0.1:8000/v1/ask ^
+curl -s -X POST http://127.0.0.1:8011/v1/ask ^
   -H "Content-Type: application/json" ^
   -d "{\"query\":\"What is the exit load of HDFC Large Cap Fund Direct Growth?\"}"
 ```
@@ -343,7 +342,7 @@ curl -s -X POST http://127.0.0.1:8000/v1/ask ^
 `text` has ≤ 3 sentences, exactly one `groww.in` URL, and `as_of_date` from the manifest. Also confirm:
 
 - `GET /health` → `ok: true`
-- “Should I invest in this fund?” → advisory `text` + one Groww primer URL; Gemini is not called
+- “Should I invest in this fund?” → advisory `text` + two AMFI URLs; Gemini is called
 - Query containing `ABCDE1234F` → `pii_blocked: true`; token is not in the JSON
 
 Do not start Phase 7 until these three curls pass.
@@ -364,7 +363,7 @@ Talks to the **local** Phase 6 API. Do not deploy Vercel or Railway yet.
    - Persistent disclaimer: **Facts-only. No investment advice.**
    - Chat input only — no email, phone, PAN, or account fields
    - Transcript in React state only (lost on refresh)
-3. `VITE_API_BASE_URL` (e.g. `http://127.0.0.1:8000`). `POST {base}/v1/ask` with `{ query }`. Render `text`. On `pii_blocked`, show the refusal and **do not** append the user text to history.
+3. Local `npm run dev` proxies `/v1` to port 8011. Production `VITE_API_BASE_URL` is the Railway origin. `POST {base}/v1/ask` with `{ query }`. Render `text`. On `pii_blocked`, show the refusal and **do not** append the user text to history.
 4. Disable send while a request is in flight (EdgeCases U05).
 5. No Gemini key in `web/`. No server-side session store.
 
@@ -372,12 +371,12 @@ Talks to the **local** Phase 6 API. Do not deploy Vercel or Railway yet.
 
 ```
 # terminal 1
-uvicorn api.main:app --reload --port 8000
+uvicorn api.main:app --reload --port 8011
 
 # terminal 2
 cd web
 npm install
-# web/.env : VITE_API_BASE_URL=http://127.0.0.1:8000
+# web/.env.example documents VITE_API_BASE_URL for production builds
 npm run dev
 ```
 
@@ -424,8 +423,8 @@ Only after Phase 6 API curls and Phase 7 local UI both pass.
 | 5 | Riskometer — Gold FoF | Factual + citation |
 | 6 | Benchmark — any in-scope scheme | Factual + citation |
 | 7 | How to download capital-gains report | Process + Groww help citation |
-| 8 | Should I invest in this fund? | Advisory refuse + education link |
-| 9 | Which fund is better? | Advisory refuse + education link |
+| 8 | Should I invest in this fund? | Advisory refuse + two AMFI URLs |
+| 9 | Which fund is better? | Advisory refuse + two AMFI URLs |
 | 10 | 3-year return of Large Cap | Factsheet redirect, no CAGR |
 | 11 | Query with a PAN-like token | PII refuse, not stored, not sent to Gemini |
 | 12 | SBI Bluechip expense ratio | Out of scope / not in corpus |
@@ -441,8 +440,8 @@ Only after Phase 6 API curls and Phase 7 local UI both pass.
 - **Gemini is a writer, not a retriever.** Do not enable Google Search grounding or URL context for scheme facts.
 - **One citation.** The formatter owns the URL. The model must not pick or invent it.
 - **Footer date** is `as_of_date` from the winning chunk’s manifest entry.
-- **All guards at Gemini.** `guard.py` does not refuse. `generate.py` applies PII, advisory, performance, out of scope, and incomplete.
-- **No comparison logic.** If two scheme names appear with “better” / “vs” / “which”, treat as `advisory` at the Gemini boundary.
+- **All guards at Gemini.** `guard.py` does not refuse. `generate.py` applies PII, performance, listed OOS, and incomplete in code. Advice / compare is the system prompt (Gemini is called).
+- **No comparison logic.** Ranking and “best scheme” (any wording) are refused at Gemini with two AMFI URLs, not a Groww primer.
 - **Keep prompts short.** Flash-Lite is for grounded compression, not long chain-of-thought.
 - **Do not log raw PII queries.** If you add debug logs, log `intent` and `scheme_id` only. Identifiers are never sent to Gemini.
 - **API owns answers.** The frontend only displays `text` and honors `pii_blocked`. It does not retrieve, call Gemini, or invent citations.
@@ -462,7 +461,7 @@ The project is done when all of the following are true:
 - [x] Five Groww scheme pages are in the manifest
 - [x] Index is built only from `groww.in` URLs
 - [x] Factual answers are ≤ 3 sentences, have exactly one Groww `Source`, and a last-updated footer
-- [x] Advisory and comparison queries are refused with a Groww primer link
+- [x] Advisory and comparison queries are refused with two AMFI education URLs
 - [x] Performance queries return the Groww scheme page and no calculated return
 - [x] PII is not stored, not logged, and not sent to Gemini (pipeline / Gemini boundary)
 - [ ] `POST /v1/ask` returns the JSON contract (Phase 6)

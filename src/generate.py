@@ -1,8 +1,9 @@
 """Gemini call site. All guard rules are enforced here.
 
 The front door (src/guard.py) only labels the question for retrieve.
-Before any API call this module applies the same policy as the system
-prompt. PII is refused first so identifiers are never sent to Gemini.
+PII, performance, listed out-of-scope, and incomplete still refuse in code.
+Advisory / compare / ranking is system-prompt only: Gemini judges meaning.
+Identifiers are never sent to Gemini.
 """
 
 from __future__ import annotations
@@ -20,8 +21,9 @@ from src.refuse import (
     format_refusal,
 )
 from src.schemes import (
+    AMFI_INVESTOR_URL,
+    AMFI_RISKS_URL,
     AS_OF_DATE,
-    EDUCATION_URL,
     SCHEME_TITLES,
     SCHEME_URLS,
 )
@@ -29,8 +31,10 @@ from src.schemes import (
 MODEL_ID = "gemini-3.5-flash-lite"
 
 POLICY_INTENTS = frozenset(
-    {"advisory", "performance", "out_of_scope", "incomplete"}
+    {"performance", "out_of_scope", "incomplete"}
 )
+# Unlabelled retrieve routes: Gemini applies advisory/compare from the system prompt.
+SEMANTIC_POLICY_REASONS = frozenset({"unknown", "topic_required", "multiple_schemes"})
 
 
 def llm_system_prompt() -> str:
@@ -53,11 +57,17 @@ Expense ratio figures (e.g. 1.25%), SIP amounts (e.g. 500), and scheme NAV
 values printed on the Groww page are not PII.
 
 ## Advisory / compare
-If the user asks whether to invest, which fund is better, vs/compare/rank,
-suitability, or recommendations, refuse. Do not rank schemes. Reply:
+This rule beats out_of_scope and incomplete.
+
+If the *meaning* is a pick, ranking, recommendation, suitability, comparison,
+or “what should I do” with a fund or money — any wording, including broken
+English such as “say me a best scheme” — do not name a scheme and do not say
+the fact is missing from Groww pages. Reply exactly:
 {ADVISORY_REFUSAL}
 
-Education link: {EDUCATION_URL}
+Do not answer a factual side-question in the same turn. Do not rank schemes.
+
+Education links (AMFI; not in the Groww index): {AMFI_INVESTOR_URL} and {AMFI_RISKS_URL}
 
 ## Performance
 If the user asks for returns, CAGR, XIRR, or "if I invested …", do not
@@ -117,14 +127,49 @@ def pii_block_for_gemini(query: str) -> str | None:
 
 
 def policy_block_for_gemini(query: str) -> str | None:
-    """Apply every guard at the Gemini boundary. PII wins first."""
+    """Apply retrieve-side guards at the Gemini boundary. PII wins first.
+
+    Advisory is not blocked here. Gemini applies it from the system prompt.
+    """
     blocked = pii_block_for_gemini(query)
     if blocked is not None:
         return blocked
     decision = classify(query)
+    if decision.reason in SEMANTIC_POLICY_REASONS:
+        return None
     if decision.intent in POLICY_INTENTS:
         return format_refusal(decision)
     return None
+
+
+def looks_like_advisory_reply(text: str) -> bool:
+    """True when the writer produced an advice refusal, even if paraphrased."""
+    body = (text or "").strip()
+    if not body:
+        return False
+    if body == ADVISORY_REFUSAL.strip():
+        return True
+    lowered = body.lower()
+    if AMFI_INVESTOR_URL in body or AMFI_RISKS_URL in body:
+        return True
+    if "cannot recommend" in lowered and "compare" in lowered:
+        return True
+    return False
+
+
+def coerce_writer_output(text: str, query: str = "") -> str:
+    """PII screen, then pin an advisory-shaped model reply to the AMFI copy."""
+    screened = screen_model_output(text)
+    if looks_like_advisory_reply(screened):
+        return ADVISORY_REFUSAL
+    return screened
+
+
+def uses_semantic_policy(query: str) -> bool:
+    """True when retrieve did not label a fact and Gemini must apply policy."""
+    if pii_block_for_gemini(query) is not None:
+        return False
+    return classify(query).reason in SEMANTIC_POLICY_REASONS
 
 
 def screen_model_output(text: str) -> str:
@@ -156,7 +201,11 @@ class GeminiError(RuntimeError):
 def build_user_payload(query: str, chunks: list[dict]) -> str:
     """Question plus retrieved chunk text. No source_url — the formatter owns it."""
     blocks = [
-        "Answer using only the retrieved Groww chunks.",
+        "Apply the system guard rules to the question before using chunks.",
+        "If the meaning is advice, a pick, ranking, or a best/better scheme — "
+        "any wording — reply with the advisory refusal exactly. That is not "
+        "out of scope, even when no chunks were retrieved.",
+        "Answer factual questions using only the retrieved Groww chunks.",
         "Do not add a Source URL or a last-updated line.",
         "",
         f"Question:\n{(query or '').strip()}",
@@ -249,16 +298,32 @@ def generate_answer(
         return blocked
     hits = [chunk for chunk in (chunks or []) if isinstance(chunk, dict)]
     if not hits:
-        if watch is not None:
-            watch.meta["writer"] = "refusal"
-        return OUT_OF_SCOPE_REFUSAL
+        if force_extractive or not uses_semantic_policy(query):
+            if watch is not None:
+                watch.meta["writer"] = "refusal"
+            return OUT_OF_SCOPE_REFUSAL
+        try:
+            with span_if(watch, "gemini", "Gemini writer", "writer", MODEL_ID):
+                text = call_gemini(query, [], client=client)
+            if watch is not None:
+                watch.meta["writer"] = "gemini"
+        except Exception:
+            if watch is not None:
+                watch.meta["writer"] = "refusal"
+            return OUT_OF_SCOPE_REFUSAL
+        if not text:
+            if watch is not None:
+                watch.meta["writer"] = "refusal"
+            return OUT_OF_SCOPE_REFUSAL
+        skip_if(watch, "extractive", "Extractive fallback", "writer", "semantic policy")
+        return coerce_writer_output(text, query)
     if force_extractive:
         skip_if(watch, "gemini", "Gemini writer", "writer", "extractive mode")
         with span_if(watch, "extractive", "Extractive fallback", "writer"):
             text = extractive_fallback(query, hits)
         if watch is not None:
             watch.meta["writer"] = "extractive"
-        return screen_model_output(text)
+        return coerce_writer_output(text, query)
     try:
         with span_if(watch, "gemini", "Gemini writer", "writer", MODEL_ID):
             text = call_gemini(query, hits, client=client)
@@ -288,4 +353,4 @@ def generate_answer(
             text = extractive_fallback(query, hits)
         if watch is not None:
             watch.meta["writer"] = "extractive"
-    return screen_model_output(text)
+    return coerce_writer_output(text, query)

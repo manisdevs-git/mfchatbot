@@ -14,7 +14,7 @@ from src.generate import (
 )
 from src.pipeline import handle
 from src.refuse import ADVISORY_REFUSAL, OUT_OF_SCOPE_REFUSAL, PII_REFUSAL
-from src.schemes import AS_OF_DATE
+from src.schemes import AMFI_INVESTOR_URL, AS_OF_DATE
 
 LARGE_CAP_CHUNK = {
     "text": (
@@ -42,6 +42,8 @@ class PayloadTests(unittest.TestCase):
         self.assertIn("Exit load of 1% if redeemed within 1 year", payload)
         self.assertNotIn("source_url", payload)
         self.assertNotIn("https://groww.in", payload)
+        self.assertIn("Apply the system guard rules", payload)
+        self.assertIn("advisory refusal", payload.lower())
 
 
 class ExtractiveFallbackTests(unittest.TestCase):
@@ -57,12 +59,21 @@ class ExtractiveFallbackTests(unittest.TestCase):
 class GenerateAnswerTests(unittest.TestCase):
     def test_policy_blocks_before_any_writer(self) -> None:
         with patch("src.generate.call_gemini") as mocked:
-            self.assertEqual(generate_answer("Should I invest in this fund?"), ADVISORY_REFUSAL)
             self.assertEqual(
                 generate_answer("What is the exit load of large cap ABCDE1234F", [LARGE_CAP_CHUNK]),
                 PII_REFUSAL,
             )
             mocked.assert_not_called()
+
+    def test_advisory_calls_gemini_then_pins_amfi(self) -> None:
+        paraphrased = (
+            "I cannot recommend or compare funds. See "
+            f"{AMFI_INVESTOR_URL}"
+        )
+        with patch("src.generate.call_gemini", return_value=paraphrased) as mocked:
+            self.assertEqual(generate_answer("Should I invest in this fund?"), ADVISORY_REFUSAL)
+            self.assertEqual(generate_answer("say me a best scheme"), ADVISORY_REFUSAL)
+        self.assertEqual(mocked.call_count, 2)
 
     def test_no_chunks_is_not_in_corpus_without_gemini(self) -> None:
         with patch("src.generate.call_gemini") as mocked:
@@ -86,6 +97,36 @@ class GenerateAnswerTests(unittest.TestCase):
         with patch("src.generate.call_gemini", return_value=""):
             text = generate_answer(EXIT_QUERY, [LARGE_CAP_CHUNK])
         self.assertIn("Exit load", text)
+
+    def test_unlabelled_advice_uses_gemini_meaning_not_a_phrase_list(self) -> None:
+        query = "help me pick a scheme"
+        paraphrased = (
+            "I cannot recommend funds. Read AMFI at "
+            f"{AMFI_INVESTOR_URL}"
+        )
+        with patch("src.generate.call_gemini", return_value=paraphrased) as mocked:
+            text = generate_answer(query, [])
+        mocked.assert_called_once()
+        self.assertEqual(text, ADVISORY_REFUSAL)
+        self.assertIn(AMFI_INVESTOR_URL, text)
+
+    def test_semantic_advice_handle_sets_advisory_intent(self) -> None:
+        query = "help me pick a scheme"
+        with patch("src.pipeline.retrieve", return_value=[]):
+            with patch("src.generate.call_gemini", return_value=ADVISORY_REFUSAL):
+                result = handle(query)
+        self.assertEqual(result.intent, "advisory")
+        self.assertEqual(result.text, ADVISORY_REFUSAL)
+        self.assertNotIn("groww.in", result.text.lower())
+
+    def test_which_is_best_scheme_reaches_gemini(self) -> None:
+        query = "say me a best scheme"
+        with patch("src.pipeline.retrieve", return_value=[]):
+            with patch("src.generate.call_gemini", return_value=ADVISORY_REFUSAL) as gemini:
+                result = handle(query)
+        gemini.assert_called_once()
+        self.assertEqual(result.intent, "advisory")
+        self.assertEqual(result.text, ADVISORY_REFUSAL)
 
 
 class PipelinePhase5Tests(unittest.TestCase):

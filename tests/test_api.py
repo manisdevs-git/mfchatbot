@@ -10,8 +10,8 @@ from fastapi.testclient import TestClient
 
 from api.main import CORPUS_UNAVAILABLE, app
 from src.pipeline import PipelineResult
-from src.refuse import ADVISORY_REFUSAL, INCOMPLETE_EMPTY, PII_REFUSAL
-from src.schemes import AS_OF_DATE, EDUCATION_URL
+from src.refuse import ADVISORY_REFUSAL, INCOMPLETE_EMPTY, OUT_OF_SCOPE_REFUSAL, PII_REFUSAL
+from src.schemes import AMFI_INVESTOR_URL, AS_OF_DATE, EDUCATION_URL
 
 LARGE_CAP_URL = "https://groww.in/mutual-funds/hdfc-large-cap-fund-direct-growth"
 EXIT_QUERY = "What is the exit load of HDFC Large Cap Fund Direct Growth?"
@@ -101,7 +101,7 @@ class AskContractTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         mocked.assert_called_once_with(EXIT_QUERY, force_extractive=True)
 
-    def test_advisory_is_200_with_primer_and_does_not_call_gemini(self) -> None:
+    def test_advisory_is_200_with_amfi_links_and_does_not_call_gemini(self) -> None:
         result = PipelineResult(
             intent="advisory",
             scheme_id=None,
@@ -121,9 +121,9 @@ class AskContractTests(unittest.TestCase):
         self.assertEqual(body["intent"], "advisory")
         self.assertEqual(body["text"], ADVISORY_REFUSAL)
         self.assertIn(EDUCATION_URL, body["text"])
-        self.assertEqual(body["text"].count("https://"), 1)
+        self.assertEqual(body["text"].count("https://"), 2)
         self.assertFalse(body["pii_blocked"])
-        self.assertIsNone(body["source_url"])
+        self.assertEqual(body["source_url"], AMFI_INVESTOR_URL)
 
     def test_pii_sets_flag_and_omits_identifier_from_body_and_logs(self) -> None:
         result = PipelineResult(
@@ -204,18 +204,19 @@ class AskPipelineTests(unittest.TestCase):
         self.assertIn(f"Source: {LARGE_CAP_URL}", body["text"])
         self.assertIn(f"Last updated from sources: {AS_OF_DATE}", body["text"])
 
-    def test_advisory_handle_refuses_without_gemini(self) -> None:
+    def test_advisory_handle_calls_gemini_and_pins_amfi(self) -> None:
         with patch("api.main.index_ready", return_value=True):
             with patch("src.pipeline.retrieve", return_value=[]):
-                with patch("src.generate.call_gemini") as gemini:
+                with patch("src.generate.call_gemini", return_value=ADVISORY_REFUSAL) as gemini:
                     response = TestClient(app).post("/v1/ask", json={"query": ADVISORY_QUERY})
-        gemini.assert_not_called()
+        gemini.assert_called_once()
         self.assertEqual(response.status_code, 200)
         body = response.json()
         self.assertEqual(body["text"], ADVISORY_REFUSAL)
+        self.assertEqual(body["intent"], "advisory")
         self.assertIn(EDUCATION_URL, body["text"])
         self.assertFalse(body["pii_blocked"])
-        self.assertIsNone(body["source_url"])
+        self.assertEqual(body["source_url"], AMFI_INVESTOR_URL)
         self.assertIsNone(body["as_of_date"])
 
     def test_pii_handle_refuses_without_gemini_or_token(self) -> None:

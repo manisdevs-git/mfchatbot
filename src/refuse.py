@@ -3,7 +3,14 @@
 from __future__ import annotations
 
 from src.guard import GuardDecision
-from src.schemes import AS_OF_DATE, EDUCATION_URL, SCHEME_TITLES, scheme_url
+from src.schemes import (
+    AMFI_INVESTOR_URL,
+    AMFI_RISKS_URL,
+    AS_OF_DATE,
+    EDUCATION_URL,
+    SCHEME_TITLES,
+    scheme_url,
+)
 
 PII_REFUSAL = (
     "I cannot use personal identifiers. Ask a factual question without PAN, "
@@ -12,8 +19,9 @@ PII_REFUSAL = (
 
 ADVISORY_REFUSAL = (
     "I can only answer factual questions from Groww scheme and help pages, "
-    "and I cannot recommend or compare funds. For investor education, see: "
-    f"{EDUCATION_URL}"
+    "and I cannot recommend or compare funds.\n"
+    f"AMFI investor education: {AMFI_INVESTOR_URL}\n"
+    f"AMFI mutual fund risks: {AMFI_RISKS_URL}"
 )
 
 OUT_OF_SCOPE_REFUSAL = (

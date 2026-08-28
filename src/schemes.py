@@ -68,7 +68,11 @@ ALIASES: tuple[tuple[str, str], ...] = (
 PRIMER_EXPENSE_RATIO = "https://groww.in/p/expense-ratio"
 PRIMER_EXIT_LOAD = "https://groww.in/p/exit-load-in-mutual-funds"
 PRIMER_RISKOMETER = "https://groww.in/p/riskometer"
-EDUCATION_URL = PRIMER_EXPENSE_RATIO
+AMFI_INVESTOR_URL = "https://www.amfiindia.com/investor"
+AMFI_RISKS_URL = (
+    "https://www.amfiindia.com/investor-corner/knowledge-center/risks-in-mutual-funds.html"
+)
+EDUCATION_URL = AMFI_RISKS_URL
 
 
 def fold(text: str) -> str:

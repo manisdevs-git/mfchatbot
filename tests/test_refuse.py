@@ -10,11 +10,15 @@ from src.schemes import AS_OF_DATE, SCHEME_URLS
 
 
 class RefuseCopyTests(unittest.TestCase):
-    def test_advisory_points_at_one_groww_primer(self) -> None:
-        text = policy_block_for_gemini("Should I invest in this fund?")
+    def test_advisory_points_at_amfi_education(self) -> None:
+        text = ADVISORY_REFUSAL
         self.assertEqual(text, ADVISORY_REFUSAL)
-        self.assertEqual(text.count("https://"), 1)
+        self.assertIn("https://www.amfiindia.com/investor", text)
         self.assertIn(EDUCATION_URL, text)
+        self.assertIn(
+            "https://www.amfiindia.com/investor-corner/knowledge-center/risks-in-mutual-funds.html",
+            text,
+        )
 
     def test_pii_is_short_and_does_not_repeat_the_token(self) -> None:
         token = "ABCDE1234F"

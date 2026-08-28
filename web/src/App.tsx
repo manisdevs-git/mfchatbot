@@ -13,7 +13,13 @@ import {
 } from './ask'
 import './App.css'
 
-const GROWW_URL = /https:\/\/(?:www\.)?groww\.in\/[^\s)>\]]+/gi
+const LINK_URL =
+  /https:\/\/(?:www\.)?(?:groww\.in|amfiindia\.com)\/[^\s)>\]]+/gi
+
+function amfiUrls(text: string): string[] {
+  const found = text.match(/https:\/\/(?:www\.)?amfiindia\.com\/[^\s)>\]]+/gi)
+  return found ? [...new Set(found)] : []
+}
 
 function parseMarkdownTable(text: string): {
   headers: string[]
@@ -49,7 +55,7 @@ function parseMarkdownTable(text: string): {
 function LinkedText({ text }: { text: string }) {
   const parts: Array<{ value: string; href?: string }> = []
   let cursor = 0
-  const matches = text.matchAll(GROWW_URL)
+  const matches = text.matchAll(LINK_URL)
   for (const match of matches) {
     const start = match.index ?? 0
     if (start > cursor) {
@@ -116,21 +122,27 @@ function AnswerText({ text }: { text: string }) {
 function CitationFooter({
   sourceUrl,
   asOfDate,
+  extraUrls = [],
 }: {
   sourceUrl: string | null
   asOfDate: string | null
+  extraUrls?: string[]
 }) {
-  if (!sourceUrl && !asOfDate) {
+  const links = [...new Set([sourceUrl, ...extraUrls].filter((url): url is string => Boolean(url)))]
+  if (!links.length && !asOfDate) {
     return null
   }
   return (
     <p className="cite">
-      {sourceUrl ? (
-        <a href={sourceUrl} target="_blank" rel="noreferrer">
-          {sourceUrl}
-        </a>
-      ) : null}
-      {sourceUrl && asOfDate ? <span> · </span> : null}
+      {links.map((url, index) => (
+        <span key={url}>
+          {index > 0 ? <span> · </span> : null}
+          <a href={url} target="_blank" rel="noreferrer">
+            {url}
+          </a>
+        </span>
+      ))}
+      {links.length && asOfDate ? <span> · </span> : null}
       {asOfDate ? <span>Updated {asOfDate}</span> : null}
     </p>
   )
@@ -485,7 +497,11 @@ function App() {
                   {pair.assistant && peeled ? (
                     <div className="bubble assistant">
                       <AnswerText text={peeled.body} />
-                      <CitationFooter sourceUrl={peeled.source_url} asOfDate={peeled.as_of_date} />
+                      <CitationFooter
+                        sourceUrl={peeled.source_url}
+                        asOfDate={peeled.as_of_date}
+                        extraUrls={amfiUrls(pair.assistant.text)}
+                      />
                     </div>
                   ) : null}
                 </article>

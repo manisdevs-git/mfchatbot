@@ -62,7 +62,7 @@ Refusal responses should:
 
 - Be polite and clearly worded
 - Reinforce the facts-only limitation
-- Provide a relevant educational link (Groww primer / help page)
+- Provide a relevant educational link (AMFI investor education and AMFI mutual fund risks — not in the RAG index)
 
 ### 4. User Interface (Minimal)
 

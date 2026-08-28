@@ -109,11 +109,25 @@ export const MISSING_API_URL =
   'The FAQ API address is not configured. Set VITE_API_BASE_URL and reload.'
 
 export function apiBaseUrl(): string {
+  if (import.meta.env.DEV) {
+    return ''
+  }
   const raw = import.meta.env.VITE_API_BASE_URL
   if (typeof raw !== 'string') {
     return ''
   }
   return raw.trim().replace(/\/$/, '')
+}
+
+function apiRoot(): string {
+  const base = apiBaseUrl()
+  if (import.meta.env.DEV) {
+    return base
+  }
+  if (!base) {
+    throw new Error(MISSING_API_URL)
+  }
+  return base
 }
 
 export function peelCitation(
@@ -261,10 +275,7 @@ export async function fetchLatency(
   query?: string,
   signal?: AbortSignal,
 ): Promise<LatencyReview> {
-  const base = apiBaseUrl()
-  if (!base) {
-    throw new Error(MISSING_API_URL)
-  }
+  const base = apiRoot()
 
   const trimmed = query?.trim() ?? ''
   const url = trimmed ? `${base}/latency` : `${base}/latency?mode=${encodeURIComponent(mode)}`
@@ -340,10 +351,7 @@ export async function fetchLatency(
 }
 
 export async function askQuestion(query: string, signal?: AbortSignal): Promise<AskResponse> {
-  const base = apiBaseUrl()
-  if (!base) {
-    throw new Error(MISSING_API_URL)
-  }
+  const base = apiRoot()
 
   let response: Response
   try {
@@ -418,10 +426,7 @@ export type ScheduleRun = {
 }
 
 async function schedulerRequest<T>(path: string, init?: RequestInit): Promise<T> {
-  const base = apiBaseUrl()
-  if (!base) {
-    throw new Error(MISSING_API_URL)
-  }
+  const base = apiRoot()
   let response: Response
   try {
     response = await fetch(`${base}${path}`, {

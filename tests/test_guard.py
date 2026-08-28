@@ -11,12 +11,14 @@ from src.generate import (
     pii_block_for_gemini,
     policy_block_for_gemini,
     screen_model_output,
+    uses_semantic_policy,
 )
 from src.guard import GuardDecision, classify, contains_pii
 from src.pipeline import handle
 from src.refuse import (
     ADVISORY_REFUSAL,
     EDUCATION_URL,
+    OUT_OF_SCOPE_REFUSAL,
     PII_REFUSAL,
     format_refusal,
 )
@@ -39,20 +41,34 @@ class PiiTests(unittest.TestCase):
 
 
 class IntentTableTests(unittest.TestCase):
-    def test_advisory_should_i_invest_is_routed_not_refused(self) -> None:
-        decision = classify("Should I invest in this fund?")
-        self.assertEqual(decision.intent, "advisory")
-        self.assertTrue(decision.allow_retrieve)
-        self.assertTrue(decision.allow_gemini)
+    def test_advice_is_unlabelled_for_retrieve_not_regex(self) -> None:
+        for query in (
+            "Should I invest in this fund?",
+            "Which fund is better?",
+            "which is best scheme",
+            "say me a best scheme",
+            "give me an investment advice",
+            "advise on scheme",
+        ):
+            with self.subTest(query=query):
+                decision = classify(query)
+                self.assertNotEqual(decision.intent, "advisory", query)
+                self.assertEqual(decision.reason, "unknown", query)
+                self.assertIsNone(policy_block_for_gemini(query))
+                self.assertTrue(uses_semantic_policy(query), query)
+                self.assertTrue(decision.allow_gemini)
 
-    def test_advisory_which_is_better(self) -> None:
-        decision = classify("Which fund is better?")
-        self.assertEqual(decision.intent, "advisory")
-        self.assertTrue(decision.allow_gemini)
+    def test_scheme_without_topic_still_goes_to_gemini(self) -> None:
+        query = "Advise on large cap"
+        self.assertEqual(classify(query).reason, "topic_required")
+        self.assertIsNone(policy_block_for_gemini(query))
+        self.assertTrue(uses_semantic_policy(query))
 
-    def test_advisory_compare_two_schemes(self) -> None:
-        decision = classify("Compare expense ratio of large cap and mid cap")
-        self.assertEqual(decision.intent, "advisory")
+    def test_compare_two_schemes_goes_to_gemini(self) -> None:
+        query = "Compare expense ratio of large cap and mid cap"
+        self.assertEqual(classify(query).reason, "multiple_schemes")
+        self.assertIsNone(policy_block_for_gemini(query))
+        self.assertTrue(uses_semantic_policy(query))
 
     def test_performance_three_year_return(self) -> None:
         decision = classify("What was the 3-year return of the Large Cap fund?")
@@ -95,8 +111,13 @@ class IntentTableTests(unittest.TestCase):
         self.assertTrue(decision.allow_retrieve)
 
     def test_advisory_wins_over_factual_in_same_turn(self) -> None:
-        decision = classify("Should I invest? Also what is TER of large cap?")
-        self.assertEqual(decision.intent, "advisory")
+        query = "Should I invest? Also what is TER of large cap?"
+        chunk = {"text": "Expense ratio: 1.02%", "scheme_id": "hdfc-large-cap-fund-direct-growth"}
+        with patch("src.pipeline.retrieve", return_value=[chunk]):
+            with patch("src.generate.call_gemini", return_value=ADVISORY_REFUSAL):
+                result = handle(query)
+        self.assertEqual(result.intent, "advisory")
+        self.assertEqual(result.text, ADVISORY_REFUSAL)
 
     def test_incomplete_topic_without_scheme(self) -> None:
         decision = classify("What is the expense ratio?")
@@ -111,26 +132,37 @@ class PipelineRoutingTests(unittest.TestCase):
         patcher.start()
 
     def test_policy_intents_are_allowed_through_to_retrieve(self) -> None:
-        routed = (
-            "Should I invest in this fund?",
-            "Which fund is better?",
+        canned = (
             "What was the 3-year return of the Large Cap fund?",
             "SBI Bluechip expense ratio",
             "What is the expense ratio?",
         )
-        for query in routed:
+        for query in canned:
             result = handle(query)
             self.assertTrue(result.allow_retrieve, query)
             self.assertTrue(result.allow_gemini, query)
             self.assertEqual(result.text, policy_block_for_gemini(query), query)
+        with patch("src.generate.call_gemini", return_value=ADVISORY_REFUSAL) as gemini:
+            for query in (
+                "Should I invest in this fund?",
+                "Which fund is better?",
+                "say me a best scheme",
+            ):
+                result = handle(query)
+                self.assertTrue(result.allow_retrieve, query)
+                self.assertTrue(result.allow_gemini, query)
+                self.assertEqual(result.text, ADVISORY_REFUSAL, query)
+                self.assertEqual(result.intent, "advisory", query)
+        self.assertEqual(gemini.call_count, 3)
 
     def test_empty_is_the_only_front_door_stop(self) -> None:
         result = handle("   ")
         self.assertFalse(result.allow_retrieve)
         self.assertFalse(result.allow_gemini)
 
+    @patch("src.generate.call_gemini", return_value=ADVISORY_REFUSAL)
     @patch("src.pipeline.classify")
-    def test_handle_does_not_need_a_model(self, mocked_classify) -> None:
+    def test_handle_does_not_need_a_model(self, mocked_classify, mocked_gemini) -> None:
         mocked_classify.return_value = GuardDecision(
             intent="advisory",
             scheme_id=None,
@@ -141,7 +173,8 @@ class PipelineRoutingTests(unittest.TestCase):
         )
         result = handle("Should I invest in this fund?")
         self.assertEqual(result.text, ADVISORY_REFUSAL)
-        mocked_classify.assert_called_once()
+        mocked_classify.assert_called()
+        mocked_gemini.assert_called()
 
 
 class GeminiSideGuardTests(unittest.TestCase):
@@ -152,10 +185,12 @@ class GeminiSideGuardTests(unittest.TestCase):
 
     def test_advisory_refused_only_at_gemini_boundary(self) -> None:
         query = "Which fund is better?"
-        self.assertTrue(handle(query).allow_retrieve)
-        self.assertEqual(policy_block_for_gemini(query), ADVISORY_REFUSAL)
-        self.assertEqual(generate_answer(query, chunks=[{"text": "TER 1%"}]), ADVISORY_REFUSAL)
-        self.assertIn(EDUCATION_URL, format_refusal(classify(query)))
+        self.assertIsNone(policy_block_for_gemini(query))
+        with patch("src.generate.call_gemini", return_value=ADVISORY_REFUSAL) as gemini:
+            self.assertTrue(handle(query).allow_retrieve)
+            self.assertEqual(generate_answer(query, chunks=[{"text": "TER 1%"}]), ADVISORY_REFUSAL)
+        gemini.assert_called()
+        self.assertIn(EDUCATION_URL, ADVISORY_REFUSAL)
 
     def test_performance_refused_only_at_gemini_boundary(self) -> None:
         query = "What was the 3-year return of the Large Cap fund?"
@@ -195,7 +230,7 @@ class GeminiSideGuardTests(unittest.TestCase):
         prompt = llm_system_prompt()
         self.assertIn("PII > advisory/compare > performance", prompt)
         self.assertIn("PAN", prompt)
-        self.assertIn("which fund is better", prompt)
+        self.assertIn("say me a best scheme", prompt)
         self.assertIn("CAGR", prompt)
         self.assertIn("factsheet snapshot", prompt)
         self.assertIn(EDUCATION_URL, prompt)
@@ -206,6 +241,18 @@ class GeminiSideGuardTests(unittest.TestCase):
     def test_nav_is_not_refused_at_gemini_boundary(self) -> None:
         query = "What is the current NAV of HDFC Large Cap Fund Direct Growth?"
         self.assertEqual(classify(query).intent, "factual")
+        self.assertIsNone(policy_block_for_gemini(query))
+
+    def test_unlabelled_advice_is_not_canned_out_of_scope(self) -> None:
+        query = "help me pick a scheme"
+        self.assertEqual(classify(query).reason, "unknown")
+        self.assertTrue(uses_semantic_policy(query))
+        self.assertIsNone(policy_block_for_gemini(query))
+
+    def test_scheme_without_topic_is_not_canned_incomplete(self) -> None:
+        query = "guide me on large cap"
+        self.assertEqual(classify(query).reason, "topic_required")
+        self.assertTrue(uses_semantic_policy(query))
         self.assertIsNone(policy_block_for_gemini(query))
 
 

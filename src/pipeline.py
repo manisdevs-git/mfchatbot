@@ -9,7 +9,7 @@ from dataclasses import dataclass, field
 from src.format import format_catalog, format_response
 from src.generate import generate_answer, llm_system_prompt, policy_block_for_gemini
 from src.guard import GuardDecision, classify
-from src.refuse import format_refusal
+from src.refuse import ADVISORY_REFUSAL, format_refusal
 from src.retrieve import RetrieveError, retrieve
 from src.timing import Stopwatch, skip_if, span_if
 
@@ -72,7 +72,26 @@ def handle(
         )
 
     if decision.intent == "catalog":
-        skip_if(watch, "gemini", "Gemini writer", "writer", "catalog is extractive")
+        if not force_extractive:
+            body = generate_answer(
+                query,
+                chunks,
+                force_extractive=False,
+                watch=watch,
+            )
+            if (body or "").strip() == ADVISORY_REFUSAL.strip():
+                skip_if(watch, "format", "Format + citation", "api", "advisory refusal")
+                return PipelineResult(
+                    intent="advisory",
+                    scheme_id=None,
+                    topic=decision.topic,
+                    allow_retrieve=True,
+                    allow_gemini=True,
+                    chunks=chunks,
+                    text=ADVISORY_REFUSAL,
+                )
+        else:
+            skip_if(watch, "gemini", "Gemini writer", "writer", "catalog extractive")
         skip_if(watch, "extractive", "Extractive fallback", "writer", "catalog formatter")
         if watch is not None:
             watch.meta["writer"] = "catalog"
@@ -94,6 +113,19 @@ def handle(
         force_extractive=force_extractive,
         watch=watch,
     )
+    if (body or "").strip() == ADVISORY_REFUSAL.strip():
+        skip_if(watch, "format", "Format + citation", "api", "advisory refusal")
+        if watch is not None:
+            watch.meta["writer"] = watch.meta.get("writer") or "refusal"
+        return PipelineResult(
+            intent="advisory",
+            scheme_id=decision.scheme_id,
+            topic=decision.topic,
+            allow_retrieve=True,
+            allow_gemini=True,
+            chunks=chunks,
+            text=ADVISORY_REFUSAL,
+        )
     if not chunks:
         skip_if(watch, "format", "Format + citation", "api", "no chunks")
         return PipelineResult(

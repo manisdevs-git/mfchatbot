@@ -1,8 +1,8 @@
 """Retrieve routing only. No refusals.
 
-Policy (PII, advisory, performance, out of scope, incomplete) is enforced
-in src/generate.py at the Gemini boundary and in the system prompt.
-This module only labels the question and extracts scheme_id / topic.
+This module labels the question for retrieve (scheme_id / topic).
+Advisory / compare / ranking is not detected here. Gemini applies that
+rule from the system prompt in src/generate.py.
 """
 
 from __future__ import annotations
@@ -12,7 +12,7 @@ import re
 import sys
 from dataclasses import dataclass
 
-from src.schemes import fold, resolve_scheme_ids
+from src.schemes import resolve_scheme_ids
 
 MAX_QUERY_CHARS = 2000
 
@@ -35,25 +35,6 @@ OTP_CONTEXT_RE = re.compile(r"\botp\b", re.I)
 OTP_DIGITS_RE = re.compile(r"\b\d{4,8}\b")
 FOLIO_RE = re.compile(r"\b(?:folio|account|ac(?:c)?(?:ount)?(?:\s*no\.?)?)\b", re.I)
 LONG_DIGITS_RE = re.compile(r"\b\d{11,18}\b")
-
-ADVISORY_RES = (
-    re.compile(r"\bshould i (invest|buy|put|start|sip)\b", re.I),
-    re.compile(r"\bwhich (fund|one|scheme) is better\b", re.I),
-    re.compile(r"\bwhich (fund|one|scheme) should i\b", re.I),
-    re.compile(r"\b(?:is|are) (?:it|this|the fund) (?:good|better|safe) for me\b", re.I),
-    re.compile(r"\bsuitable for\b", re.I),
-    re.compile(r"\bgood for (?:me|a \d)", re.I),
-    re.compile(r"\b(?:recommend|suggest) (?:a |the )?(?:fund|scheme|sip)\b", re.I),
-    re.compile(r"\bwould you buy\b", re.I),
-    re.compile(r"\brank (?:these|the) (?:five )?funds\b", re.I),
-    re.compile(r"\bwhich one i should pick\b", re.I),
-    re.compile(r"\bis it safe to (?:put|invest|park)\b", re.I),
-    re.compile(r"\bbetter than\b", re.I),
-    re.compile(r"\bwhich is better\b", re.I),
-    re.compile(r"\bvs\.?\b", re.I),
-    re.compile(r"\bversus\b", re.I),
-    re.compile(r"\bcompare\b", re.I),
-)
 
 PERFORMANCE_RES = (
     re.compile(r"\b(?:\d+\s*[- ]\s*year|1 year|3 year|5 year|since inception)\s+returns?\b", re.I),
@@ -103,11 +84,7 @@ OUT_OF_SCOPE_RES = (
     re.compile(r"\b(?:moneycontrol|value research|morningstar)\b", re.I),
     re.compile(r"\btax planning\b", re.I),
     re.compile(r"\bportfolio construction\b", re.I),
-    re.compile(r"\bhow much should i invest\b", re.I),
 )
-
-# 80C "how much" is advice; a bare "is ELSS 80C" can wait for retrieve.
-TAX_ADVICE_RE = re.compile(r"\b(?:80c|tax sav(?:e|ing)).*(?:how much|should i)\b", re.I)
 
 
 @dataclass(frozen=True)
@@ -147,16 +124,6 @@ def contains_pii(text: str) -> bool:
     return False
 
 
-def _has_advisory(text: str) -> bool:
-    folded = fold(text)
-    if any(pattern.search(text) or pattern.search(folded) for pattern in ADVISORY_RES):
-        return True
-    schemes = resolve_scheme_ids(text)
-    if len(schemes) >= 2 and re.search(r"\b(?:better|vs|versus|compare|rank)\b", folded):
-        return True
-    return False
-
-
 def _has_performance(text: str) -> bool:
     return any(pattern.search(text) for pattern in PERFORMANCE_RES)
 
@@ -173,8 +140,6 @@ def _fact_topic(text: str) -> str | None:
 
 
 def _out_of_scope(text: str) -> bool:
-    if TAX_ADVICE_RE.search(text):
-        return True
     return any(pattern.search(text) for pattern in OUT_OF_SCOPE_RES)
 
 
@@ -214,8 +179,6 @@ def classify(query: str) -> GuardDecision:
     scheme_id = schemes[0] if len(schemes) == 1 else None
     topic = _fact_topic(text)
 
-    if _has_advisory(text):
-        return _routed("advisory", None, topic, "advisory")
     if _has_performance(text):
         return _routed("performance", scheme_id, topic, "performance")
     if _out_of_scope(text):

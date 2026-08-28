@@ -26,6 +26,7 @@ from src.guard import classify
 from src.latency import LatencyError, measure_latency
 from src.pipeline import handle
 from src.refuse import INCOMPLETE_EMPTY
+from src.schemes import AMFI_INVESTOR_URL
 from src.scheduler import (
     SchedulerError,
     create_schedule,
@@ -372,11 +373,13 @@ def ask(body: AskRequest) -> AskResponse | JSONResponse:
     result = handle(query, force_extractive=body.extractive)
     pii_blocked = pii_block_for_gemini(query) is not None
     # Citation fields belong to the chunk that wrote the answer, not a retrieve leftover.
-    if policy_block_for_gemini(query) is None and result.intent != "catalog":
-        source_url, as_of_date = winning_citation(result.chunks[0] if result.chunks else None)
+    if result.intent == "advisory":
+        source_url, as_of_date = AMFI_INVESTOR_URL, None
     elif result.intent == "catalog":
         source_url = None
         _, as_of_date = winning_citation(result.chunks[0] if result.chunks else None)
+    elif policy_block_for_gemini(query) is None:
+        source_url, as_of_date = winning_citation(result.chunks[0] if result.chunks else None)
     else:
         source_url, as_of_date = None, None
     payload = _ask_payload(

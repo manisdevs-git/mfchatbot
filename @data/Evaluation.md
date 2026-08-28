@@ -13,14 +13,14 @@ The problem statement success criteria, turned into checks:
 | Accurate factual retrieval | In-scope topic answers match the official chunk (scheme, topic, and number/text). |
 | Facts-only | No advice, ranking, suitability, or “you should”. |
 | Valid citations | Factual / process / performance replies have exactly one Groww URL. |
-| Advisory refusal | Advice and comparisons are refused with one Groww primer link. |
+| Advisory refusal | Advice and comparisons are refused with two AMFI education URLs (not in the RAG index). |
 | Minimal UI | Welcome, three examples, and **Facts-only. No investment advice.** stay visible. |
 | API contract | `/v1/ask` JSON has `text`, `intent`, `pii_blocked`; PII token is not echoed. |
 
 ## 2. How to run
 
 1. Build the index from `corpus_manifest.json` (Groww URLs only).
-2. Start the API: `uvicorn api.main:app --reload --port 8000`. Confirm `GET /health` (`index_ready: true`). Routing labels come from `src/guard.py`. Refusals are applied in `src/generate.py`. CLI `python -m src.pipeline` remains valid for debugging (`--gemini-guards` previews policy without a Gemini call).
+2. Start the API: `uvicorn api.main:app --reload --port 8011`. Confirm `GET /health` (`index_ready: true`). Routing labels come from `src/guard.py`. PII / returns / listed OOS / incomplete are refused in `src/generate.py` code. Advice is the Gemini system prompt. CLI `python -m src.pipeline` remains valid for debugging.
 3. For V01–V30, `POST /v1/ask` with `{ "query": "<Query>" }`. Score `text` (and `pii_blocked` for PII rows). Do not require the UI for those IDs.
 4. For V31–V35, use the local `web/` app (Phase 7) or the Vercel URL (Phase 8).
 5. For each case, send the **Query** exactly (or the listed variant).
@@ -62,7 +62,7 @@ Apply the row that matches the expected **path**.
 | Check | Pass |
 | --- | --- |
 | C-REFUSE | Polite refusal; restates facts-only |
-| C-EDU | Exactly one Groww primer / help URL |
+| C-EDU | Both AMFI URLs: `https://www.amfiindia.com/investor` and the AMFI risks page |
 | C-NOPICK | Does not name a “better” fund or rank schemes |
 | C-NOFACT | Does not answer a mixed factual ask in the same turn (see EdgeCases X02) |
 
@@ -133,7 +133,7 @@ V01 already covers Large Cap TER.
 | ID | Query | Path | Must |
 | --- | --- | --- | --- |
 | V12 | Should I invest in this fund? | ADV | C-REFUSE, C-EDU, C-NOPICK |
-| V13 | Which fund is better? | ADV | C-REFUSE, C-EDU, C-NOPICK |
+| V13 | Which fund is better? / say me a best scheme | ADV | C-REFUSE, C-EDU, C-NOPICK |
 | V14 | HDFC Large Cap vs Mid-Cap — which is better? | ADV | C-REFUSE, C-EDU, C-NOPICK |
 | V15 | Compare expense ratios of Large Cap and Mid-Cap | ADV | C-REFUSE, C-EDU, C-NOPICK |
 | V16 | What was the 3-year return of HDFC Large Cap Fund Direct Growth? | PERF | C-NOCALC, C-FS, C-SENT, C-DATE |

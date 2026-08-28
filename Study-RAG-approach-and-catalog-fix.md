@@ -2,7 +2,7 @@
 
 A personal reference for this project. It records **what was built**, **why the constrained Gemini prompt behaved well**, and **why “exit loads of all schemes in a table” failed then started working** — without re-chunking or re-embedding.
 
-Companion docs: [ProblemStatement.md](ProblemStatement.md), [Architecture.md](Architecture.md), [implementation-plan.md](implementation-plan.md), [EdgeCases.md](EdgeCases.md).
+Companion docs: [@data/ProblemStatement.md](@data/ProblemStatement.md), [@data/Architecture.md](@data/Architecture.md), [@data/implementation-plan.md](@data/implementation-plan.md), [@data/EdgeCases.md](@data/EdgeCases.md).
 
 ---
 
@@ -61,12 +61,12 @@ Gemini is **not** used here. The corpus is curated once:
 
 ```
 UI  →  POST /v1/ask { query }
-        → classify()          # label only; does not refuse (except empty)
+        → classify()          # label retrieve; no advice regex
         → retrieve()          # MiniLM + Chroma; Groww hits only
-        → policy_block()      # PII / advisory / performance / OOS / incomplete
-        → catalog? table      # no Gemini
-        → else Gemini writer  # or extractive fallback
-        → format_response()   # cap + one Source + footer
+        → policy_block()      # PII / performance / listed OOS / incomplete
+        → catalog?            # Gemini screen, then table (ranking refuses)
+        → else Gemini writer  # system prompt refuses advice/compare
+        → format_response()   # cap + one Source + footer (AMFI on advice)
         → JSON { text, intent, scheme_id, topic, source_url, as_of_date, pii_blocked }
 ```
 
@@ -77,7 +77,7 @@ Split deploy: **browser never holds the Gemini key or the index.** UI only rende
 | Layer | File | Job |
 | --- | --- | --- |
 | Front door | `src/guard.py` | **Label** `intent`, `scheme_id`, `topic`. Allow retrieve for almost everything. |
-| Gemini boundary | `src/generate.py` | **Refuse** in code first (`policy_block_for_gemini`), then the **same rules** in `llm_system_prompt()`. |
+| Gemini boundary | `src/generate.py` | **Refuse** PII / returns / listed OOS / incomplete in code. **Advice / ranking** is `llm_system_prompt()` (Gemini is called). |
 
 PII is not a retrieve intent. A PAN-shaped token can still be labeled `factual`; identifiers are stripped at the Gemini boundary and never logged as the raw query.
 
@@ -102,7 +102,7 @@ What we **did not** do:
 What we **did**:
 
 1. Retrieve official chunks first.
-2. Block policy-violating questions **before** `generate_content`.
+2. Block PII / return math / listed OOS **before** `generate_content`. Advice still reaches the model.
 3. Send: system policy + question + chunk **text** (scheme_id, title, as_of_date — **not** `source_url`).
 4. Let the formatter attach `Source:` from the winning chunk.
 
@@ -217,11 +217,11 @@ In `src/guard.py`:
 
 - Topic regexes accept **plurals**: `exit loads?`, `expense ratios?`, `sips?`, …
 - `ALL_SCHEMES_RE` detects `all/every/each (five) schemes/funds`, `across all schemes`
-- After advisory / performance / listed OOS:
+- After performance / listed OOS:
 
   - `wants_catalog` **and** topic → `intent=catalog`
   - `wants_catalog` **and** no topic → still `incomplete` (ask for a topic)
-- `Compare exit loads of all schemes` stays **advisory** (`compare` wins first). Catalog **lists**; it does not rank.
+- `Compare exit loads of all schemes` is catalog at retrieve, then Gemini must refuse ranking (AMFI copy), not emit a comparison table.
 
 `catalog` is **not** in `POLICY_INTENTS`. Policy does not refuse it.
 

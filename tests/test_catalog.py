@@ -41,10 +41,10 @@ class CatalogRoutingTests(unittest.TestCase):
         self.assertEqual(decision.intent, "factual")
         self.assertEqual(decision.topic, "exit_load")
 
-    def test_compare_all_schemes_stays_advisory(self) -> None:
+    def test_compare_all_schemes_is_catalog_until_gemini_refuses(self) -> None:
         decision = classify("Compare exit loads of all schemes")
-        self.assertEqual(decision.intent, "advisory")
-        self.assertIsNotNone(policy_block_for_gemini("Compare exit loads of all schemes"))
+        self.assertEqual(decision.intent, "catalog")
+        self.assertIsNone(policy_block_for_gemini("Compare exit loads of all schemes"))
 
     def test_resolve_filters_lists_every_scheme(self) -> None:
         scheme_ids, topic = resolve_filters(CATALOG_QUERY)
@@ -99,9 +99,9 @@ class CatalogPipelineTests(unittest.TestCase):
             for scheme_id in CATALOG_SCHEME_IDS
         ]
         with patch("src.pipeline.retrieve", return_value=chunks):
-            with patch("src.generate.call_gemini") as gemini:
+            with patch("src.generate.call_gemini", return_value="Exit loads vary by scheme.") as gemini:
                 result = handle(CATALOG_QUERY)
-        gemini.assert_not_called()
+        gemini.assert_called_once()
         self.assertEqual(result.intent, "catalog")
         self.assertEqual(len(result.chunks), 5)
         self.assertIn("| Scheme | Exit load | Source |", result.text)

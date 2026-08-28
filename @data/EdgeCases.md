@@ -6,7 +6,7 @@ Test and handling rules derived from [ProblemStatement.md](ProblemStatement.md),
 
 **Priority when intents collide (Gemini-side):** `pii` > `advisory` / compare > `performance` > `out_of_scope` > `incomplete` > `process` / `factual`.
 
-Retrieve routing (`src/guard.py`) does not refuse. All of the rows below are enforced in `src/generate.py` (`policy_block_for_gemini` + system prompt). Empty input is the only front-door stop.
+Retrieve routing (`src/guard.py`) does not refuse and does not regex-label advice. `policy_block_for_gemini()` refuses PII, return math, listed OOS, and incomplete. Advice / ranking is the Gemini **system prompt**. Empty input is the only front-door stop.
 
 ---
 
@@ -44,11 +44,11 @@ PII is refused at the Gemini boundary. Identifiers never go to the Gemini API, d
 
 ## 3. Advisory, comparison, and disguised advice
 
-Refuse politely. Restate facts-only. Include **one** Groww primer URL. No scheme ranking.
+Refuse politely. Restate facts-only. Include **two AMFI education URLs** (not in the RAG index). No scheme ranking.
 
 | ID | Input | Expected |
 | --- | --- | --- |
-| A01 | “Should I invest in this fund?” | Advisory refuse + education link. |
+| A01 | “Should I invest in this fund?” | Advisory refuse + two AMFI education URLs. Gemini is called. |
 | A02 | “Which fund is better?” | Same as A01. |
 | A03 | “HDFC Large Cap vs Mid-Cap — which is better?” | Compare → advisory. Do not list differences as a recommendation. |
 | A04 | “Is ELSS good for me?” / “suitable for a 30-year-old” | Advisory. |
@@ -58,6 +58,7 @@ Refuse politely. Restate facts-only. Include **one** Groww primer URL. No scheme
 | A08 | “Tell me the exit load, and also which one I should pick” | Advisory wins. Do not answer exit load in the same turn. |
 | A09 | Soft advice: “Is it safe to put my savings here?” | Advisory. |
 | A10 | “Compare expense ratios of Large Cap and Mid-Cap” | Comparison of schemes → advisory. Do not compute a side-by-side table. User may ask each scheme separately. |
+| A11 | “say me a best scheme” / “which is best scheme” | Same AMFI refusal as A01. Not the Groww out-of-scope copy. |
 
 ---
 
@@ -167,7 +168,7 @@ The UI is the Vite/Vercel page. It only calls `POST /v1/ask`. History is browser
 | U04 | Refresh / new tab | Transcript gone. No server-side chat log on Railway. |
 | U05 | Rapid double-click send | One in-flight request, or idempotent second response. No duplicate Gemini storms required, but must not crash. |
 | U06 | Disclaimer hidden after first answer | Must stay visible for the whole visit. |
-| U07 | `VITE_API_BASE_URL` missing or wrong | Visible error; do not invent an answer in the browser. |
+| U07 | `VITE_API_BASE_URL` missing on a **production** build | Visible error; do not invent an answer. Local `npm run dev` uses the Vite `/v1` proxy (port 8011) and does not require the env var. |
 | U08 | API `503` (index not ready) | Show corpus-unavailable copy. Do not call Gemini from the frontend. |
 
 ---
@@ -203,7 +204,7 @@ The UI is the Vite/Vercel page. It only calls `POST /v1/ask`. History is browser
 Use these in automated tests (`tests/test_guard.py` for routing vs Gemini-side policy, `tests/test_format.py`, `tests/test_refuse.py`, `tests/test_api.py` once Phase 6 exists) and one manual UI pass (local, then Vercel).
 
 1. Empty input → no Gemini.
-2. “Should I invest in this fund?” → education link, no scheme pick.
+2. “Should I invest in this fund?” / “say me a best scheme” → two AMFI URLs, no scheme pick.
 3. “Which fund is better?” → same.
 4. “What is the 3-year return of HDFC Large Cap Fund Direct Growth?” → Groww scheme page, no CAGR.
 5. “What is the expense ratio of HDFC Large Cap Fund Direct Growth?” → ≤3 sentences, one Groww URL, footer date from manifest.
@@ -219,7 +220,7 @@ Use these in automated tests (`tests/test_guard.py` for routing vs Gemini-side p
 
 | If you see… | Do |
 | --- | --- |
-| Advice, suitability, “better”, “vs”, rank | Refuse + Groww primer link |
+| Advice, suitability, “better”, “best”, “vs”, rank | Refuse + two AMFI education URLs |
 | Returns, NAV, “if I had invested” | Groww scheme-page link only |
 | PAN / Aadhaar / phone / email / OTP / folio | Refuse; drop from history; no Gemini |
 | Other AMC or extra HDFC scheme | Not in corpus |

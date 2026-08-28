@@ -97,17 +97,20 @@ class LatencyRouteTests(unittest.TestCase):
         self.assertTrue(_layer(body, "gemini")["skipped"])
         self.assertFalse(_layer(body, "extractive")["skipped"])
 
-    def test_catalog_probe_skips_gemini(self) -> None:
+    def test_catalog_probe_screens_then_builds_table(self) -> None:
         with patch("api.main.index_ready", return_value=True):
             with patch("src.pipeline.retrieve", return_value=[LARGE_CAP_CHUNK]):
-                with patch("src.generate.call_gemini") as gemini:
+                with patch(
+                    "src.generate.call_gemini",
+                    return_value="Exit loads vary by scheme.",
+                ) as gemini:
                     response = TestClient(app).get("/latency?mode=catalog")
-        gemini.assert_not_called()
+        gemini.assert_called_once()
         self.assertEqual(response.status_code, 200)
         body = response.json()
         self.assertEqual(body["intent"], "catalog")
         self.assertEqual(body["writer"], "catalog")
-        self.assertTrue(_layer(body, "gemini")["skipped"])
+        self.assertFalse(_layer(body, "gemini")["skipped"])
 
     def test_missing_index_is_503_with_layers(self) -> None:
         with patch("api.main.index_ready", return_value=False):
