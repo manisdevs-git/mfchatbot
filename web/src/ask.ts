@@ -37,6 +37,16 @@ export const EXAMPLE_QUESTIONS = [
     topic: 'NAV',
     question: 'What is the NAV of HDFC Large Cap Fund Direct Growth?',
   },
+  {
+    label: 'Riskometer',
+    topic: 'riskometer',
+    question: 'What is the riskometer of HDFC Gold ETF Fund of Fund Direct Plan Growth?',
+  },
+  {
+    label: 'Benchmark',
+    topic: 'benchmark',
+    question: 'What is the benchmark of HDFC Small Cap Fund Direct Growth?',
+  },
 ] as const
 
 export const IN_SCOPE_SCHEMES = [

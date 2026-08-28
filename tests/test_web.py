@@ -39,6 +39,11 @@ class WebContractTests(unittest.TestCase):
         self.assertIn("What is the exit load of HDFC ELSS Tax Saver Direct Plan?", ASK)
         self.assertIn("What is the minimum SIP amount for HDFC Mid Cap Fund Direct Growth?", ASK)
         self.assertIn("What is the NAV of HDFC Large Cap Fund Direct Growth?", ASK)
+        self.assertIn(
+            "What is the riskometer of HDFC Gold ETF Fund of Fund Direct Plan Growth?",
+            ASK,
+        )
+        self.assertIn("What is the benchmark of HDFC Small Cap Fund Direct Growth?", ASK)
         self.assertIn("Facts-only. No investment advice.", ASK)
         for title in (
             "HDFC Large Cap Fund Direct Growth",
@@ -112,7 +117,9 @@ class WebContractTests(unittest.TestCase):
         self.assertIn("clearHistory", APP)
         self.assertIn("ClearIcon", APP)
         self.assertIn("SparkIcon", APP)
+        self.assertIn("SweepIcon", APP)
         self.assertIn("Clear history", APP)
+        self.assertIn("is-clearing", APP)
         self.assertIn('aria-label="About"', APP)
         self.assertIn("info-btn", APP)
         self.assertIn("Sample FAQs", APP)
@@ -132,6 +139,8 @@ class WebContractTests(unittest.TestCase):
         self.assertIn("transcript-log", APP)
         self.assertIn("chat-step", APP)
         self.assertIn("className=\"cite\"", APP)
+        self.assertIn("{sourceUrl}", APP)
+        self.assertNotIn(">Source<", APP)
         self.assertIn("peelCitation", APP)
         self.assertIn("peelCitation", ASK)
         self.assertNotIn("Q:", APP)

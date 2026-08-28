@@ -127,7 +127,7 @@ function CitationFooter({
     <p className="cite">
       {sourceUrl ? (
         <a href={sourceUrl} target="_blank" rel="noreferrer">
-          Source
+          {sourceUrl}
         </a>
       ) : null}
       {sourceUrl && asOfDate ? <span> · </span> : null}
@@ -210,6 +210,21 @@ function StopIcon() {
   )
 }
 
+function SweepIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d="M12 3.4v6.2M8.1 16.8c1.1 1.7 6.7 1.7 7.8 0L13.8 8.6c-.25-.85-1.35-.85-1.6 0zM4.6 19.6h14.8"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 function App() {
   const [draft, setDraft] = useState('')
   const [turns, setTurns] = useState<Turn[]>([])
@@ -218,10 +233,12 @@ function App() {
   const [showFacts, setShowFacts] = useState(false)
   const [howtoOpen, setHowtoOpen] = useState(false)
   const [busy, setBusy] = useState(false)
+  const [clearing, setClearing] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const inputRef = useRef<HTMLTextAreaElement>(null)
   const abortRef = useRef<AbortController | null>(null)
   const logRef = useRef<HTMLDivElement>(null)
+  const clearTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     const log = logRef.current
@@ -230,6 +247,14 @@ function App() {
     }
     log.scrollTop = log.scrollHeight
   }, [turns, busy])
+
+  useEffect(() => {
+    return () => {
+      if (clearTimerRef.current !== null) {
+        clearTimeout(clearTimerRef.current)
+      }
+    }
+  }, [])
 
   function focusDraft(value: string) {
     setDraft(value)
@@ -289,11 +314,17 @@ function App() {
   }
 
   function clearHistory() {
-    if (busy) {
+    if (busy || clearing || turns.length === 0) {
       return
     }
-    setTurns([])
-    setError(null)
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    setClearing(true)
+    clearTimerRef.current = setTimeout(() => {
+      setTurns([])
+      setError(null)
+      setClearing(false)
+      clearTimerRef.current = null
+    }, reduced ? 0 : 480)
   }
 
   function stopAsk() {
@@ -305,7 +336,7 @@ function App() {
 
   async function submit(query: string) {
     const trimmed = query.trim()
-    if (!trimmed || busy) {
+    if (!trimmed || busy || clearing) {
       return
     }
     const asked = questionWithScheme(trimmed, picked)
@@ -411,12 +442,21 @@ function App() {
       <main className="transcript" aria-live="polite">
         {turns.length > 0 ? (
           <div className="ledger-bar">
-            <button type="button" className="clear-history" disabled={busy} onClick={clearHistory}>
+            <button
+              type="button"
+              className="clear-history"
+              disabled={busy || clearing}
+              onClick={clearHistory}
+            >
+              <SweepIcon />
               Clear history
             </button>
           </div>
         ) : null}
-        <div className={`transcript-log${turns.length === 0 && !busy ? ' is-empty' : ''}`} ref={logRef}>
+        <div
+          className={`transcript-log${turns.length === 0 && !busy ? ' is-empty' : ''}${clearing ? ' is-clearing' : ''}`}
+          ref={logRef}
+        >
           {turns.length === 0 && !busy ? (
             <div className="ledger-empty">
               <span aria-hidden="true">?</span>
@@ -476,7 +516,7 @@ function App() {
             disabled={busy}
             placeholder={
               picked
-                ? `Now pick Expense ratio, Exit load, Min SIP, or NAV for ${picked.code}`
+                ? `Now pick Expense ratio, Exit load, Min SIP, NAV, Riskometer, or Benchmark for ${picked.code}`
                 : 'Ask a factual question, or tap a fund below'
             }
             value={draft}
