@@ -6,6 +6,7 @@ import {
   applyAskResult,
   askQuestion,
   isAbortError,
+  peelCitation,
   questionWithScheme,
   type InScopeScheme,
   type Turn,
@@ -112,10 +113,48 @@ function AnswerText({ text }: { text: string }) {
   )
 }
 
-function exchangeStamp(turns: Turn[], index: number): string {
-  const role = turns[index]?.role
-  const count = turns.slice(0, index + 1).filter((turn) => turn.role === role).length
-  return String(count).padStart(2, '0')
+function CitationFooter({
+  sourceUrl,
+  asOfDate,
+}: {
+  sourceUrl: string | null
+  asOfDate: string | null
+}) {
+  if (!sourceUrl && !asOfDate) {
+    return null
+  }
+  return (
+    <p className="cite">
+      {sourceUrl ? (
+        <a href={sourceUrl} target="_blank" rel="noreferrer">
+          Source
+        </a>
+      ) : null}
+      {sourceUrl && asOfDate ? <span> · </span> : null}
+      {asOfDate ? <span>Updated {asOfDate}</span> : null}
+    </p>
+  )
+}
+
+function pairTurns(turns: Turn[]): Array<{ key: string; user?: Turn; assistant?: Turn }> {
+  const pairs: Array<{ key: string; user?: Turn; assistant?: Turn }> = []
+  let index = 0
+  while (index < turns.length) {
+    const current = turns[index]
+    const next = turns[index + 1]
+    if (current.role === 'user' && next?.role === 'assistant') {
+      pairs.push({ key: `ex-${index}`, user: current, assistant: next })
+      index += 2
+      continue
+    }
+    if (current.role === 'user') {
+      pairs.push({ key: `q-${index}`, user: current })
+    } else {
+      pairs.push({ key: `a-${index}`, assistant: current })
+    }
+    index += 1
+  }
+  return pairs
 }
 
 function InfoIcon() {
@@ -385,40 +424,37 @@ function App() {
               <p>Pick a fund below, or hover Sample FAQs. This strip stays in this tab only.</p>
             </div>
           ) : (
-            turns.map((turn, index) => (
-              <article
-                key={`${turn.role}-${index}`}
-                className={`ledger-row ${turn.role}${turn.text.includes('| Scheme |') ? ' wide' : ''}`}
-              >
-                <div className="ledger-pane ans">
-                  {turn.role !== 'user' ? (
-                    <div className="bubble assistant">
-                      <h2>
-                        Ans: <span>{exchangeStamp(turns, index)}</span>
-                      </h2>
-                      <AnswerText text={turn.text} />
-                    </div>
-                  ) : null}
-                </div>
-                <span className="ledger-node" aria-hidden="true" />
-                <div className="ledger-pane q">
-                  {turn.role === 'user' ? (
+            pairTurns(turns).map((pair, pairIndex) => {
+              const peeled = pair.assistant
+                ? peelCitation(pair.assistant.text, {
+                    source_url: pair.assistant.source_url,
+                    as_of_date: pair.assistant.as_of_date,
+                  })
+                : null
+              const wide = Boolean(peeled?.body.includes('| Scheme |'))
+              return (
+                <article
+                  key={pair.key}
+                  className={`chat-step${wide ? ' wide' : ''}${pair.user && pair.assistant ? ' stacked' : ''}`}
+                >
+                  {pair.user ? (
                     <div className="bubble user">
-                      <h2>
-                        Q: <span>{exchangeStamp(turns, index)}</span>
-                      </h2>
-                      <AnswerText text={turn.text} />
+                      <AnswerText text={pair.user.text} />
                     </div>
                   ) : null}
-                </div>
-              </article>
-            ))
+                  {pair.assistant && peeled ? (
+                    <div className="bubble assistant">
+                      <AnswerText text={peeled.body} />
+                      <CitationFooter sourceUrl={peeled.source_url} asOfDate={peeled.as_of_date} />
+                    </div>
+                  ) : null}
+                </article>
+              )
+            })
           )}
           {busy ? (
-            <div className="ledger-row pending-row">
+            <div className="chat-step pending-row">
               <p className="pending">Looking up the Groww pages…</p>
-              <span className="ledger-node is-pulse" aria-hidden="true" />
-              <span />
             </div>
           ) : null}
         </div>

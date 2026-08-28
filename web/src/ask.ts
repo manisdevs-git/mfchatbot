@@ -12,6 +12,8 @@ export type Turn = {
   role: 'user' | 'assistant' | 'scheme'
   text: string
   caption?: string
+  source_url?: string | null
+  as_of_date?: string | null
 }
 
 export const EXAMPLE_QUESTIONS = [
@@ -104,12 +106,33 @@ export function apiBaseUrl(): string {
   return raw.trim().replace(/\/$/, '')
 }
 
+export function peelCitation(
+  text: string,
+  extras?: { source_url?: string | null; as_of_date?: string | null },
+): { body: string; source_url: string | null; as_of_date: string | null } {
+  const sourceMatch = text.match(/^\s*Source:\s+(\S+)\s*$/im)
+  const footerMatch = text.match(/^\s*Last updated from sources:\s+(.+?)\s*$/im)
+  const sourceUrl = extras?.source_url?.trim() || sourceMatch?.[1] || null
+  const asOfDate = extras?.as_of_date?.trim() || footerMatch?.[1]?.trim() || null
+  const body = text
+    .replace(/^\s*Source:\s+\S+\s*$/gim, '')
+    .replace(/^\s*Last updated from sources:\s+.+\s*$/gim, '')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim()
+  return { body, source_url: sourceUrl, as_of_date: asOfDate }
+}
+
 export function applyAskResult(
   history: Turn[],
   query: string,
-  response: Pick<AskResponse, 'text' | 'pii_blocked'>,
+  response: Pick<AskResponse, 'text' | 'pii_blocked' | 'source_url' | 'as_of_date'>,
 ): Turn[] {
-  const assistant: Turn = { role: 'assistant', text: response.text }
+  const assistant: Turn = {
+    role: 'assistant',
+    text: response.text,
+    source_url: response.source_url,
+    as_of_date: response.as_of_date,
+  }
   if (response.pii_blocked) {
     return [...history, assistant]
   }
