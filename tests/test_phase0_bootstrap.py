@@ -61,9 +61,9 @@ class Phase0BootstrapTests(unittest.TestCase):
         self.assertIn("GEMINI_API_KEY=", text)
         self.assertNotRegex(text, r"GEMINI_API_KEY=\S+")
         self.assertIn("FRONTEND_ORIGINS=", text)
+        self.assertIn("SCHEDULER_BACKEND=local", text)
         self.assertIn("SCHEDULER_GITHUB_TOKEN=", text)
         self.assertNotRegex(text, r"SCHEDULER_GITHUB_TOKEN=\S+")
-        self.assertIn("SCHEDULER_GITHUB_REF=main", text)
 
     def test_gitignore_covers_secrets_and_generated_data(self) -> None:
         text = (ROOT / ".gitignore").read_text(encoding="utf-8")

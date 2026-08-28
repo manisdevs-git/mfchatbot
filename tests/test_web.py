@@ -93,8 +93,8 @@ class WebContractTests(unittest.TestCase):
         self.assertIn("Run history", SCHEDULER)
         self.assertIn("/v1/schedules", ASK)
         self.assertIn("IST", SCHEDULER)
-        self.assertIn("GitHub", SCHEDULER)
-        self.assertIn("main", SCHEDULER)
+        self.assertIn("Railway", SCHEDULER)
+        self.assertIn("Run now", SCHEDULER)
 
     def test_chat_input_has_no_identity_fields(self) -> None:
         lowered = APP.lower()

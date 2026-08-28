@@ -20,7 +20,6 @@ from src.scheduler import (
     default_execute,
     dispatch_github_ingest,
     fire_due_schedules,
-    github_ref,
     load_runs,
     next_run_at,
     parse_times,
@@ -78,10 +77,9 @@ class SchedulerStoreTests(unittest.TestCase):
     def test_loop_is_skipped_in_tests(self) -> None:
         self.assertFalse(should_run_loop())
 
-    def test_default_backend_is_github_on_main(self) -> None:
+    def test_default_backend_is_local_ingest(self) -> None:
         os.environ.pop("SCHEDULER_BACKEND", None)
-        self.assertEqual(scheduler_backend(), "github")
-        self.assertEqual(github_ref(), "main")
+        self.assertEqual(scheduler_backend(), "local")
 
     def test_github_dispatch_requires_token(self) -> None:
         os.environ["SCHEDULER_BACKEND"] = "github"

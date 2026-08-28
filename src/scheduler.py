@@ -1,8 +1,9 @@
-"""IST corpus schedules. Fires start the GitHub ingest Action on main.
+"""IST corpus schedules. The API process runs ingest itself.
 
-Ingest always uses origin/main files (scrape → jsonl commit → Railway),
-not this process's working tree. Set SCHEDULER_BACKEND=local only to
-run ingest.refresh_corpus on this machine. Tests skip the loop.
+Same behavior locally and on Railway: at a saved IST time this process
+runs ingest.refresh_corpus, then rebuilds Chroma so chat uses the new
+pages. GitHub Actions is optional (SCHEDULER_BACKEND=github). Tests skip
+the background loop.
 """
 
 from __future__ import annotations
@@ -332,10 +333,10 @@ def github_ref() -> str:
 
 
 def scheduler_backend() -> str:
-    raw = os.environ.get("SCHEDULER_BACKEND", "github").strip().lower()
-    if raw in {"local", "ingest"}:
-        return "local"
-    return "github"
+    raw = os.environ.get("SCHEDULER_BACKEND", "local").strip().lower()
+    if raw in {"github", "action", "actions"}:
+        return "github"
+    return "local"
 
 
 def _github_request(method: str, url: str, token: str, payload: dict | None = None) -> Any:
@@ -377,7 +378,16 @@ def local_ingest() -> tuple[bool, str]:
     )
     output = ((proc.stdout or "") + "\n" + (proc.stderr or "")).strip()
     tail = output[-1800:] if output else f"exit {proc.returncode}"
-    return proc.returncode == 0, tail
+    if proc.returncode != 0:
+        return False, tail
+    try:
+        from ingest.embed_index import ensure_persisted_index
+
+        ready = ensure_persisted_index()
+    except Exception as exc:
+        return False, f"{tail}\nChroma rebuild failed: {exc}"[-2000:]
+    note = "Chroma rebuilt from the new embeddings." if ready else "Ingest finished but Chroma is empty."
+    return True, f"{tail}\n{note}"[-2000:]
 
 
 def dispatch_github_ingest() -> tuple[bool, str]:

@@ -157,15 +157,15 @@ export default function SchedulerPage() {
         <p className="scheduler-kicker">
           <a href="/">Chat</a>
           {' · '}
-          GitHub ingest on main
+          production scheduler
         </p>
         <h1>
           Corpus <em>scheduler</em>
         </h1>
         <p>
-          Times are IST. A saved time starts the Refresh Groww corpus Action on GitHub{" "}
-          <code>main</code> — scrape and jsonl come from that remote branch, not this laptop.
-          Pause stops future fires; history stays. Delete removes the schedule only.
+          Times are IST. This API scrapes Groww and rebuilds the search index when a saved time
+          matches — the same as local, including on Railway. Pause stops future fires; history
+          stays. Delete removes the schedule only.
         </p>
       </header>
 
