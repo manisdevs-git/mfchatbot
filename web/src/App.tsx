@@ -424,7 +424,7 @@ function App() {
               <p>Pick a fund below, or hover Sample FAQs. This strip stays in this tab only.</p>
             </div>
           ) : (
-            pairTurns(turns).map((pair, pairIndex) => {
+            pairTurns(turns).map((pair) => {
               const peeled = pair.assistant
                 ? peelCitation(pair.assistant.text, {
                     source_url: pair.assistant.source_url,
