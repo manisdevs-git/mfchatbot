@@ -344,7 +344,7 @@ Chat history stays in the browser for the current visit only. The API does not p
 | Control | Implementation |
 | --- | --- |
 | No PII fields in UI | Chat box only; no login, KYC, or contact forms |
-| PII in free text | Refused in `generate.py` before Gemini; `pii_blocked` tells the UI not to keep the message; not persisted and not sent to Gemini. Composer example: `chatdemo/06-pan.png`. |
+| PII in free text | Refused in `generate.py` before Gemini; `pii_blocked` tells the UI not to keep the message; not persisted and not sent to Gemini. UI: `chatdemo/06-pan.png`, `chatdemo/08-pan-refuse.png`. |
 | No account actions | Assistant never downloads statements on the user’s behalf; it only describes the Groww help process |
 | Corpus isolation | Index contains public scheme documents, not customer data |
 | Logging | If enabled for debugging, log intent labels and scheme/topic only — never raw queries that failed PII checks |

@@ -32,6 +32,7 @@ class ReadmeContractTests(unittest.TestCase):
         self.assertIn("chatdemo/05-chat.png", README)
         self.assertIn("chatdemo/06-pan.png", README)
         self.assertIn("chatdemo/07-advice.png", README)
+        self.assertIn("chatdemo/08-pan-refuse.png", README)
         self.assertIn("chatdemo/preview.html", README)
         for name in (
             "01-home.png",
@@ -41,6 +42,7 @@ class ReadmeContractTests(unittest.TestCase):
             "05-chat.png",
             "06-pan.png",
             "07-advice.png",
+            "08-pan-refuse.png",
             "preview.html",
         ):
             self.assertTrue((ROOT / "chatdemo" / name).is_file(), name)

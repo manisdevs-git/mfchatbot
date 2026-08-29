@@ -29,7 +29,7 @@ PII is refused at the Gemini boundary. Identifiers never go to the Gemini API, d
 
 | ID | Input | Expected |
 | --- | --- | --- |
-| P01 | PAN-shaped token (`ABCDE1234F`) in any question, including “any scheme linked to this?” | `pii` refuse. Do not store. Do not send to Gemini. UI: [`chatdemo/06-pan.png`](../chatdemo/06-pan.png). |
+| P01 | PAN-shaped token (`ABCDE1234F`) in any question, including “any scheme linked to this?” | `pii` refuse. Do not store. Do not send to Gemini. UI: [`chatdemo/06-pan.png`](../chatdemo/06-pan.png), [`chatdemo/08-pan-refuse.png`](../chatdemo/08-pan-refuse.png). |
 | P02 | 12-digit Aadhaar (with or without spaces) | Same as P01. |
 | P03 | Indian mobile (`9876543210`, `+91…`) | Same as P01. |
 | P04 | Email address | Same as P01. |

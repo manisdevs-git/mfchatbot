@@ -43,6 +43,8 @@ Open the chat app. No account, no notebook, no install. History stays in that br
 
 ![Composer with a PAN-shaped identifier](chatdemo/06-pan.png)
 
+![PAN refusal: no personal identifiers](chatdemo/08-pan-refuse.png)
+
 **Scheme advice** — “advise me to pick a scheme” and “which is top scheme you hold?” get the same facts-only refusal plus the two AMFI links.
 
 ![Advice refusal with AMFI education links](chatdemo/07-advice.png)
