@@ -11,11 +11,10 @@ from ingest.normalize import (
     NormalizeError,
     extract_scheme_facts,
     html_to_text,
-    normalize_corpus,
     normalize_one,
     sidecar_for,
 )
-from ingest.validate_manifest import ManifestError
+from ingest.validate_manifest import ManifestError, load_manifest
 from tests.live_facts import assert_live_scheme_facts
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -188,17 +187,13 @@ class NormalizeOneTests(unittest.TestCase):
 class LiveLargeCapTests(unittest.TestCase):
     @unittest.skipUnless(LARGE_CAP_RAW.is_file(), "Phase 2A Large Cap snapshot is missing")
     def test_large_cap_exit_check(self) -> None:
+        docs = load_manifest(ROOT / "corpus_manifest.json")["documents"]
+        large = next(doc for doc in docs if doc["doc_id"] == "groww-large-cap-direct-growth")
         with tempfile.TemporaryDirectory() as tmp:
-            results = normalize_corpus(
-                ROOT / "corpus_manifest.json",
-                ROOT / "data" / "raw",
-                Path(tmp),
-            )
-            by_id = {item.doc_id: item for item in results}
-            self.assertIn("groww-large-cap-direct-growth", by_id)
-            text = by_id["groww-large-cap-direct-growth"].text_path.read_text(encoding="utf-8")
+            result = normalize_one(large, ROOT / "data" / "raw", Path(tmp))
+            text = result.text_path.read_text(encoding="utf-8")
             assert_live_scheme_facts(self, text)
-            meta = json.loads(by_id["groww-large-cap-direct-growth"].meta_path.read_text(encoding="utf-8"))
+            meta = json.loads(result.meta_path.read_text(encoding="utf-8"))
             self.assertIn("groww.in", meta["source_url"])
 
 

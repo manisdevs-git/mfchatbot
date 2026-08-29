@@ -62,6 +62,15 @@ FACT_TOPIC_RES: tuple[tuple[str, re.Pattern[str]], ...] = (
     ("riskometer", re.compile(r"\briskometers?\b", re.I)),
     ("benchmark", re.compile(r"\bbenchmarks?\b", re.I)),
     ("nav", re.compile(r"\bnavs?\b", re.I)),
+    ("lumpsum", re.compile(r"\blump[ -]?sums?\b", re.I)),
+    ("aum", re.compile(r"\b(?:aum|assets? under management)\b", re.I)),
+    ("units", re.compile(r"\b(?:mutual fund units?|fund units?)\b", re.I)),
+    ("sebi", re.compile(r"\bsebi\b", re.I)),
+    ("listing", re.compile(
+        r"\b(?:mutual fund categor(?:y|ies)|fund categor(?:y|ies)|"
+        r"groww help(?: home)?|help hub|hdfc (?:mutual funds? )?amc)\b",
+        re.I,
+    )),
 )
 
 ALL_SCHEMES_RE = re.compile(
@@ -71,7 +80,17 @@ ALL_SCHEMES_RE = re.compile(
 )
 
 DEFINITION_RE = re.compile(
-    r"\bwhat is (?:an? )(?:expense ratio|exit load|riskometer|ter)\b",
+    r"\bwhat (?:is|are) (?:an? )?(?:"
+    r"expense ratio|exit load|riskometer|ter|"
+    r"nav|n\.?a\.?v\.?|"
+    r"sip|systematic investment plan|"
+    r"benchmark|"
+    r"lump[ -]?sum|"
+    r"aum|assets? under management|"
+    r"mutual fund units?|"
+    r"sebi|securities and exchange board(?: of india)?|"
+    r"mutual fund categor(?:y|ies)|fund categor(?:y|ies)"
+    r")\b",
     re.I,
 )
 
@@ -189,8 +208,12 @@ def classify(query: str) -> GuardDecision:
         return _routed("incomplete", None, None, "topic_required")
     if len(schemes) >= 2:
         return _routed("incomplete", None, topic, "multiple_schemes")
-    if _has_process(text) or DEFINITION_RE.search(text):
+    if _has_process(text):
         return _routed("process", "generic", topic or "statements", "process")
+    if DEFINITION_RE.search(text) and not scheme_id:
+        return _routed("process", "generic", topic or "education", "process")
+    if topic == "listing" and not scheme_id:
+        return _routed("process", "generic", "listing", "process")
     if topic and scheme_id:
         return _routed("factual", scheme_id, topic, "factual")
     if topic and not scheme_id:

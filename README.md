@@ -39,6 +39,10 @@ Open the chat app. No account, no notebook, no install. History stays in that br
 
 ![Chat with expense ratio, SIP, and NAV answers](chatdemo/05-chat.png)
 
+**Education primer** — “what is NAV?” cites the Groww NAV primer, not a scheme page.
+
+![What is NAV? sourced from the Groww primer](chatdemo/09-nav-primer.png)
+
 **PAN in the question** — a PAN-shaped token is refused and is not kept in this tab’s history. Do not send real identifiers.
 
 ![Composer with a PAN-shaped identifier](chatdemo/06-pan.png)
@@ -107,9 +111,9 @@ If a question is out of scope, you get a short “not on these Groww pages” no
 | HDFC Gold ETF Fund of Fund Direct Plan Growth | Gold / FoF | https://groww.in/mutual-funds/hdfc-gold-etf-fund-of-fund-direct-plan-growth |
 | HDFC ELSS Tax Saver Fund Direct Plan Growth | ELSS | https://groww.in/mutual-funds/hdfc-elss-tax-saver-fund-direct-plan-growth |
 
-Process and education pages (also indexed): Groww help for capital-gains / CAS / ELSS tax statement, and Groww primers for expense ratio, exit load, and riskometer.
+Process and education pages (also indexed): Groww help for capital-gains / CAS / ELSS tax statement; Groww primers for expense ratio, exit load, riskometer, NAV, SIP, benchmark, lumpsum, AUM, units, and SEBI; plus the Groww MF hub, HDFC AMC, category listing, and Help home.
 
-**Not in scope:** hdfcfund.com, AMFI/SEBI as live sources, Moneycontrol, Value Research, other AMCs, regular plans, IDCW, live web search at answer time.
+**Not in scope:** hdfcfund.com, AMFI/SEBI as live regulator sites, Moneycontrol, Value Research, other AMCs, regular plans, IDCW, live web search at answer time.
 
 Canonical list: [`corpus_manifest.json`](corpus_manifest.json). Spreadsheet of 24 URLs: [`docs/sources.csv`](docs/sources.csv).
 
@@ -117,7 +121,7 @@ Canonical list: [`corpus_manifest.json`](corpus_manifest.json). Spreadsheet of 2
 
 ## Source list (24 URLs)
 
-**Indexed in RAG (11)** — these are the only pages the assistant may cite as facts:
+**Indexed in RAG (22)** — these are the only pages the assistant may cite as facts:
 
 | URL | Use |
 | --- | --- |
@@ -132,6 +136,17 @@ Canonical list: [`corpus_manifest.json`](corpus_manifest.json). Spreadsheet of 2
 | https://groww.in/p/expense-ratio | Primer — TER |
 | https://groww.in/p/exit-load-in-mutual-funds | Primer — exit load |
 | https://groww.in/p/riskometer | Primer — riskometer |
+| https://groww.in/p/nav | Primer — NAV |
+| https://groww.in/p/sip-systematic-investment-plan | Primer — SIP |
+| https://groww.in/p/benchmark | Primer — benchmark |
+| https://groww.in/p/lump-sum | Primer — lumpsum |
+| https://groww.in/p/asset-under-management | Primer — AUM |
+| https://groww.in/p/mutual-fund-units | Primer — units |
+| https://groww.in/p/sebi-securities-and-exchange-board-of-india | Primer — SEBI |
+| https://groww.in/mutual-funds | Groww MF hub |
+| https://groww.in/mutual-funds/amc/hdfc-mutual-funds | Groww HDFC AMC page |
+| https://groww.in/mutual-funds/category | Category listing |
+| https://groww.in/help | Help hub |
 
 **AMFI education (not in the RAG index)** — attached on advisory / compare refusals only:
 
@@ -140,29 +155,13 @@ Canonical list: [`corpus_manifest.json`](corpus_manifest.json). Spreadsheet of 2
 | https://www.amfiindia.com/investor | AMFI investor education hub |
 | https://www.amfiindia.com/investor-corner/knowledge-center/risks-in-mutual-funds.html | AMFI — risks in mutual funds |
 
-**Linked from those Groww pages, not in the index (11)** — seen during ingest; the model does not retrieve them:
-
-| URL | Use |
-| --- | --- |
-| https://groww.in/p/nav | Linked primer |
-| https://groww.in/p/sip-systematic-investment-plan | Linked primer |
-| https://groww.in/p/benchmark | Linked primer |
-| https://groww.in/p/lump-sum | Linked primer |
-| https://groww.in/p/asset-under-management | Linked primer |
-| https://groww.in/p/mutual-fund-units | Linked primer |
-| https://groww.in/p/sebi-securities-and-exchange-board-of-india | Linked from riskometer primer |
-| https://groww.in/mutual-funds | Groww MF hub |
-| https://groww.in/mutual-funds/amc/hdfc-mutual-funds | Groww HDFC AMC page |
-| https://groww.in/mutual-funds/category | Category listing |
-| https://groww.in/help | Help hub |
-
 CSV: [`docs/sources.csv`](docs/sources.csv).
 
 ---
 
 ## Sample Q&A
 
-Full file with eleven queries, answers, and links: [`docs/sample-qa.md`](docs/sample-qa.md).
+Full file with eleven core queries plus a primer example: [`docs/sample-qa.md`](docs/sample-qa.md).
 
 | # | Question | Expected |
 | --- | --- | --- |
@@ -177,6 +176,7 @@ Full file with eleven queries, answers, and links: [`docs/sample-qa.md`](docs/sa
 | 9 | Should I invest in this fund? / advise me to pick a scheme | Refusal + https://www.amfiindia.com/investor and https://www.amfiindia.com/investor-corner/knowledge-center/risks-in-mutual-funds.html |
 | 10 | Which fund is better? / which is top scheme you hold? | Same refusal + the same two AMFI links |
 | 11 | `ABCDE1234F` any scheme linked to this? | PII refuse; identifier not kept and not sent to Gemini |
+| 12 | What is NAV? | Definition from Groww NAV primer + https://groww.in/p/nav |
 
 Figures are from the corpus snapshot dated **2026-08-28**. After a corpus refresh they can change; the citation URL stays the Groww page.
 
@@ -309,7 +309,7 @@ Optional operator pages (not linked from chat): `/scheduler` (corpus refresh tim
 
 ## Known limits
 
-- Only the five Groww scheme pages plus the listed Groww help / primers. Other funds are out of scope.
+- Only the five Groww scheme pages plus the listed Groww help, primers, and hub pages. Other funds are out of scope.
 - Answers can be stale until ingest runs again (in-app scheduler, GitHub Action, or `python -m ingest.refresh_corpus`). The footer date is the document `as_of_date`, not “today”.
 - Groww HTML mixes facts with returns and “similar funds”; ingest keeps TER, load, SIP, lock-in, riskometer, benchmark, NAV — not rank tables.
 - No return math and no “best fund”. Performance questions get the scheme’s Groww page, not a CAGR.

@@ -124,6 +124,28 @@ class IntentTableTests(unittest.TestCase):
         self.assertEqual(decision.intent, "incomplete")
         self.assertTrue(decision.allow_gemini)
 
+    def test_definition_nav_without_scheme_uses_primer(self) -> None:
+        decision = classify("What is NAV?")
+        self.assertEqual(decision.intent, "process")
+        self.assertEqual(decision.scheme_id, "generic")
+        self.assertEqual(decision.topic, "nav")
+        self.assertTrue(decision.allow_retrieve)
+        self.assertIsNone(policy_block_for_gemini("What is NAV?"))
+
+    def test_scheme_nav_stays_factual(self) -> None:
+        decision = classify("What is the NAV of HDFC Large Cap Fund Direct Growth?")
+        self.assertEqual(decision.intent, "factual")
+        self.assertEqual(decision.scheme_id, "hdfc-large-cap-fund-direct-growth")
+        self.assertEqual(decision.topic, "nav")
+
+    def test_definition_aum_and_listing_category(self) -> None:
+        aum = classify("What is AUM?")
+        self.assertEqual(aum.intent, "process")
+        self.assertEqual(aum.topic, "aum")
+        category = classify("What are mutual fund categories?")
+        self.assertEqual(category.intent, "process")
+        self.assertEqual(category.topic, "listing")
+
 
 class PipelineRoutingTests(unittest.TestCase):
     def setUp(self) -> None:
@@ -237,6 +259,7 @@ class GeminiSideGuardTests(unittest.TestCase):
         self.assertIn("hdfc-large-cap-fund-direct-growth", prompt)
         self.assertIn("At most three sentences", prompt)
         self.assertIn("Incomplete", prompt)
+        self.assertIn("what is NAV", prompt)
 
     def test_nav_is_not_refused_at_gemini_boundary(self) -> None:
         query = "What is the current NAV of HDFC Large Cap Fund Direct Growth?"

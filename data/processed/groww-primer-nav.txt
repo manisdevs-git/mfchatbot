@@ -1,0 +1,84 @@
+Groww — NAV
+
+What is NAV?
+NAV full form stands for Net Asset Value.
+It represents the market value per share for a particular mutual fund. It is calculated by deducting the liabilities from total asset value divided by the number of shares. One needs to gather the market value of a portfolio and divide it by the total current fund unit number to determine the price of each fund unit.
+Most of the time, the unit cost of
+mutual funds
+begin with Rs. 10 and increase as the asset under the funds grow. Going by this rule, the more popular a mutual fund is, the higher is its NAV.
+The net value of an asset is most commonly used in case of open-end funds. With these investments, the interest and shares do not get traded between shareholders.
+NAV helps determine which investment one might choose to withdraw or keep in their investment portfolio by providing a reference value. Now that you know what is NAV meaning in mutual fund, let's understand its formula.
+What is the Net Asset Value Formula?
+The calculation of the net value is pretty straightforward. One can easily do it by using the NAV formula below–
+Net Value of an Asset = (Total Asset – Total Liabilities)/ Total Outstanding Shares
+However, it is crucial to input the correct qualifying items under assets and liabilities to get an accurate net value of assets.
+What is the Net Value of Assets for Mutual Funds?
+Mutual funds, unlike stocks, do not trade in real-time. Instead, they are calculated based on the trading method and depends primarily on various assets and liabilities.
+Assets
+The asset section of
+mutual funds
+includes the cumulative market value of a particular fund’s investments, receivables, cash, cash equivalents and other accrued income.
+This market value is calculated at the end of each day, based on the closing price of the various securities included in the fund’s portfolio. These funds may include a percentage of capital in the form of liquid assets and cash as well as other items like interest payments, dividends, etc.
+The sum of all these assets mentioned above or their variants falls under the category of assets.
+Liabilities
+The liabilities section, while computing
+net asset value mutual funds
+include outstanding payments, money owed to the lenders, and other fees and charges that are owed to associated entities.
+Apart from these, mutual funds may also have foreign liabilities which can include shares for non-residents, payment pending to foreign conglomerates and various sale proceeds that are yet to be ousted.
+Liabilities can also include various accrued expenses including utilities, staff salaries, operating expenses, distribution, management expenses, etc.
+Thus, for
+net asset value calculation
+for mutual funds, the quantum of the above mentioned
+liabilities and assets
+as of the end of a particular day are taken into account.
+How is the Net Value of an Asset Relevant for Investors?
+Most investors perceive the net value of an asset to be the same as the price of its equity share. However, the calculation differs from each other, as only the liquid assets of a company are included to determine the price of equity shares, whereas to calculate the
+NAV
+, the valuation of both liquid and non-liquid assets are taken into account.
+Thus, total equity represents a company’s working capital, while the net value of an asset gives a company’s total monetary worth.
+Therefore, net value of an asset is necessary to make proper decisions about the funds an investor choose to invest in.
+Also Read:
+SEBI Revises Mutual Fund Cut-off Timings
+How is the Net Value of an Asset Calculated?
+There are two types of
+net asset value calculation
+. These are –
+Daily Net Valuation of Assets
+All the mutual fund investment companies evaluate the total worth of their
+portfolio
+daily after the stock market closes at 3:30 pm. The market reopens the day after with the closing prices of the previous day.
+The fund houses accordingly deduct all the expenses to get the net valuation of the assets for the day, using the formula mentioned above.
+General Calculation of the Net Value of Assets
+The general net value of assets is the price of its equity share and is given by the cumulative cost of individual shares. This calculation gives the market value of a particular asset and is subject to change as per market fluctuations.
+Role of NAV in the Performance of a Fund
+Most investors believe the net value of an asset is the same as its stock price. Thus, they tend to think that funds with a lower net asset value are cheaper and consequently better investments. However, the
+net asset value calculation
+does not correlate with the fund’s performance. Just because a fund has a lower net value does not make it a comprehensive investment.
+The net value of an asset merely illustrates how the underlying assets have performed in the previous years. Therefore, investors should not make it a deciding parameter while choosing funds to invest in. They should check the returns from their investments to make an informed decision.
+Thus, the net value of an asset is useful when it comes to understanding how a fund performs every day. It does not indicate how lucrative a fund is. Therefore, investors should check the current cost of funds and its historical performance before choosing to invest in it.
+Related Mutual Fund Pages
+SIP
+Lumpsum
+AUM
+Systematic Transfer Plan
+Exit Load
+Mutual Fund Units
+Expense Ratio
+Childrens Fund
+NAV
+Interval Funds
+Systematic Withdrawal Plan (SWP)
+Emerging Market Funds
+Hedge Funds
+Benchmark
+Q: How To Calculate NAV Of Mutual Fund?
+The calculation of the net value is very simple. You can do it by using the formula below–
+The net value of an asset = (Total asset – total liabilities)/ total outstanding shares.
+Q: How To Check NAV Of Mutual Fund?
+The general net value of assets is the price of its equity share and is given by the cumulative cost of individual shares. Log in to your Groww account by filling in the necessary details. For instance, in the search bar at the top, type 'SBI Bluechip Fund' and press enter. Now, the SBI Bluechip Fund page opens. Under the mutual fund's name, you can see the NAV of that mutual fund.
+Q: What Affects the NAV Of A Mutual Fund?
+Whether a mutual fund's NAV is affected by Sensex or Nifty depends on the kind of assets held by the given mutual fund. Even the degree to which a mutual fund is affected by Sensex or Nifty depends on the type and quantity of assets it holds.
+Q: Should you invest in an MF with a high NAV?
+If the other characteristics of the mutual fund are reasonable, you should invest in it. You should focus more on the MF’s performance and other factors.
+Q: Is higher NAV better or lower?
+A higher NAV can not be considered better than a lower NAV. NAV does not determine performance/quality of a mutual fund. It gives the reference point for a mutual fund’s per-share value. Therefore, it is necessary to study the performance history, objectives, and more while investing in a mutual fund.

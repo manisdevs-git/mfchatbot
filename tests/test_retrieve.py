@@ -126,6 +126,10 @@ class FilterHelperTests(unittest.TestCase):
         self.assertEqual(classify(PROCESS_QUERY).intent, "process")
         self.assertEqual(chroma_where(scheme_ids), {"scheme_id": "generic"})
 
+        scheme_ids, topic = resolve_filters("What is NAV?")
+        self.assertEqual(scheme_ids, ["generic"])
+        self.assertEqual(topic, "nav")
+
     def test_out_of_scope_has_no_scheme_filter(self) -> None:
         scheme_ids, _topic = resolve_filters("SBI Bluechip expense ratio")
         self.assertIsNone(scheme_ids)

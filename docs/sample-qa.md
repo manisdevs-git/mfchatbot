@@ -109,3 +109,13 @@ AMFI mutual fund risks: https://www.amfiindia.com/investor-corner/knowledge-cent
 **A:** I cannot use personal identifiers. Ask a factual question without PAN, Aadhaar, phone, email, OTP, or account numbers.
 
 The identifier is not kept in chat history and is not sent to Gemini. Use a synthetic token in docs and tests — never a real PAN.
+
+## 12. Education primer (no scheme)
+
+**Q:** What is NAV?
+
+**A:** NAV stands for Net Asset Value and represents the market value per share for a particular mutual fund. It is calculated by deducting liabilities from the total asset value and dividing by the number of outstanding shares.
+
+Source: https://groww.in/p/nav
+
+Last updated from sources: 2026-08-29

@@ -1,0 +1,248 @@
+Groww — SIP
+
+What is SIP & How Does Systematic Investment Plan (SIP) Work?
+SIP or Systematic Investment Plan is a process of investing a fixed amount of money in a mutual funds/stocks on a daily, weekly, monthly or quarterly basis. The amount is automatically deducted from your bank account, and mutual fund units are allocated based on the fund’s Net Asset Value (NAV) on the investment date. This allows investors to build wealth over time.
+SIP offers a flexible approach where one can choose how much they want to invest regularly. It is a “
+long-term investment strategy”
+where one can start investing with as little as ₹100.
+Let’s dive deep into how systematic investment plan (SIP) works, types of SIP and the benefits of investing in SIP.
+How SIPs Work?
+A Systematic Investment Plan or SIP works through a simple 3-step process:
+SIP Set-Up
+To start investing in SIP, the investor needs to decide on the three important parameters:
+Amount
+: How much you want to invest (₹500, ₹1,000, ₹5,000 or more)
+Frequency
+: Monthly (most common), weekly, or quarterly
+Fund selection
+: The mutual fund where your money will be invested
+For those who opt for a
+stock SIP,
+the amount is invested in the selected stock. The entire investment process and returns will solely depend on what one selects in this step.
+Once the parameters are decided, the SIP can be set up via a third-party investment platform like
+Groww
+, a financial advisor, or directly through AMC.
+Auto-Debit
+After setup, the autopay mandate needs to be activated. So, the predetermined amount is auto-debited from the bank account and invested in the mutual fund on the specified date.
+Unit Allocation
+Every mutual fund unit has an NAV (Net Asset Value), which is directly proportional to the mutual fund investment value. As NAV increases (⬆️), the mutual fund investment value also increases (⬆️) and vice versa.
+For each investment, the individuals are allocated units of the mutual fund scheme based on the current Net Asset Value.
+Here’s how!
+Below is the NAV graph of
+Groww Aggressive Hybrid Fund Direct Growth
+On 01-Jan-19, the NAV was 10.03
+On 01-Jan-24, the NAV was 19.69
+In 5 years, the fund has almost given annual returns of 14.4%.
+A monthly investment of ₹5,000 in the Groww Aggressive Hybrid Fund Direct-Growth over 5 years (total investment: ₹3,00,000), at an annualised return of 14.42%, would have grown to approximately ₹4,09,650.
+Disclaimer:
+Past performance is not indicative of future results. Investment in mutual funds or any other financial product involves risks, and the value of investments may fluctuate.
+Power of Compounding in SIP
+SIPs leverage the power of compounding, which leads to exponential growth in investment value over time.
+Let’s understand this with an example.
+Raj invests ₹5000 monthly in an XYZ mutual fund scheme for 10 years.
+The total amount invested is ₹6,00,000.
+Expecting 12% returns p.a., the future value of Raj’s investment will be approximately
+₹
+11,61,695 (approx).
+In 10 years, the money will almost double up, thanks to the power of compounding and disciplined investment.
+So,
+“Start early & stay invested long-term to get a high return on investment!”
+.
+Types of SIP
+Mutual funds SIPs are of different types.
+1. Regular SIP
+In a regular SIP, a predetermined amount is invested at regular intervals for a fixed period.
+Ideal For:
+Individuals looking for disciplined investing over the long term.
+Example:
+Mr. A decides to invest ₹5000 every month for one year in a mutual fund scheme. Here,
+Pre-determined amount: ₹5000
+Regular interval: monthly
+Fixed period: One year
+2. Perpetual SIP
+In a Perpetual SIP, the amount and investment frequency are pre-defined. However, these don’t have a fixed tenure, and investors can invest as long as they want.
+Ideal For:
+Younger generations who haven’t decided on their goals,
+With an investment surplus, or
+Those who want to keep investing without worrying about the end date
+Example:
+Vijay invests ₹5,000 every month in a mutual fund scheme with no fixed period. The investment will be continued until he decides to stop it.
+3. Top-up SIP or Step-up SIP
+In a top-up SIP or step-up SIP, the invested amount is increased periodically (e.g., on an annual basis). It allows investment to keep pace with inflation.
+Ideal For:
+Those who can’t commit to a big investment initially and want to increase it according to their income.
+Example:
+Starting the investment with ₹5,000 and increasing it by 10% every year, i.e., ₹500.
+4. Flexible SIP or Anytime SIP
+As the name suggests, flexible SIPs are flexible investment options. Here, the investment frequency and amount are flexible. So, the investor can increase or decrease the SIP amount based on their financial situation.
+Ideal For:
+Individuals with irregular income or those who may face occasional cash flow constraints.
+Example:
+Investing ₹5,000 one month and ₹3,000 the next, based on fund availability.
+5. Multi SIP or Combo SIP
+Multi SIP/Combo SIP allows investors to invest in multiple schemes of the same fund house through a single SIP. From the investor's perspective, it appears as a single SIP, but once the amount comes in, the mutual fund house bifurcates it into different schemes.
+In short, with Multi SIP/Combo SIP, one can invest in large-cap, flexi-cap, and debt funds simultaneously.
+Ideal For:
+Those who want to diversify investments across different mutual funds using a single consolidated SIP.
+If a mutual fund house has multiple schemes that are performing well.
+Benefits of Investing In SIPs
+SIP investments offer numerous advantages. Below, we have explained a few!
+Rupee Cost Averaging Factor
+SIPs allow investors to take advantage of the
+Rupee Cost Averaging Factor,
+or RCA.
+What is the
+Rupee Cost Averaging Factor?
+When investors invest regularly over time, irrespective of market volatility, the overall cost of investments is averaged out. This way, when the market is down, more mutual fund units will be allocated and fewer units when markets are up.
+Let’s understand the concept with an example.
+Vijay invests 2000 every month in an equity mutual fund via an SIP. Below is an illustrative overview of his 12-month investment journey, including NAV and MF units.
+Month
+NAV
+MF Units
+Jan
+20
+100.00
+Feb
+18
+111.11
+March
+22
+90.91
+April
+16
+125.00
+May
+24
+83.33
+June
+20
+100.00
+July
+26
+76.92
+August
+15
+133.33
+Sept
+28
+71.43
+Oct
+17
+117.65
+Nov
+30
+66.67
+Dec
+19
+105.26
+With the above table, it is clear that:
+Falling market (Less NAV)
+More mutual fund units
+Rising market (More NAV)
+Fewer mutual fund units
+Here,
+Average NAV cost: ₹21.25
+Average Mutual fund unit cost: ₹20.31 per unit
+So, Vijay got mutual fund units at a lower cost than the average NAV of the units. This is how the
+Rupee Cost Averaging Factor
+reduces the average cost per unit over time and mitigates the impact of market volatility.
+Disciplined Investing
+SIPs encourage investors to invest a fixed amount at regular intervals.
+This way, one can enjoy several benefits, like
+A habit of consistent and disciplined investing
+Regularly investing small amounts helps gradually build a substantial corpus without large lump-sum contributions.
+Convenience & Automation
+SIPs can be automated by setting up a mandate with your bank, allowing a fixed amount to be deducted at regular intervals without manual intervention. This not only makes investing hassle-free but also encourages consistent, disciplined savings over time by removing the need to time or remember each investment.
+No Lock-in Period
+Unlike certain tax-saving instruments, SIPs do not come with a mandatory lock-in period (except ELSS funds), allowing you to redeem your investments at any time. However, staying invested for the long term (5 years or more) is generally recommended to better manage market volatility and improve the potential for returns.
+Investment Flexibility
+SIPs, majorly Flexible SIPs, allow you to increase or decrease the investment amount based on your financial situation. This flexibility ensures that temporary financial challenges (if arise) don’t affect your investment journey.
+Start With Small Contributions
+SIP investment is perfect for all types of investors, including those with limited funds. You don’t need a large sum of money; even small monthly contributions can grow significantly over time.
+Important Things To Remember Before Investing In SIPs
+Exit Load
+Exit Load
+refers to the fee charged when you exit your SIP or redeem the mutual fund units before a specified period (usually within 1-3 years). The general exit load starts at 1% and varies depending on the fund chosen.
+7-5-3-1 SIP Investing Rule
+7:
+Invest for at least
+7 years
+5:
+Invest the amount across
+five different funds/asset classes
+. For instance, small-cap, mid-cap, large-cap, ETFs, Value Stocks, Global Stocks, etc.
+3:
+Be prepared to face the
+three phases
+that might urge you to give up on your SIP.
+During this phase, returns may vary between 7% and 10%. Investors might have expected better and be disappointed by such returns.
+The returns on this phase are lower than those on fixed deposits (0-7%), which might lead to frustration and dissatisfaction.
+In this phase, the value of your portfolio might end up negative (<0%), i.e., less than what you have invested. This might trigger feelings of anxiety, concern, and panic.
+1:
+Increase the SIP amount at least
+once a year
+.
+Expense Ratio
+It is the annual fee mutual fund companies charge to manage the fund. Always opt for funds with the lowest expense ratio, as it increases overall returns.
+Tax Implications
+SIP investment has the following tax implications:
+If held for less than one year, STCG (short-term capital gain) is applicable, i.e., 20%.
+If held for more than one year, LTCG (
+long-term capital gain
+) is applicable, i.e., a return up to 1.25 lakh will be tax-free; beyond that, 12.5% of tax will be levied.
+Common Questions Regarding SIPs
+1. Which is better: SIP or lump sum investment?
+Both SIP and lump-sum investments have their own advantages. SIP is perfect for those investors who
+Want to invest regularly for a long period (5 years, 15 years, and so on.)
+Don’t get bothered by market fluctuations.
+Lumpsum is perfect for investors:
+With a large amount of money to invest upfront
+Who can handle losses in case of market volatility
+2. I am not a long-term investor. Is SIP investment right for me?
+SIPs are generally more suitable for long-term investors, as they generate returns with a compounding effect. The real return on investment is visible only after 5 to 10 years of investing.
+3. I don’t have a demat account. Can I invest in SIP?
+Yes, you can invest in SIPs without a Demat account and directly through the Groww
+Mutual Funds platform
+.
+4. I missed my one-month SIP instalment. Will I be charged any penalties?
+If you
+miss an SIP instalment
+and the auto-pay mandate fails due to insufficient balance, the mutual fund house does not charge any penalty. However, your bank will levy a penalty anywhere from ₹100 to ₹750. To avoid these penalties, you can pause your SIP prior if you cannot pay any specific month's instalment.
+Conclusion
+SIPs offer a simple, disciplined, and effective way to invest in mutual funds. By investing a fixed amount regularly, you can build a substantial corpus for your future goals.
+Always remember
+Consistency is the key, and starting early can make a huge difference!
+You May Also Be Interested to Know
+How to Invest in SIP
+How to Invest in US Stocks via Mutual Funds?
+How to Cancel Mutual Fund SIP
+How to Buy Sovereign Gold Bonds
+How to Invest in Mutual Funds
+How to Invest in Direct Mutual Funds
+Related Mutual Fund Pages
+SIP
+Lumpsum
+AUM
+Systematic Transfer Plan
+Exit Load
+Mutual Fund Units
+Expense Ratio
+Childrens Fund
+NAV
+Interval Funds
+Systematic Withdrawal Plan (SWP)
+Emerging Market Funds
+Hedge Funds
+Benchmark
+Q: What is the minimum amount to start a SIP?
+You can start a SIP with as little as ₹100 per month, depending on the mutual fund.
+Q: What is NAV in SIP?
+The price at which the investor can buy or sell mutual fund units is known as the net asset value (NAV).
+The NAV of the majority of mutual funds is updated daily after business hours. All mutual fund trades take place only at the current NAV. The current NAV will be your cost of purchase each time you invest through a SIP installment.
+Q: Can I stop a SIP anytime?
+SIPs are generally flexible and can be stopped at any time without penalties. However, some funds (like ELSS) have a lock-in period, during which withdrawals are not allowed.
+Q: What happens if I miss a SIP payment?
+Missing one SIP installment usually does not cancel your SIP. However, repeated missed payments may lead to the SIP being paused or terminated. Some banks may also charge a penalty for failed auto-debits.
+Q: How can I make an online SIP investment?
+You can invest in SIPs online by opening an account with the fund company of your choosing. KYC verification is required before you can start a SIP into a mutual fund of your choice. You could do this on the fund houses' or RTAs' websites.
+You will only need to provide your PAN card, proof of address, and a photo in the format specified. After completing your KYC verification, you can begin investing in SIPs online by connecting your bank account to the investment account

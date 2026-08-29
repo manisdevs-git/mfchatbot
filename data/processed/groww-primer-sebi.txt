@@ -1,0 +1,115 @@
+Groww — SEBI
+
+SEBI - Securities and Exchange Board of India
+The Securities and Exchange Board of India (SEBI) was founded as the regulating authority for the Indian securities market on April 12, 1992, by the SEBI Act 1992.
+What is SEBI?
+SEBI
+is essentially a statutory body of the Indian Government that was established on the 12th of April in 1992. It was introduced to promote transparency in the Indian investment market.
+Besides its headquarters in Mumbai, the establishment has several regional offices nationwide, including New Delhi, Ahmedabad, Kolkata and Chennai.
+History of SEBI
+Before the foundation of SEBI, the securities market was regulated by several government institutions, resulting in inconsistency and inefficiency.
+The Indian government awarded SEBI new regulatory powers in 2014, allowing it to undertake search and seizure operations and apply harsher punishments for rigging markets and
+insider trading.
+Today, SEBI is regarded as one of the world's top regulatory authorities and plays an essential role in the growth and regulation of the Indian securities market.
+Objectives of SEBI
+SEBI is entrusted with regulating the functioning of the Indian capital market. The
+objectives of SEBI
+as a regulatory body are to monitor and regulate India's securities market to safeguard investors' interests.
+It aims to inculcate a safe investment environment by implementing several rules and regulations and formulating investment-related guidelines.
+Furthermore, one of the other main objectives was to avoid malpractices in the Indian
+stock market
+.
+Organizational Structure of SEBI
+SEBI India
+follows a corporate structure. It has a Board of Directors, senior management, department heads and several crucial departments.
+To be precise, the structure of SEBI comprises over 20 departments, all of which are supervised by their respective department heads, which in turn are administered by a hierarchy in general.
+The hierarchical structure comprises the following 9 designated officers –
+The Chairman – Nominated by the Indian Union Government.
+Two members belonging to the Union Finance Ministry of India.
+One member belonging to the Reserve Bank of India or RBI.
+Other five members – Nominated by the Union Government of India.
+The below-mentioned list highlights some of the most critical departments of
+SEBI
+–
+The Information Technology Department.
+The Foreign Portfolio Investors and Custodians.
+Office of International Affairs.
+National Institute of Securities Market.
+Investment Management Department.
+Commodity and Derivative Market Regulation Department.
+Human Resource Department.
+Besides these, other crucial departments take care of legal, financial and enforcement-related affairs.
+Functions and Powers of SEBI
+Being a regulatory body, the
+power of SEBI
+is to perform vital functions. The SEBI Act of 1992 lists such powers vested in the regulatory body. The
+functions of SEBI
+make it an issuer of securities, a protector of investors and traders and a financial mediator.
+The following pointers offer a brief idea about the same.
+Functions of SEBI
+To protect the interests of Indian investors in the securities market.
+To promote the development and hassle-free functioning of the securities market.
+To regulate the business operations of the securities market.
+To serve as a platform for portfolio managers, bankers, stockbrokers, investment advisers, merchant bankers, registrars, share transfer agents and others.
+To regulate the tasks entrusted to depositors, credit rating agencies, custodians of securities, foreign
+portfolio
+investors and other participants.
+To educate investors about securities markets and their intermediaries.
+To prohibit fraudulent and unfair trade practices within the securities market and related to it.
+To monitor company takeovers and acquisition of shares.
+To keep the securities market efficient and up to date through proper research and developmental tactics.
+Powers of SEBI
+Following are the key powers of SEBI-
+Quasi-judicial Powers
+In cases of fraud and unethical practices in the securities market, SEBI India can pass judgements.
+The said
+power of SEBI
+facilitates transparency, accountability and fairness in the securities market.
+Quasi-executive Powers
+SEBI can examine the Book of Accounts and other vital documents to identify or gather evidence against violations. If it finds one violating the regulations, the regulatory body can impose rules, pass judgements and take legal actions against violators.
+Quasi-Legislative Powers
+To protect the interest of investors, the authoritative body has been entrusted with the power to formulate pertinent rules and regulations. Such rules tend to encompass listing obligations, insider trading regulations and essential disclosure requirements.
+The body formulates rules and regulations to eliminate malpractices in the securities market.
+The Supreme Court of India and the Securities Appellate Tribunal have the upper hand when it comes to the powers and
+functions of SEBI
+. The two apex bodies must go through all their functions and related decisions.
+Mutual Funds Guidelines of SEBI
+The Securities and Exchange Board of India Regulations, 1996 is a set of guidelines for managing mutual funds in India. Per the guidelines,
+mutual funds
+must register under the Trusts Act, 1882.
+Those mutual funds that deal exclusively with the money market must get registered with the RBI. The
+Asset Management Companies (AMC)
+manages mutual funds and must be
+SEBI
+approved. The trustees of the AMC must ensure that mutual funds are performing as per the regulations. The guidelines also include monitoring the overall performance of mutual funds.
+You May Also Be Interested to Know
+How to Start SIP Online
+How Many Mutual Funds Should I Own
+How to Choose Mutual Funds
+How To Start A STP And SWP
+How to Invest in Index Funds
+What Is the Difference Between SIP and Mutual Fund
+SEBI India has issued several mutual funds regulations that the sponsors, asset management companies and shareholders must abide by.
+A few of them are mentioned below –
+A mutual fund sponsor, a group of a company or an associate of an AMC cannot hold – 10% or more of the total shareholding and voting rights in an
+AMC
+or other mutual fund. An AMC cannot be represented on any other mutual fund’s board.
+In an AMC of a mutual fund, a shareholder cannot hold 10% or more of the total shareholding either directly or indirectly.
+For a sectoral or thematic index, none of the single stocks can have over 35% weight in the said index. While for other indices, the cap is 25%.
+Regarding the top three constituents of the index, their aggregate weight cannot exceed 65%.
+Regarding an individual constituent of the index, the trading frequency should be at least 80%.
+Each liquid scheme must have at least 20% in liquid assets like treasury bills, government securities, cash, repo on government securities, etc.
+At the end of every calendar year, mutual funds must follow the guidelines issued by the
+Securities and Exchange Board of India.
+It further requires them to make their constituents of the indices public by getting them published on their respective websites.
+Q: What is SEBI and its functions?
+The Securities and Exchange Board of India (SEBI) is a statutory regulatory organization formed by the Government of India to oversee the Indian securities market and safeguard the welfare of investors in securities. It also governs the operation of the stock market, mutual funds, and other financial institutions.
+Q: What is the role of SEBI?
+SEBI's role includes-
+Regulating and overseeing the securities market,
+Safeguarding investors' interests,
+Encouraging fair and transparent trading procedures,
+Growing the securities market, and
+Informing investors about their legal rights and obligations.
+Q: When was SEBI established?
+SEBI was founded as a non-statutory organization under the administrative authority of the Reserve Bank of India on April 12, 1988. However, the SEBI Act of 1992 granted it statutory authority.

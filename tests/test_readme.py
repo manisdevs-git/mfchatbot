@@ -33,6 +33,7 @@ class ReadmeContractTests(unittest.TestCase):
         self.assertIn("chatdemo/06-pan.png", README)
         self.assertIn("chatdemo/07-advice.png", README)
         self.assertIn("chatdemo/08-pan-refuse.png", README)
+        self.assertIn("chatdemo/09-nav-primer.png", README)
         self.assertIn("chatdemo/preview.html", README)
         for name in (
             "01-home.png",
@@ -43,6 +44,7 @@ class ReadmeContractTests(unittest.TestCase):
             "06-pan.png",
             "07-advice.png",
             "08-pan-refuse.png",
+            "09-nav-primer.png",
             "preview.html",
         ):
             self.assertTrue((ROOT / "chatdemo" / name).is_file(), name)
@@ -58,7 +60,7 @@ class ReadmeContractTests(unittest.TestCase):
         self.assertGreaterEqual(len(rows), 15)
         self.assertLessEqual(len(rows), 25)
         indexed = [row["url"] for row in rows if row["in_rag_index"] == "yes"]
-        self.assertEqual(len(indexed), 11)
+        self.assertEqual(len(indexed), 22)
         self.assertTrue(all(url.startswith("https://groww.in/") for url in indexed))
         self.assertIn(
             "https://groww.in/mutual-funds/hdfc-large-cap-fund-direct-growth",

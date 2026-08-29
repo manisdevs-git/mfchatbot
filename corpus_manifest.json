@@ -1,6 +1,6 @@
 {
   "product": "Groww",
-  "notes": "Corpus is the five Groww scheme pages from the problem statement, plus Groww help and primer pages. Do not use hdfcfund.com or other AMC/aggregator hosts.",
+  "notes": "Corpus is the five Groww scheme pages, Groww help and primer pages, and the listed Groww hub pages. Do not use hdfcfund.com or other AMC/aggregator hosts.",
   "required_scheme_ids": [
     "hdfc-mid-cap-fund-direct-growth",
     "hdfc-small-cap-fund-direct-growth",
@@ -161,6 +161,138 @@
       "topic_tags": [
         "education",
         "riskometer"
+      ]
+    },
+    {
+      "doc_id": "groww-primer-nav",
+      "scheme_id": "generic",
+      "doc_type": "groww_help",
+      "source_url": "https://groww.in/p/nav",
+      "source_title": "Groww — NAV",
+      "as_of_date": "2026-08-29",
+      "topic_tags": [
+        "education",
+        "nav"
+      ]
+    },
+    {
+      "doc_id": "groww-primer-sip",
+      "scheme_id": "generic",
+      "doc_type": "groww_help",
+      "source_url": "https://groww.in/p/sip-systematic-investment-plan",
+      "source_title": "Groww — SIP",
+      "as_of_date": "2026-08-29",
+      "topic_tags": [
+        "education",
+        "sip"
+      ]
+    },
+    {
+      "doc_id": "groww-primer-benchmark",
+      "scheme_id": "generic",
+      "doc_type": "groww_help",
+      "source_url": "https://groww.in/p/benchmark",
+      "source_title": "Groww — Benchmark",
+      "as_of_date": "2026-08-29",
+      "topic_tags": [
+        "education",
+        "benchmark"
+      ]
+    },
+    {
+      "doc_id": "groww-primer-lumpsum",
+      "scheme_id": "generic",
+      "doc_type": "groww_help",
+      "source_url": "https://groww.in/p/lump-sum",
+      "source_title": "Groww — Lumpsum",
+      "as_of_date": "2026-08-29",
+      "topic_tags": [
+        "education",
+        "lumpsum"
+      ]
+    },
+    {
+      "doc_id": "groww-primer-aum",
+      "scheme_id": "generic",
+      "doc_type": "groww_help",
+      "source_url": "https://groww.in/p/asset-under-management",
+      "source_title": "Groww — AUM",
+      "as_of_date": "2026-08-29",
+      "topic_tags": [
+        "education",
+        "aum"
+      ]
+    },
+    {
+      "doc_id": "groww-primer-units",
+      "scheme_id": "generic",
+      "doc_type": "groww_help",
+      "source_url": "https://groww.in/p/mutual-fund-units",
+      "source_title": "Groww — Mutual fund units",
+      "as_of_date": "2026-08-29",
+      "topic_tags": [
+        "education",
+        "units"
+      ]
+    },
+    {
+      "doc_id": "groww-primer-sebi",
+      "scheme_id": "generic",
+      "doc_type": "groww_help",
+      "source_url": "https://groww.in/p/sebi-securities-and-exchange-board-of-india",
+      "source_title": "Groww — SEBI",
+      "as_of_date": "2026-08-29",
+      "topic_tags": [
+        "education",
+        "sebi"
+      ]
+    },
+    {
+      "doc_id": "groww-hub-mutual-funds",
+      "scheme_id": "generic",
+      "doc_type": "groww_help",
+      "source_url": "https://groww.in/mutual-funds",
+      "source_title": "Groww — Mutual funds",
+      "as_of_date": "2026-08-29",
+      "topic_tags": [
+        "education",
+        "listing"
+      ]
+    },
+    {
+      "doc_id": "groww-amc-hdfc",
+      "scheme_id": "generic",
+      "doc_type": "groww_help",
+      "source_url": "https://groww.in/mutual-funds/amc/hdfc-mutual-funds",
+      "source_title": "Groww — HDFC Mutual Fund AMC",
+      "as_of_date": "2026-08-29",
+      "topic_tags": [
+        "education",
+        "listing"
+      ]
+    },
+    {
+      "doc_id": "groww-hub-category",
+      "scheme_id": "generic",
+      "doc_type": "groww_help",
+      "source_url": "https://groww.in/mutual-funds/category",
+      "source_title": "Groww — Mutual fund categories",
+      "as_of_date": "2026-08-29",
+      "topic_tags": [
+        "education",
+        "listing"
+      ]
+    },
+    {
+      "doc_id": "groww-help-home",
+      "scheme_id": "generic",
+      "doc_type": "groww_help",
+      "source_url": "https://groww.in/help",
+      "source_title": "Groww Help home",
+      "as_of_date": "2026-08-29",
+      "topic_tags": [
+        "education",
+        "listing"
       ]
     }
   ]

@@ -26,8 +26,8 @@ ADVISORY_REFUSAL = (
 
 OUT_OF_SCOPE_REFUSAL = (
     "That is not available on the current Groww pages in this assistant. "
-    "I cover five HDFC Direct Growth schemes on Groww plus Groww help on "
-    "statements, expense ratio, exit load, and the riskometer."
+    "I cover five HDFC Direct Growth schemes on Groww plus Groww help, "
+    "primers, and the listed Groww hub pages."
 )
 
 INCOMPLETE_SCHEME = (

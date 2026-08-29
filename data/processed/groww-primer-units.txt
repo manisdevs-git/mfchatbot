@@ -1,0 +1,137 @@
+Groww — Mutual fund units
+
+Mutual Fund Units
+A mutual fund is an investment gateway for several investors with no prior knowledge of investing in securities. It is a financial device that acts as an investment pool from several sources – individuals, associations, etc. – and the money collected is used to purchase a diverse assortment of securities. These include the likes of
+stocks
+,
+bonds
+,
+treasury bills
+, etc. The smallest components of this financial device are called mutual fund units.
+What is a Unit in a Mutual Fund?
+A mutual fund comprises a diverse set of securities, as mentioned above. Therefore, one can understand a mutual fund’s unit or share it as a microcosm of that diversity. One shall note that a mutual fund unit does not represent ownership of any specific security like stocks or bonds. It denotes a collection of all the elements within a fund in precisely the proportion in which it has been constructed at large.
+It’s a bit complex, so let’s understand it with a hypothetical example:
+Fund ABC comprises 10% of stock A, 20% of stock B, 20% of government bonds, 20% of corporate bonds, 5% in stock C, 10% in stock D, 10% in cash derivatives, and 5% in treasury bills. So, a unit of this mutual fund will represent the ownership of all these securities precisely in this percentage.
+Therefore, individuals who hold MF units do not own stocks of a company or any other security in the complete sense. Instead, their money is committed proportionately to each security via a fund company. One of its significant advantages is that investors can yield considerable gains based on the unit count they hold, sans any copious investment required to command such a diverse portfolio.
+Typically,
+mutual funds
+are open-ended; so, fund companies issue new units or shares whenever an investor wants to invest. It is incomplete contrast with a close-ended fund, where there are only a limited number of mutual fund units. The number of units one can purchase depends on the amount they invest, which usually starts from Rs.500.
+How does a Mutual Fund Unit Price Work?
+A critical part of understanding mutual fund units is to comprehend how those shares are priced. As mentioned earlier, an MF is a collection of securities, and each unit is the tiniest representation of that collection.
+Similarly, an MF commands a value, which is a combination of all the securities’ values it comprises. Consequently, the price of one unit of a mutual fund will also represent a part of the total portfolio value.
+In other words, one MF unit’s price will be equal to that fund’s net value divided by the number of outstanding shares.
+Note:
+Outstanding share represents the number of units of a mutual fund.
+The per-share value of a portfolio is referred to as Net Asset Value (NAV), sometimes denoted as Net Asset Value per share (NAVPS). One can understand the total value of a portfolio as the total value of assets netted against liabilities if any.
+Therefore, NAV can be expressed as –
+NAV = (Total value of assets – Total value of liabilities) / Number of unit-holders.
+Unlike the prices of stocks, the NAV of mutual funds is calculated at the end of each day.
+Let’s build on the above example for better clarification of how MF share prices are computed. The fund manager of ABC commits Rs.10 lakh in stock A, Rs.20 lakh of stock B, Rs.20 lakh of corporate bonds, Rs.20 lakh of government bonds, Rs.5 lakh of stock C, Rs.10 lakh of stock D, Rs.10 lakh of cash derivatives, and Rs.5 lakh of treasury bills. The MF also carries a liability of Rs.10 lakh.
+Therefore, ABC fund’s total value stands at – Rs. (10 + 20 + 20 + 20 + 5 + 10 + 10 + 5 – 10) lakh, or, Rs. 90 lakh.
+Now, let’s assume that at the end of 22nd June 2020, the number of unit-holders stood at 1 lakh. Ergo, NAV of ABC fund is equal to Rs.(90,00,000 / 1,00,000) or Rs.90.
+How to Purchase Mutual Fund Units?
+In knowing “what are mutual fund units?” one should also know the dynamic behind purchasing these units. The process is rather simple, where investors choose and invest in a mutual fund with an asset mix and risk-factor that suits their investment objectives and risk tolerance via dedicated platforms. However, before doing so, the dynamic of the NAV calculation should be noted.
+As stated earlier,
+NAV
+is calculated at the end of each trading day rather than fluctuating throughout. When an investor decides to invest in an MF, they have to bear the NAV computed at the end of that day, and not the value listed. That’s because the listed NAV of an MF is based on the previous day’s computation.
+Let’s use the previous example for better understanding. At the end of 22nd June 2020, ABC’s NAV is Rs.90. Mr. Ashok puts in an order of Rs.9000 on 23rd June. By the listed NAV, Mr. Ashok should be able to procure 100 mutual fund units of ABC. However, at the end of 23rd June, the price increased to Rs.92. Therefore, if Mr. Ashok invests Rs.9000, he will be acquiring 97.8 units of ABC fund and not 100.
+Therefore, investors who purchase by units might have to shell out a little more than the listed price when acquiring MF units. Thus, generally, investors go by the monetary denomination of their investment rather than the number of units.
+Difference between Equity Shares and Mutual Fund Units
+Some of the primary differences between MF units and equity shares are illustrated in the table below.
+Parameters
+Equity Shares
+Mutual Fund Shares
+Unit holding pattern
+An investor has to hold units represented in whole numbers, like 1 unit or 2 units.
+An investor can hold units represented in whole numbers or even fractions, like 97.8 units.
+Voting rights
+It provides voting rights to holders.
+It does not provide voting rights to holders.
+Price change
+Price changes throughout a trading day and depends on the market condition.
+Price changes at the end of each trading day and depends on total asset value minus the total cost of maintaining it.
+Trading platforms
+Stock exchanges, third-party dedicated platforms, and brokers.
+Fund companies and third-party dedicated platforms.
+All in all, a prospective investor should understand the mechanism of MF units carefully before deciding to invest in one.
+Related Mutual Fund Pages
+SIP
+Lumpsum
+AUM
+Systematic Transfer Plan
+Exit Load
+Mutual Fund Units
+Expense Ratio
+Childrens Fund
+NAV
+Interval Funds
+Systematic Withdrawal Plan (SWP)
+Emerging Market Funds
+Hedge Funds
+Benchmark
+List of AMC in India
+Asset Management Company
+Axis Mutual Fund
+PGIM India Mutual Fund
+BOI Axa Mutual Fund
+Kotak Mutual Fund
+Sundaram Mutual Fund
+Union Mutual Fund
+Nippon Mutual Fund
+Invesco Mutual Fund
+Taurus Mutual Fund
+HDFC Mutual Fund
+LIC Mutual Fund
+Edelweiss Mutual Fund
+SBI Mutual Fund
+JM Financial Mutual Fund
+Navi Mutual Fund
+ICICI Prudential Mutual Fund
+Baroda Mutual Fund
+Mahindra Mutual Fund
+Aditya Birla Sunlife Mutual Fund
+Canara Robeco Mutual Fund
+Quantum Mutual Fund
+UTI Mutual Fund
+HSBC Mutual Fund
+PPFAS Mutual Fund
+Franklin Templeton Mutual Fund
+IDBI Mutual Fund
+IIFL Mutual Fund
+IDFC Mutual Fund
+Indiabulls Mutual Fund
+Quant Mutual Fund
+DSP Mutual Fund
+Motilal Oswal Mutual Fund
+Shriram Mutual Fund
+TATA Mutual Fund
+BNP Paribas Mutual Fund
+Sahara Mutual Fund
+L and T Mutual Fund
+Mirae Asset Mutual Fund
+ITI Mutual Fund
+Q: Can Mutual Fund Units Be Transferred?
+Yes, mutual fund units can be transferred but only when the unit holder passes away. It can be transferred to the nominee registered by the owner.
+Q: How Mutual Fund Units Are Calculated?
+NAV = (Total value of assets – Total value of liabilities) / Number of unit-holders
+. Unlike the prices of stocks, the NAV of mutual funds is calculated at the end of each day.
+Q: How To Redeem Mutual Fund Units?
+There are a few steps involved in redeeming mutual fund units:
+Determine the number of units you want to redeem: First, you need to decide how many units you want to redeem. You can either redeem all your units or a portion of them, depending on your investment goals.
+Check the NAV: The next step is to check the Net Asset Value (NAV) of the mutual fund. The NAV is the value of the fund's assets minus its liabilities and is used to calculate the price of the units.
+Place the redemption request: Once you have decided on the number of units you want to redeem and checked the NAV, you can place a redemption request with the mutual fund company. You can do this online or through a mutual fund distributor.
+Wait for the redemption process to be completed: After you place the redemption request, the mutual fund company will process it and redeem the units as per your request. The process usually takes a few days to be completed.
+Receive the redemption proceeds: Once the redemption process is completed, you will receive the proceeds from the sale of the units in your bank account. This usually takes a few days depending on the mutual fund company's policies.
+Q: How To Sell Mutual Fund Units?
+There are several steps you can follow to sell mutual fund units:
+Contact your mutual fund company or broker: You will need to let them know you want to sell your mutual fund units. You can do this by phone, online, or through a broker.
+Choose the mutual fund units you want to sell: You will need to specify which mutual fund units you want to sell. This may include the number of units, the fund name, and the fund's ticker symbol.
+Determine the price you want to sell at: You can choose to sell your mutual fund units at the current market price or set a specific price you want to sell at.
+Place the sell order: Once you have decided on the mutual fund units you want to sell and the price you want to sell them at, you can place the sell order with your mutual fund company or broker.
+Wait for the sell order to be executed: It may take some time for your sell order to be executed, depending on market conditions and the demand for the mutual fund units.
+Receive the proceeds from the sale: Once the sell order is executed, you will receive the proceeds from the sale of your mutual fund units, minus any fees or commissions.
+Q: How units are allocated in mutual funds?
+Units in mutual funds are typically allocated based on the amount of money an investor puts into the fund. When an investor makes a purchase, they are allocated a certain number of units based on the current value of the fund and the amount they are investing.
+For example, if a mutual fund is currently valued at $100 per unit and an investor puts in $1,000, they would be allocated 10 units. If the value of the fund increases to $110 per unit, the investor would now have 11 units worth a total of $1,210.
+The allocation of units can also change if the investor buys or sells units in the fund. For example, if the investor in the above example decided to sell half of their units, they would now have 5 units worth a total of $550.
+It is important to note that mutual funds do not have a fixed number of units and the allocation of units can change based on the amount of money being invested and withdrawn from the fund.
