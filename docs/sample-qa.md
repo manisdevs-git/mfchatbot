@@ -86,7 +86,7 @@ Last updated from sources: 2026-08-28
 
 ## 9. Advisory refusal
 
-**Q:** Should I invest in this fund?
+**Q:** Should I invest in this fund? (same for “advise me to pick a scheme”)
 
 **A:** I can only answer factual questions from Groww scheme and help pages, and I cannot recommend or compare funds.
 
@@ -95,9 +95,17 @@ AMFI mutual fund risks: https://www.amfiindia.com/investor-corner/knowledge-cent
 
 ## 10. Comparison refusal
 
-**Q:** Which fund is better? (same for “which is best scheme” / “say me a best scheme”)
+**Q:** Which fund is better? (same for “which is top scheme you hold?” / “which is best scheme”)
 
 **A:** I can only answer factual questions from Groww scheme and help pages, and I cannot recommend or compare funds.
 
 AMFI investor education: https://www.amfiindia.com/investor
 AMFI mutual fund risks: https://www.amfiindia.com/investor-corner/knowledge-center/risks-in-mutual-funds.html
+
+## 11. PII refusal
+
+**Q:** ABCDE1234F any scheme linked to this?
+
+**A:** I cannot use personal identifiers. Ask a factual question without PAN, Aadhaar, phone, email, OTP, or account numbers.
+
+The identifier is not kept in chat history and is not sent to Gemini. Use a synthetic token in docs and tests — never a real PAN.

@@ -316,6 +316,7 @@ flowchart TD
 mfchatbot/
 ├── @data/                 # Architecture, problem, eval, edge cases, plan
 ├── README.md
+├── chatdemo/              # UI screenshots (README + preview.html)
 ├── api/main.py            # FastAPI: /health, POST /v1/ask
 ├── web/                   # Vite + React chat UI (Vercel)
 ├── railway.toml
@@ -343,7 +344,7 @@ Chat history stays in the browser for the current visit only. The API does not p
 | Control | Implementation |
 | --- | --- |
 | No PII fields in UI | Chat box only; no login, KYC, or contact forms |
-| PII in free text | Refused in `generate.py` before Gemini; `pii_blocked` tells the UI not to keep the message; not persisted and not sent to Gemini |
+| PII in free text | Refused in `generate.py` before Gemini; `pii_blocked` tells the UI not to keep the message; not persisted and not sent to Gemini. Composer example: `chatdemo/06-pan.png`. |
 | No account actions | Assistant never downloads statements on the user’s behalf; it only describes the Groww help process |
 | Corpus isolation | Index contains public scheme documents, not customer data |
 | Logging | If enabled for debugging, log intent labels and scheme/topic only — never raw queries that failed PII checks |
@@ -375,7 +376,7 @@ Refresh model: pages are re-ingested when the Groww scheme or help content chang
 | Accurate factual retrieval | Curated Groww corpus + metadata-filtered retrieval; Gemini only reads those chunks |
 | Facts-only responses | Gemini-side policy + generator constraints + no comparison logic |
 | Valid source citations | Formatter requires one `source_url` from the winning chunk |
-| Proper advisory refusal | System prompt + AMFI refusal copy (two public AMFI URLs, not in the index) |
+| Proper advisory refusal | System prompt + AMFI refusal copy (two public AMFI URLs, not in the index). UI: `chatdemo/07-advice.png`. |
 | Clean minimal UI | Vercel page: examples, fixed disclaimer; answers only from `/v1/ask` |
 
 ## 12. Known Limitations

@@ -30,6 +30,8 @@ class ReadmeContractTests(unittest.TestCase):
         self.assertIn("chatdemo/03-about.png", README)
         self.assertIn("chatdemo/04-fund-chip.png", README)
         self.assertIn("chatdemo/05-chat.png", README)
+        self.assertIn("chatdemo/06-pan.png", README)
+        self.assertIn("chatdemo/07-advice.png", README)
         self.assertIn("chatdemo/preview.html", README)
         for name in (
             "01-home.png",
@@ -37,6 +39,8 @@ class ReadmeContractTests(unittest.TestCase):
             "03-about.png",
             "04-fund-chip.png",
             "05-chat.png",
+            "06-pan.png",
+            "07-advice.png",
             "preview.html",
         ):
             self.assertTrue((ROOT / "chatdemo" / name).is_file(), name)
@@ -63,6 +67,8 @@ class ReadmeContractTests(unittest.TestCase):
         text = SAMPLE_QA.read_text(encoding="utf-8")
         self.assertIn("What is the expense ratio of HDFC Large Cap Fund Direct Growth?", text)
         self.assertIn("Should I invest in this fund?", text)
+        self.assertIn("advise me to pick a scheme", text)
+        self.assertIn("ABCDE1234F any scheme linked to this?", text)
         self.assertIn("https://groww.in/mutual-funds/hdfc-large-cap-fund-direct-growth", text)
         self.assertIn("https://www.amfiindia.com/investor", text)
         self.assertIn(

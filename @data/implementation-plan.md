@@ -423,10 +423,10 @@ Only after Phase 6 API curls and Phase 7 local UI both pass.
 | 5 | Riskometer — Gold FoF | Factual + citation |
 | 6 | Benchmark — any in-scope scheme | Factual + citation |
 | 7 | How to download capital-gains report | Process + Groww help citation |
-| 8 | Should I invest in this fund? | Advisory refuse + two AMFI URLs |
-| 9 | Which fund is better? | Advisory refuse + two AMFI URLs |
+| 8 | Should I invest in this fund? / advise me to pick a scheme | Advisory refuse + two AMFI URLs |
+| 9 | Which fund is better? / which is top scheme you hold? | Advisory refuse + two AMFI URLs |
 | 10 | 3-year return of Large Cap | Factsheet redirect, no CAGR |
-| 11 | Query with a PAN-like token | PII refuse, not stored, not sent to Gemini |
+| 11 | PAN-like token / “any scheme linked to this?” | PII refuse, not stored, not sent to Gemini |
 | 12 | SBI Bluechip expense ratio | Out of scope / not in corpus |
 
 3. Confirm backend `.env` is ignored, `web/.env` is ignored, and example questions do not request PII.

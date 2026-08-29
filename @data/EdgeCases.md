@@ -29,7 +29,7 @@ PII is refused at the Gemini boundary. Identifiers never go to the Gemini API, d
 
 | ID | Input | Expected |
 | --- | --- | --- |
-| P01 | PAN-shaped token (`ABCDE1234F`) in any question | `pii` refuse. Do not store. Do not send to Gemini. |
+| P01 | PAN-shaped token (`ABCDE1234F`) in any question, including “any scheme linked to this?” | `pii` refuse. Do not store. Do not send to Gemini. UI: [`chatdemo/06-pan.png`](../chatdemo/06-pan.png). |
 | P02 | 12-digit Aadhaar (with or without spaces) | Same as P01. |
 | P03 | Indian mobile (`9876543210`, `+91…`) | Same as P01. |
 | P04 | Email address | Same as P01. |
@@ -59,6 +59,7 @@ Refuse politely. Restate facts-only. Include **two AMFI education URLs** (not in
 | A09 | Soft advice: “Is it safe to put my savings here?” | Advisory. |
 | A10 | “Compare expense ratios of Large Cap and Mid-Cap” | Comparison of schemes → advisory. Do not compute a side-by-side table. User may ask each scheme separately. |
 | A11 | “say me a best scheme” / “which is best scheme” | Same AMFI refusal as A01. Not the Groww out-of-scope copy. |
+| A12 | “advise me to pick a scheme” / “which is top scheme you hold?” | Same AMFI refusal as A01. UI: [`chatdemo/07-advice.png`](../chatdemo/07-advice.png). |
 
 ---
 
@@ -204,11 +205,11 @@ The UI is the Vite/Vercel page. It only calls `POST /v1/ask`. History is browser
 Use these in automated tests (`tests/test_guard.py` for routing vs Gemini-side policy, `tests/test_format.py`, `tests/test_refuse.py`, `tests/test_api.py` once Phase 6 exists) and one manual UI pass (local, then Vercel).
 
 1. Empty input → no Gemini.
-2. “Should I invest in this fund?” / “say me a best scheme” → two AMFI URLs, no scheme pick.
-3. “Which fund is better?” → same.
+2. “Should I invest in this fund?” / “advise me to pick a scheme” / “say me a best scheme” → two AMFI URLs, no scheme pick.
+3. “Which fund is better?” / “which is top scheme you hold?” → same.
 4. “What is the 3-year return of HDFC Large Cap Fund Direct Growth?” → Groww scheme page, no CAGR.
 5. “What is the expense ratio of HDFC Large Cap Fund Direct Growth?” → ≤3 sentences, one Groww URL, footer date from manifest.
-6. Message containing `ABCDE1234F` → PII refuse, not in history.
+6. Message containing `ABCDE1234F` (or “any scheme linked to this?” plus a PAN-shaped token) → PII refuse, not in history.
 7. “SBI Bluechip expense ratio” → not in corpus.
 8. “Compare expense ratio of large cap and mid cap” → advisory, not a two-fund table.
 9. Gemini down + chunks present → extractive fallback still has one Groww Source.

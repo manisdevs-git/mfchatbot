@@ -19,8 +19,6 @@ Facts-only Q&A for five HDFC Direct Growth schemes listed on **Groww**. The assi
 
 Open the chat app. No account, no notebook, no install. History stays in that browser tab only.
 
-Screenshots live in [`chatdemo/`](chatdemo/). If they do not show in this preview, open [chatdemo/preview.html](chatdemo/preview.html) in a browser.
-
 **Home** — empty strip, fund chips, disclaimer.
 
 ![Home: no facts pulled yet](chatdemo/01-home.png)
@@ -40,6 +38,16 @@ Screenshots live in [`chatdemo/`](chatdemo/). If they do not show in this previe
 **Chat** — sourced answers with a Groww URL and last-updated date.
 
 ![Chat with expense ratio, SIP, and NAV answers](chatdemo/05-chat.png)
+
+**PAN in the question** — a PAN-shaped token is refused and is not kept in this tab’s history. Do not send real identifiers.
+
+![Composer with a PAN-shaped identifier](chatdemo/06-pan.png)
+
+**Scheme advice** — “advise me to pick a scheme” and “which is top scheme you hold?” get the same facts-only refusal plus the two AMFI links.
+
+![Advice refusal with AMFI education links](chatdemo/07-advice.png)
+
+If a local markdown preview hides the PNGs, open [chatdemo/preview.html](chatdemo/preview.html). GitHub shows them on this page.
 
 ---
 
@@ -152,7 +160,7 @@ CSV: [`docs/sources.csv`](docs/sources.csv).
 
 ## Sample Q&A
 
-Full file with ten queries, answers, and links: [`docs/sample-qa.md`](docs/sample-qa.md).
+Full file with eleven queries, answers, and links: [`docs/sample-qa.md`](docs/sample-qa.md).
 
 | # | Question | Expected |
 | --- | --- | --- |
@@ -164,8 +172,9 @@ Full file with ten queries, answers, and links: [`docs/sample-qa.md`](docs/sampl
 | 6 | What is the benchmark of HDFC Small Cap Fund Direct Growth? | BSE 250 SmallCap TRI + Small Cap URL |
 | 7 | What is the NAV of HDFC Large Cap Fund Direct Growth? | ₹1244.32 as of 27-Aug-2026 + Large Cap URL |
 | 8 | How do I download an ELSS tax statement? | Groww Reports steps + ELSS help URL |
-| 9 | Should I invest in this fund? | Refusal + https://www.amfiindia.com/investor and https://www.amfiindia.com/investor-corner/knowledge-center/risks-in-mutual-funds.html |
-| 10 | Which fund is better? / which is best scheme | Same refusal + the same two AMFI links |
+| 9 | Should I invest in this fund? / advise me to pick a scheme | Refusal + https://www.amfiindia.com/investor and https://www.amfiindia.com/investor-corner/knowledge-center/risks-in-mutual-funds.html |
+| 10 | Which fund is better? / which is top scheme you hold? | Same refusal + the same two AMFI links |
+| 11 | `ABCDE1234F` any scheme linked to this? | PII refuse; identifier not kept and not sent to Gemini |
 
 Figures are from the corpus snapshot dated **2026-08-28**. After a corpus refresh they can change; the citation URL stays the Groww page.
 
