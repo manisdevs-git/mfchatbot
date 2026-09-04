@@ -2,5 +2,13 @@ Groww Help — What is CAS and why is it needed
 
 What is cas why is it needed
 Help and Support
-
-Help and Support
+What is CAS and why do I need it?
+CAS stands for Consolidated Account Statement 📊, issued by CAMS/KFin Technologies. It's a detailed statement that summarizes all your investments linked to your email ID and PAN, covering various financial products like Mutual Funds, Stocks, and other securities.
+Why is CAS important?
+Track Investments:
+It helps you see all your investments in one place.
+Transparency:
+It gives a clear view of your portfolio, making it easy to monitor performance.
+Tax Filing:
+It's handy for tax filing as it shows your earnings and capital gains.
+Keep your CAS handy to stay on top of your investment game!
