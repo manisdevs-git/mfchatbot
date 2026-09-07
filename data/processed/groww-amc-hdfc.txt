@@ -300,19 +300,6 @@ Very High
 2
 ₹20,582
 Exit load of 1% if redeemed within 1 year.
-HDFC Focused Fund
-Equity
-Very High
-267.81
-0.8
-2.0%
-16.2%
-18.7%
-20.2%
-14.8%
-5
-₹27,924
-Exit load of 1% if redeemed within 1 year
 HDFC BSE Sensex Index Fund
 Equity
 Very High
@@ -326,6 +313,19 @@ Very High
 1
 ₹8,657
 Exit load of 0.25% if redeemed within 3 days
+HDFC Focused Fund
+Equity
+Very High
+267.81
+0.8
+2.0%
+16.2%
+18.7%
+20.2%
+14.8%
+5
+₹27,924
+Exit load of 1% if redeemed within 1 year
 HDFC Large & Mid Cap Fund
 Equity
 Very High
@@ -355,8 +355,8 @@ HDFC Pharma And Healthcare Fund Direct Growth
 HDFC Transportation and Logistics Fund Direct Growth
 HDFC NIFTY Next 50 Index Fund Direct Growth
 HDFC Multi Cap Fund Direct Growth
-HDFC Focused Fund Direct Growth
 HDFC BSE Sensex Index Fund Direct Growth
+HDFC Focused Fund Direct Growth
 HDFC Large & Mid Cap Fund Direct Growth
 No Data Available
 Key information
@@ -560,17 +560,6 @@ AUM
 ₹20,582Cr
 1Y Returns
 1.3%
-HDFC Focused Fund Direct Growth
-Fund Performance:
-The fund's annualized returns for the past 3 years & 5 years has been around 16.2% & 18.7%. The HDFC Focused Fund comes under the Equity category of HDFC Mutual Funds.
-Minimum Investment Amount:
-Lump sum minimum amount for HDFC Focused Fund is ₹100 and for SIP, it is ₹100.
-Min Investment Amt
-₹100
-AUM
-₹27,924Cr
-1Y Returns
-2.0%
 HDFC BSE Sensex Index Fund Direct Growth
 Fund Performance:
 The fund's annualized returns for the past 3 years & 5 years has been around 6.2% & 6.67%. The HDFC BSE Sensex Index Fund comes under the Equity category of HDFC Mutual Funds.
@@ -582,6 +571,17 @@ AUM
 ₹8,657Cr
 1Y Returns
 -4.5%
+HDFC Focused Fund Direct Growth
+Fund Performance:
+The fund's annualized returns for the past 3 years & 5 years has been around 16.2% & 18.7%. The HDFC Focused Fund comes under the Equity category of HDFC Mutual Funds.
+Minimum Investment Amount:
+Lump sum minimum amount for HDFC Focused Fund is ₹100 and for SIP, it is ₹100.
+Min Investment Amt
+₹100
+AUM
+₹27,924Cr
+1Y Returns
+2.0%
 HDFC Large & Mid Cap Fund Direct Growth
 Fund Performance:
 The fund's annualized returns for the past 3 years & 5 years has been around 13.74% & 15.23%. The HDFC Large & Mid Cap Fund comes under the Equity category of HDFC Mutual Funds.
