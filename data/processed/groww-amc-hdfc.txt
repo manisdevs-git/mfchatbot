@@ -274,19 +274,6 @@ Very High
 --
 ₹1,955
 Exit load of 1%, if redeemed within 30 days.
-HDFC Multi Cap Fund
-Equity
-Very High
-19.90
-0.93
-1.3%
-12.3%
---
---
---
-2
-₹20,582
-Exit load of 1% if redeemed within 1 year.
 HDFC NIFTY Next 50 Index Fund
 Equity
 Very High
@@ -300,6 +287,19 @@ Very High
 4
 ₹2,659
 -
+HDFC Multi Cap Fund
+Equity
+Very High
+19.90
+0.93
+1.3%
+12.3%
+--
+--
+--
+2
+₹20,582
+Exit load of 1% if redeemed within 1 year.
 HDFC Focused Fund
 Equity
 Very High
@@ -353,8 +353,8 @@ HDFC NIFTY 50 Index Fund Direct Growth
 HDFC Balanced Advantage Fund Direct Growth
 HDFC Pharma And Healthcare Fund Direct Growth
 HDFC Transportation and Logistics Fund Direct Growth
-HDFC Multi Cap Fund Direct Growth
 HDFC NIFTY Next 50 Index Fund Direct Growth
+HDFC Multi Cap Fund Direct Growth
 HDFC Focused Fund Direct Growth
 HDFC BSE Sensex Index Fund Direct Growth
 HDFC Large & Mid Cap Fund Direct Growth
@@ -538,17 +538,6 @@ AUM
 ₹1,955Cr
 1Y Returns
 12.1%
-HDFC Multi Cap Fund Direct Growth
-Fund Performance:
-The HDFC Multi Cap Fund comes under the Equity category of HDFC Mutual Funds.
-Minimum Investment Amount:
-Lump sum minimum amount for HDFC Multi Cap Fund is ₹100 and for SIP, it is ₹100.
-Min Investment Amt
-₹100
-AUM
-₹20,582Cr
-1Y Returns
-1.3%
 HDFC NIFTY Next 50 Index Fund Direct Growth
 Fund Performance:
 The HDFC NIFTY Next 50 Index Fund comes under the Equity category of HDFC Mutual Funds.
@@ -560,6 +549,17 @@ AUM
 ₹2,659Cr
 1Y Returns
 9.1%
+HDFC Multi Cap Fund Direct Growth
+Fund Performance:
+The HDFC Multi Cap Fund comes under the Equity category of HDFC Mutual Funds.
+Minimum Investment Amount:
+Lump sum minimum amount for HDFC Multi Cap Fund is ₹100 and for SIP, it is ₹100.
+Min Investment Amt
+₹100
+AUM
+₹20,582Cr
+1Y Returns
+1.3%
 HDFC Focused Fund Direct Growth
 Fund Performance:
 The fund's annualized returns for the past 3 years & 5 years has been around 16.2% & 18.7%. The HDFC Focused Fund comes under the Equity category of HDFC Mutual Funds.
