@@ -174,8 +174,8 @@ Equity
 Very High
 30.88
 0.91
-18.9%
-36.5%
+21.1%
+37.0%
 --
 --
 --
@@ -213,11 +213,11 @@ Equity
 Very High
 160.82
 0.77
--3.6%
-10.3%
-14.6%
-21.4%
-17.6%
+-2.6%
+10.9%
+14.8%
+21.6%
+17.7%
 3
 ₹41,890
 Exit load of 1% if redeemed within 1 year
@@ -279,8 +279,8 @@ Equity
 Very High
 19.62
 0.93
--3.8%
-10.9%
+-3.0%
+11.4%
 --
 --
 --
@@ -460,7 +460,7 @@ Min Investment Amt
 AUM
 ₹11,477Cr
 1Y Returns
-18.9%
+21.1%
 HDFC Flexi Cap Direct Plan Growth
 Fund Performance:
 The fund's annualized returns for the past 3 years & 5 years has been around 14.95% & 16.89%. The HDFC Flexi Cap Direct Plan-Growth comes under the Equity category of HDFC Mutual Funds.
@@ -485,7 +485,7 @@ AUM
 37.8%
 HDFC Small Cap Fund Direct Growth
 Fund Performance:
-The fund's annualized returns for the past 3 years & 5 years has been around 10.35% & 14.58%. The HDFC Small Cap Fund comes under the Equity category of HDFC Mutual Funds.
+The fund's annualized returns for the past 3 years & 5 years has been around 10.95% & 14.85%. The HDFC Small Cap Fund comes under the Equity category of HDFC Mutual Funds.
 Minimum Investment Amount:
 Lump sum minimum amount for HDFC Small Cap Fund is ₹100 and for SIP, it is ₹100.
 Min Investment Amt
@@ -493,7 +493,7 @@ Min Investment Amt
 AUM
 ₹41,890Cr
 1Y Returns
--3.6%
+-2.6%
 HDFC Pharma And Healthcare Fund Direct Growth
 Fund Performance:
 The HDFC Pharma And Healthcare Fund comes under the Equity category of HDFC Mutual Funds.
@@ -548,7 +548,7 @@ Min Investment Amt
 AUM
 ₹20,649Cr
 1Y Returns
--3.8%
+-3.0%
 HDFC NIFTY Next 50 Index Fund Direct Growth
 Fund Performance:
 The HDFC NIFTY Next 50 Index Fund comes under the Equity category of HDFC Mutual Funds.
