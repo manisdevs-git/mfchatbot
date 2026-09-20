@@ -247,19 +247,6 @@ Very High
 2
 ₹23,783
 Exit load of 0.25% if redeemed within 3 days
-HDFC Transportation and Logistics Fund
-Equity
-Very High
-20.28
-1.1
-7.3%
-24.8%
---
---
---
---
-₹2,115
-Exit load of 1%, if redeemed within 30 days.
 HDFC Balanced Advantage Fund
 Hybrid
 Very High
@@ -274,6 +261,19 @@ Very High
 ₹1,07,295
 Exit Load for units in excess of 15% of the investment,1% will be charged for redemption within 1 year.
 See more
+HDFC Transportation and Logistics Fund
+Equity
+Very High
+20.28
+1.1
+7.3%
+24.8%
+--
+--
+--
+--
+₹2,115
+Exit load of 1%, if redeemed within 30 days.
 HDFC Multi Cap Fund
 Equity
 Very High
@@ -351,8 +351,8 @@ HDFC Gold ETF Fund of Fund Direct Plan Growth
 HDFC Small Cap Fund Direct Growth
 HDFC Pharma And Healthcare Fund Direct Growth
 HDFC NIFTY 50 Index Fund Direct Growth
-HDFC Transportation and Logistics Fund Direct Growth
 HDFC Balanced Advantage Fund Direct Growth
+HDFC Transportation and Logistics Fund Direct Growth
 HDFC Multi Cap Fund Direct Growth
 HDFC NIFTY Next 50 Index Fund Direct Growth
 HDFC BSE Sensex Index Fund Direct Growth
@@ -516,17 +516,6 @@ AUM
 ₹23,783Cr
 1Y Returns
 -7.4%
-HDFC Transportation and Logistics Fund Direct Growth
-Fund Performance:
-The HDFC Transportation and Logistics Fund comes under the Equity category of HDFC Mutual Funds.
-Minimum Investment Amount:
-Lump sum minimum amount for HDFC Transportation and Logistics Fund is ₹100 and for SIP, it is ₹100.
-Min Investment Amt
-₹100
-AUM
-₹2,115Cr
-1Y Returns
-7.3%
 HDFC Balanced Advantage Fund Direct Growth
 Fund Performance:
 The fund's annualized returns for the past 3 years & 5 years has been around 10.98% & 14.18%. The HDFC Balanced Advantage Fund comes under the Hybrid category of HDFC Mutual Funds.
@@ -538,6 +527,17 @@ AUM
 ₹1,07,295Cr
 1Y Returns
 -1.0%
+HDFC Transportation and Logistics Fund Direct Growth
+Fund Performance:
+The HDFC Transportation and Logistics Fund comes under the Equity category of HDFC Mutual Funds.
+Minimum Investment Amount:
+Lump sum minimum amount for HDFC Transportation and Logistics Fund is ₹100 and for SIP, it is ₹100.
+Min Investment Amt
+₹100
+AUM
+₹2,115Cr
+1Y Returns
+7.3%
 HDFC Multi Cap Fund Direct Growth
 Fund Performance:
 The HDFC Multi Cap Fund comes under the Equity category of HDFC Mutual Funds.
