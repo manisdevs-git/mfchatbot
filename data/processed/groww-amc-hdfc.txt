@@ -122,7 +122,7 @@ HDFC Mutual Fund
 AUM
 ₹9,86,236.84Cr
 No of Schemes
-87
+88
 AMC Age
 26 years
 HDFC Asset Management Company Ltd., or
@@ -147,23 +147,23 @@ Exit Load
 HDFC Mid Cap Fund
 Equity
 Very High
-226.38
+223.17
 0.76
-6.1%
+6.2%
+16.0%
+18.1%
+22.1%
 16.8%
-18.3%
-22.3%
-17.0%
 5
 ₹1,08,324
 Exit load of 1% if redeemed within 1 year.
 HDFC Silver ETF FoF Direct-Growth
 Commodities
 Very High
-37.75
+36.31
 0.21
-63.7%
-44.4%
+56.1%
+43.6%
 --
 --
 --
@@ -173,23 +173,23 @@ Exit load of 1%, if redeemed within 15 days.
 HDFC Flexi Cap Direct Plan-Growth
 Equity
 Very High
-2,214.57
+2,181.07
 0.77
--0.3%
+-0.8%
+14.8%
+16.0%
+18.1%
 15.4%
-16.5%
-18.4%
-15.5%
 5
 ₹1,13,606
 Exit load of 1% if redeemed within 1 year
 HDFC Defence Fund
 Equity
 Very High
-31.08
+30.50
 0.89
-24.0%
-38.5%
+24.5%
+36.7%
 --
 --
 --
@@ -199,35 +199,48 @@ Exit load of 1%, if redeemed within 1 year.
 HDFC Gold ETF Fund
 Commodities
 High
-46.94
+45.76
 0.2
-31.9%
-35.2%
-25.4%
-20.7%
-15.9%
+28.5%
+34.6%
+24.9%
+20.5%
+15.7%
 3
 ₹12,359
 Exit load of 1%, if redeemed within 15 days.
 HDFC NIFTY 50 Index Fund
 Equity
 Very High
-226.50
+222.97
 0.29
--6.3%
-6.5%
-6.3%
-11.5%
-11.1%
+-6.8%
+5.9%
+6.1%
+11.2%
+11.0%
 2
 ₹23,783
 Exit load of 0.25% if redeemed within 3 days
+HDFC Small Cap Fund
+Equity
+Very High
+157.25
+0.78
+-1.7%
+10.3%
+14.4%
+20.7%
+17.1%
+3
+₹41,890
+Exit load of 1% if redeemed within 1 year
 HDFC Pharma And Healthcare Fund
 Equity
 Very High
-22.61
+22.32
 1.03
-28.8%
+29.9%
 --
 --
 --
@@ -235,29 +248,16 @@ Very High
 --
 ₹3,310
 Exit load of 1%, if redeemed within 30 days.
-HDFC Small Cap Fund
-Equity
-Very High
-159.82
-0.78
--1.7%
-11.1%
-14.6%
-20.8%
-17.4%
-3
-₹41,890
-Exit load of 1% if redeemed within 1 year
 HDFC Balanced Advantage Fund
 Hybrid
 Very High
-557.73
+551.04
 0.78
--0.7%
-11.0%
-14.1%
-15.7%
-13.4%
+-1.1%
+10.4%
+13.6%
+15.3%
+13.3%
 5
 ₹1,07,295
 Exit Load for units in excess of 15% of the investment,1% will be charged for redemption within 1 year.
@@ -265,10 +265,10 @@ See more
 HDFC Transportation and Logistics Fund
 Equity
 Very High
-20.30
+19.95
 1.09
-8.3%
-25.4%
+7.9%
+24.4%
 --
 --
 --
@@ -278,10 +278,10 @@ Exit load of 1%, if redeemed within 30 days.
 HDFC Multi Cap Fund
 Equity
 Very High
-19.35
+19.08
 0.93
--2.4%
-11.4%
+-2.1%
+10.7%
 --
 --
 --
@@ -291,10 +291,10 @@ Exit load of 1% if redeemed within 1 year.
 HDFC NIFTY Next 50 Index Fund
 Equity
 Very High
-17.00
+16.65
 0.35
-5.6%
-17.1%
+5.2%
+16.1%
 --
 --
 --
@@ -304,12 +304,12 @@ Very High
 HDFC BSE Sensex Index Fund
 Equity
 Very High
-707.44
+696.66
 0.22
--8.2%
-4.8%
-5.2%
-10.7%
+-8.8%
+4.2%
+5.0%
+10.3%
 10.9%
 1
 ₹8,495
@@ -317,12 +317,12 @@ Exit load of 0.25% if redeemed within 3 days
 HDFC Focused Fund
 Equity
 Very High
-261.79
+257.89
 0.82
--1.8%
-15.2%
-17.8%
-18.4%
+-2.1%
+14.7%
+17.3%
+17.9%
 14.4%
 5
 ₹28,200
@@ -330,13 +330,13 @@ Exit load of 1% if redeemed within 1 year
 HDFC Large & Mid Cap Fund
 Equity
 Very High
-359.52
+354.09
 0.92
-0.4%
-12.6%
-14.0%
-18.3%
-14.4%
+0.5%
+11.9%
+13.6%
+17.9%
+14.3%
 4
 ₹30,294
 Exit load of 1% if redeemed within 1 year
@@ -350,8 +350,8 @@ HDFC Flexi Cap Direct Plan Growth
 HDFC Defence Fund Direct Growth
 HDFC Gold ETF Fund of Fund Direct Plan Growth
 HDFC NIFTY 50 Index Fund Direct Growth
-HDFC Pharma And Healthcare Fund Direct Growth
 HDFC Small Cap Fund Direct Growth
+HDFC Pharma And Healthcare Fund Direct Growth
 HDFC Balanced Advantage Fund Direct Growth
 HDFC Transportation and Logistics Fund Direct Growth
 HDFC Multi Cap Fund Direct Growth
@@ -431,7 +431,7 @@ Now let us jump and check about these top
 mutual fund schemes.
 HDFC Mid Cap Fund Direct Growth
 Fund Performance:
-The fund's annualized returns for the past 3 years & 5 years has been around 16.76% & 18.31%. The HDFC Mid Cap Fund comes under the Equity category of HDFC Mutual Funds.
+The fund's annualized returns for the past 3 years & 5 years has been around 15.96% & 18.12%. The HDFC Mid Cap Fund comes under the Equity category of HDFC Mutual Funds.
 Minimum Investment Amount:
 Lump sum minimum amount for HDFC Mid Cap Fund is ₹100 and for SIP, it is ₹100.
 Min Investment Amt
@@ -439,7 +439,7 @@ Min Investment Amt
 AUM
 ₹1,08,324Cr
 1Y Returns
-6.1%
+6.2%
 HDFC Silver ETF FoF Direct Growth
 Fund Performance:
 The HDFC Silver ETF FoF Direct-Growth comes under the Commodities category of HDFC Mutual Funds.
@@ -450,10 +450,10 @@ Min Investment Amt
 AUM
 ₹4,698Cr
 1Y Returns
-63.7%
+56.1%
 HDFC Flexi Cap Direct Plan Growth
 Fund Performance:
-The fund's annualized returns for the past 3 years & 5 years has been around 15.42% & 16.52%. The HDFC Flexi Cap Direct Plan-Growth comes under the Equity category of HDFC Mutual Funds.
+The fund's annualized returns for the past 3 years & 5 years has been around 14.84% & 16%. The HDFC Flexi Cap Direct Plan-Growth comes under the Equity category of HDFC Mutual Funds.
 Minimum Investment Amount:
 Lump sum minimum amount for HDFC Flexi Cap Direct Plan-Growth is ₹100 and for SIP, it is ₹100.
 Min Investment Amt
@@ -461,7 +461,7 @@ Min Investment Amt
 AUM
 ₹1,13,606Cr
 1Y Returns
--0.3%
+-0.8%
 HDFC Defence Fund Direct Growth
 Fund Performance:
 The HDFC Defence Fund comes under the Equity category of HDFC Mutual Funds.
@@ -472,10 +472,10 @@ Min Investment Amt
 AUM
 ₹11,477Cr
 1Y Returns
-24.0%
+24.5%
 HDFC Gold ETF Fund of Fund Direct Plan Growth
 Fund Performance:
-The fund's annualized returns for the past 3 years & 5 years has been around 35.2% & 25.37%. The HDFC Gold ETF Fund comes under the Commodities category of HDFC Mutual Funds.
+The fund's annualized returns for the past 3 years & 5 years has been around 34.56% & 24.85%. The HDFC Gold ETF Fund comes under the Commodities category of HDFC Mutual Funds.
 Minimum Investment Amount:
 Lump sum minimum amount for HDFC Gold ETF Fund is ₹100 and for SIP, it is ₹100.
 Min Investment Amt
@@ -483,10 +483,10 @@ Min Investment Amt
 AUM
 ₹12,359Cr
 1Y Returns
-31.9%
+28.5%
 HDFC NIFTY 50 Index Fund Direct Growth
 Fund Performance:
-The fund's annualized returns for the past 3 years & 5 years has been around 6.51% & 6.29%. The HDFC NIFTY 50 Index Fund comes under the Equity category of HDFC Mutual Funds.
+The fund's annualized returns for the past 3 years & 5 years has been around 5.87% & 6.08%. The HDFC NIFTY 50 Index Fund comes under the Equity category of HDFC Mutual Funds.
 Minimum Investment Amount:
 Lump sum minimum amount for HDFC NIFTY 50 Index Fund is ₹100 and for SIP, it is ₹100.
 Min Investment Amt
@@ -494,7 +494,18 @@ Min Investment Amt
 AUM
 ₹23,783Cr
 1Y Returns
--6.3%
+-6.8%
+HDFC Small Cap Fund Direct Growth
+Fund Performance:
+The fund's annualized returns for the past 3 years & 5 years has been around 10.27% & 14.4%. The HDFC Small Cap Fund comes under the Equity category of HDFC Mutual Funds.
+Minimum Investment Amount:
+Lump sum minimum amount for HDFC Small Cap Fund is ₹100 and for SIP, it is ₹100.
+Min Investment Amt
+₹100
+AUM
+₹41,890Cr
+1Y Returns
+-1.7%
 HDFC Pharma And Healthcare Fund Direct Growth
 Fund Performance:
 The HDFC Pharma And Healthcare Fund comes under the Equity category of HDFC Mutual Funds.
@@ -505,21 +516,10 @@ Min Investment Amt
 AUM
 ₹3,310Cr
 1Y Returns
-28.8%
-HDFC Small Cap Fund Direct Growth
-Fund Performance:
-The fund's annualized returns for the past 3 years & 5 years has been around 11.08% & 14.6%. The HDFC Small Cap Fund comes under the Equity category of HDFC Mutual Funds.
-Minimum Investment Amount:
-Lump sum minimum amount for HDFC Small Cap Fund is ₹100 and for SIP, it is ₹100.
-Min Investment Amt
-₹100
-AUM
-₹41,890Cr
-1Y Returns
--1.7%
+29.9%
 HDFC Balanced Advantage Fund Direct Growth
 Fund Performance:
-The fund's annualized returns for the past 3 years & 5 years has been around 11.02% & 14.12%. The HDFC Balanced Advantage Fund comes under the Hybrid category of HDFC Mutual Funds.
+The fund's annualized returns for the past 3 years & 5 years has been around 10.39% & 13.62%. The HDFC Balanced Advantage Fund comes under the Hybrid category of HDFC Mutual Funds.
 Minimum Investment Amount:
 Lump sum minimum amount for HDFC Balanced Advantage Fund is ₹100 and for SIP, it is ₹100.
 Min Investment Amt
@@ -527,7 +527,7 @@ Min Investment Amt
 AUM
 ₹1,07,295Cr
 1Y Returns
--0.7%
+-1.1%
 HDFC Transportation and Logistics Fund Direct Growth
 Fund Performance:
 The HDFC Transportation and Logistics Fund comes under the Equity category of HDFC Mutual Funds.
@@ -538,7 +538,7 @@ Min Investment Amt
 AUM
 ₹2,115Cr
 1Y Returns
-8.3%
+7.9%
 HDFC Multi Cap Fund Direct Growth
 Fund Performance:
 The HDFC Multi Cap Fund comes under the Equity category of HDFC Mutual Funds.
@@ -549,7 +549,7 @@ Min Investment Amt
 AUM
 ₹20,649Cr
 1Y Returns
--2.4%
+-2.1%
 HDFC NIFTY Next 50 Index Fund Direct Growth
 Fund Performance:
 The HDFC NIFTY Next 50 Index Fund comes under the Equity category of HDFC Mutual Funds.
@@ -560,10 +560,10 @@ Min Investment Amt
 AUM
 ₹2,708Cr
 1Y Returns
-5.6%
+5.2%
 HDFC BSE Sensex Index Fund Direct Growth
 Fund Performance:
-The fund's annualized returns for the past 3 years & 5 years has been around 4.76% & 5.23%. The HDFC BSE Sensex Index Fund comes under the Equity category of HDFC Mutual Funds.
+The fund's annualized returns for the past 3 years & 5 years has been around 4.17% & 5.05%. The HDFC BSE Sensex Index Fund comes under the Equity category of HDFC Mutual Funds.
 Minimum Investment Amount:
 Lump sum minimum amount for HDFC BSE Sensex Index Fund is ₹100 and for SIP, it is ₹100.
 Min Investment Amt
@@ -571,10 +571,10 @@ Min Investment Amt
 AUM
 ₹8,495Cr
 1Y Returns
--8.2%
+-8.8%
 HDFC Focused Fund Direct Growth
 Fund Performance:
-The fund's annualized returns for the past 3 years & 5 years has been around 15.24% & 17.76%. The HDFC Focused Fund comes under the Equity category of HDFC Mutual Funds.
+The fund's annualized returns for the past 3 years & 5 years has been around 14.68% & 17.3%. The HDFC Focused Fund comes under the Equity category of HDFC Mutual Funds.
 Minimum Investment Amount:
 Lump sum minimum amount for HDFC Focused Fund is ₹100 and for SIP, it is ₹100.
 Min Investment Amt
@@ -582,10 +582,10 @@ Min Investment Amt
 AUM
 ₹28,200Cr
 1Y Returns
--1.8%
+-2.1%
 HDFC Large & Mid Cap Fund Direct Growth
 Fund Performance:
-The fund's annualized returns for the past 3 years & 5 years has been around 12.59% & 13.97%. The HDFC Large & Mid Cap Fund comes under the Equity category of HDFC Mutual Funds.
+The fund's annualized returns for the past 3 years & 5 years has been around 11.91% & 13.55%. The HDFC Large & Mid Cap Fund comes under the Equity category of HDFC Mutual Funds.
 Minimum Investment Amount:
 Lump sum minimum amount for HDFC Large & Mid Cap Fund is ₹100 and for SIP, it is ₹100.
 Min Investment Amt
@@ -593,7 +593,7 @@ Min Investment Amt
 AUM
 ₹30,294Cr
 1Y Returns
-0.4%
+0.5%
 View Mutual Funds from Other AMCs
 SEE ALL
 Mahindra Manulife Mutual Fund
