@@ -2,18 +2,18 @@ Groww — HDFC Mid Cap Fund Direct Growth
 
 HDFC Mid Cap Fund Direct Growth
 Expense ratio: 0.76%
-NAV: ₹223.17 as of 28-Sep-2026
+NAV: ₹221.35 as of 29-Sep-2026
 Minimum SIP: ₹100
 Minimum lumpsum: ₹100
 Exit load: Exit load of 1% if redeemed within 1 year.
 Benchmark: NIFTY Midcap 150 Total Return Index
 Riskometer: Very High
-NAV: 28 Sep '26
-₹223.17
+NAV: 29 Sep '26
+₹221.35
 Min. for SIP
 ₹100
 Fund size (AUM)
-₹1,08,324.55 Cr
+₹1,08,324.54 Cr
 Expense ratio
 0.76%
 Rating
@@ -48,7 +48,7 @@ If you redeem within one year, returns are taxed at 20%. If you redeem after one
 Check past data
 About
 HDFC Mid Cap Fund Direct Growth
-HDFC Mid Cap Fund Direct Growth is a Equity Mutual Fund Scheme launched by HDFC Mutual Fund. This scheme was made available to investors on 10 Dec 1999. Chirag Setalvad is the Current Fund Manager of HDFC Mid Cap Fund Direct Growth fund. The fund currently has an Asset Under Management(AUM) of ₹9,86,237 Cr and the Latest NAV as of 28 Sep 2026 is ₹223.17.
+HDFC Mid Cap Fund Direct Growth is a Equity Mutual Fund Scheme launched by HDFC Mutual Fund. This scheme was made available to investors on 10 Dec 1999. Chirag Setalvad is the Current Fund Manager of HDFC Mid Cap Fund Direct Growth fund. The fund currently has an Asset Under Management(AUM) of ₹9,86,237 Cr and the Latest NAV as of 29 Sep 2026 is ₹221.35.
 The HDFC Mid Cap Fund Direct Growth is rated Very High risk. Minimum SIP Investment is set to ₹100. Minimum Lumpsum Investment is ₹100. Exit load of 1% if redeemed within 1 year.
 ;
 Investment Objective
