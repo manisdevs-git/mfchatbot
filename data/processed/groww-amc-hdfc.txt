@@ -327,19 +327,19 @@ Very High
 5
 ₹28,200
 Exit load of 1% if redeemed within 1 year
-HDFC Large & Mid Cap Fund
-Equity
-Very High
-348.12
-0.92
--2.5%
-11.2%
-13.1%
-18.0%
-14.2%
-4
-₹30,294
-Exit load of 1% if redeemed within 1 year
+HDFC Banking and PSU Debt Fund
+Debt
+Moderate
+25.45
+0.35
+4.7%
+7.0%
+6.2%
+6.8%
+7.1%
+3
+₹5,186
+-
 View All
 Returns calculator
 Fund Name
@@ -358,7 +358,7 @@ HDFC NIFTY Next 50 Index Fund Direct Growth
 HDFC Multi Cap Fund Direct Growth
 HDFC BSE Sensex Index Fund Direct Growth
 HDFC Focused Fund Direct Growth
-HDFC Large & Mid Cap Fund Direct Growth
+HDFC Banking and PSU Debt Fund Direct Growth
 No Data Available
 Key information
 about HDFC Mutual Fund
@@ -583,17 +583,17 @@ AUM
 ₹28,200Cr
 1Y Returns
 -3.9%
-HDFC Large & Mid Cap Fund Direct Growth
+HDFC Banking and PSU Debt Fund Direct Growth
 Fund Performance:
-The fund's annualized returns for the past 3 years & 5 years has been around 11.22% & 13.1%. The HDFC Large & Mid Cap Fund comes under the Equity category of HDFC Mutual Funds.
+The fund's annualized returns for the past 3 years & 5 years has been around 6.97% & 6.2%. The HDFC Banking and PSU Debt Fund comes under the Debt category of HDFC Mutual Funds.
 Minimum Investment Amount:
-Lump sum minimum amount for HDFC Large & Mid Cap Fund is ₹100 and for SIP, it is ₹100.
+Lump sum minimum amount for HDFC Banking and PSU Debt Fund is ₹100 and for SIP, it is ₹100.
 Min Investment Amt
 ₹100
 AUM
-₹30,294Cr
+₹5,186Cr
 1Y Returns
--2.5%
+4.7%
 View Mutual Funds from Other AMCs
 SEE ALL
 Mahindra Manulife Mutual Fund
