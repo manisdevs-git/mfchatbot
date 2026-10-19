@@ -327,18 +327,18 @@ Moderate
 3
 ₹14,218
 -
-HDFC Large & Mid Cap Fund
+HDFC Large Cap Fund
 Equity
 Very High
-351.99
-0.92
--3.9%
-11.5%
-11.8%
-18.1%
-14.3%
+1,172.67
+1.02
+-6.6%
+7.8%
+8.9%
+13.2%
+12.0%
 4
-₹28,542
+₹37,293
 Exit load of 1% if redeemed within 1 year
 View All
 Returns calculator
@@ -358,7 +358,7 @@ HDFC NIFTY Next 50 Index Fund Direct Growth
 HDFC BSE Sensex Index Fund Direct Growth
 HDFC Focused Fund Direct Growth
 HDFC Short Term Fund Direct Plan Growth
-HDFC Large & Mid Cap Fund Direct Growth
+HDFC Large Cap Fund Direct Growth
 No Data Available
 Key information
 about HDFC Mutual Fund
@@ -583,17 +583,17 @@ AUM
 ₹14,218Cr
 1Y Returns
 4.6%
-HDFC Large & Mid Cap Fund Direct Growth
+HDFC Large Cap Fund Direct Growth
 Fund Performance:
-The fund's annualized returns for the past 3 years & 5 years has been around 11.54% & 11.84%. The HDFC Large & Mid Cap Fund comes under the Equity category of HDFC Mutual Funds.
+The fund's annualized returns for the past 3 years & 5 years has been around 7.85% & 8.88%. The HDFC Large Cap Fund comes under the Equity category of HDFC Mutual Funds.
 Minimum Investment Amount:
-Lump sum minimum amount for HDFC Large & Mid Cap Fund is ₹100 and for SIP, it is ₹100.
+Lump sum minimum amount for HDFC Large Cap Fund is ₹100 and for SIP, it is ₹100.
 Min Investment Amt
 ₹100
 AUM
-₹28,542Cr
+₹37,293Cr
 1Y Returns
--3.9%
+-6.6%
 View Mutual Funds from Other AMCs
 SEE ALL
 Mahindra Manulife Mutual Fund
