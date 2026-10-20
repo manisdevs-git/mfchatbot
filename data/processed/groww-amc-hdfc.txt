@@ -314,19 +314,6 @@ Very High
 5
 ₹26,552
 Exit load of 1% if redeemed within 1 year
-HDFC Short Term Fund
-Debt
-Moderate
-35.36
-0.39
-4.6%
-7.3%
-6.5%
-7.0%
-7.3%
-3
-₹14,218
--
 HDFC Liquid Direct Plan-Growth
 Debt
 Moderate
@@ -341,6 +328,19 @@ Moderate
 ₹66,295
 Exit load of 0.0070% if redeemed within 1 day, 0.0065% if redeemed within 2 days, 0.0060% if redeemed within 3 days, 0.0055% if redeemed within 4 days, 0.0050% if redeemed within 5 days, 0.0045% if redeemed within 6 days.
 See more
+HDFC Large Cap Fund
+Equity
+Very High
+1,158.61
+1.02
+-8.1%
+7.7%
+8.6%
+12.6%
+11.7%
+4
+₹37,293
+Exit load of 1% if redeemed within 1 year
 View All
 Returns calculator
 Fund Name
@@ -358,8 +358,8 @@ HDFC Multi Cap Fund Direct Growth
 HDFC NIFTY Next 50 Index Fund Direct Growth
 HDFC BSE Sensex Index Fund Direct Growth
 HDFC Focused Fund Direct Growth
-HDFC Short Term Fund Direct Plan Growth
 HDFC Liquid Direct Plan Growth
+HDFC Large Cap Fund Direct Growth
 No Data Available
 Key information
 about HDFC Mutual Fund
@@ -573,17 +573,6 @@ AUM
 ₹26,552Cr
 1Y Returns
 -4.9%
-HDFC Short Term Fund Direct Plan Growth
-Fund Performance:
-The fund's annualized returns for the past 3 years & 5 years has been around 7.34% & 6.5%. The HDFC Short Term Fund comes under the Debt category of HDFC Mutual Funds.
-Minimum Investment Amount:
-Lump sum minimum amount for HDFC Short Term Fund is ₹100 and for SIP, it is ₹100.
-Min Investment Amt
-₹100
-AUM
-₹14,218Cr
-1Y Returns
-4.6%
 HDFC Liquid Direct Plan Growth
 Fund Performance:
 The fund's annualized returns for the past 3 years & 5 years has been around 6.89% & 6.37%. The HDFC Liquid Direct Plan-Growth comes under the Debt category of HDFC Mutual Funds.
@@ -595,6 +584,17 @@ AUM
 ₹66,295Cr
 1Y Returns
 6.5%
+HDFC Large Cap Fund Direct Growth
+Fund Performance:
+The fund's annualized returns for the past 3 years & 5 years has been around 7.67% & 8.56%. The HDFC Large Cap Fund comes under the Equity category of HDFC Mutual Funds.
+Minimum Investment Amount:
+Lump sum minimum amount for HDFC Large Cap Fund is ₹100 and for SIP, it is ₹100.
+Min Investment Amt
+₹100
+AUM
+₹37,293Cr
+1Y Returns
+-8.1%
 View Mutual Funds from Other AMCs
 SEE ALL
 Mahindra Manulife Mutual Fund
