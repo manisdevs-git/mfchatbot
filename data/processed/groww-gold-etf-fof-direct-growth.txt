@@ -2,16 +2,16 @@ Groww — HDFC Gold ETF Fund of Fund Direct Plan Growth
 
 HDFC Gold ETF Fund of Fund Direct Plan Growth
 Expense ratio: 0.2%
-NAV: ₹45.20 as of 19-Oct-2026
-Minimum SIP: ₹100
+NAV: ₹44.55 as of 21-Oct-2026
+Minimum SIP: ₹0
 Minimum lumpsum: ₹0
 Exit load: Exit load of 1%, if redeemed within 15 days.
 Benchmark: Domestic Price of Gold
 Riskometer: High
-NAV: 19 Oct '26
-₹45.20
+NAV: 21 Oct '26
+₹44.55
 Min. for SIP
-Not Supported
+--
 Fund size (AUM)
 ₹12,013.27 Cr
 Expense ratio
@@ -20,11 +20,11 @@ Rating
 3
 Minimum investments
 Min. for 1st investment
-Not Supported
+--
 Min. for 2nd investment
-Not Supported
+--
 Min. for SIP
-Not Supported
+--
 Understand terms
 Expense ratio
 A fee payable to a mutual fund house for managing your mutual fund investments. It is the total percentage of a company's fund assets used for administrative, management, advertising, and other expenses.
@@ -54,8 +54,8 @@ If you redeem within two years, returns are taxed as per your Income Tax slab. I
 Check past data
 About
 HDFC Gold ETF Fund of Fund Direct Plan Growth
-HDFC Gold ETF Fund of Fund Direct Plan Growth is a Commodities Mutual Fund Scheme launched by HDFC Mutual Fund. This scheme was made available to investors on 10 Dec 1999. Arun Agarwal is the Current Fund Manager of HDFC Gold ETF Fund of Fund Direct Plan Growth fund. The fund currently has an Asset Under Management(AUM) of ₹9,34,076 Cr and the Latest NAV as of 19 Oct 2026 is ₹45.20.
-The HDFC Gold ETF Fund of Fund Direct Plan Growth is rated High risk. Minimum SIP Investment is set to ₹100. Exit load of 1%, if redeemed within 15 days.
+HDFC Gold ETF Fund of Fund Direct Plan Growth is a Commodities Mutual Fund Scheme launched by HDFC Mutual Fund. This scheme was made available to investors on 10 Dec 1999. Arun Agarwal is the Current Fund Manager of HDFC Gold ETF Fund of Fund Direct Plan Growth fund. The fund currently has an Asset Under Management(AUM) of ₹9,34,076 Cr and the Latest NAV as of 21 Oct 2026 is ₹44.55.
+The HDFC Gold ETF Fund of Fund Direct Plan Growth is rated High risk. Exit load of 1%, if redeemed within 15 days.
 ;
 Investment Objective
 The Scheme seeks to generate capital appreciation by investing in units of HDFC Gold Exchange Traded Fund.
