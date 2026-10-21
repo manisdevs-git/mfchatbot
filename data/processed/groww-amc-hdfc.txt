@@ -317,7 +317,7 @@ Exit load of 1% if redeemed within 1 year
 HDFC Liquid Direct Plan-Growth
 Debt
 Moderate
-5,610.05
+5,611.00
 0.2
 6.5%
 6.9%
