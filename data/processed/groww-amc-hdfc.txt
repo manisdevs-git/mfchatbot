@@ -122,7 +122,7 @@ HDFC Mutual Fund
 AUM
 ₹9,34,075.66Cr
 No of Schemes
-83
+84
 AMC Age
 26 years
 HDFC Asset Management Company Ltd., or
@@ -147,7 +147,7 @@ Exit Load
 HDFC Mid Cap Fund
 Equity
 Very High
-216.49
+213.42
 0.74
 -1.6%
 14.9%
@@ -160,7 +160,7 @@ Exit load of 1% if redeemed within 1 year.
 HDFC Silver ETF FoF Direct-Growth
 Commodities
 Very High
-32.73
+31.68
 0.21
 27.7%
 38.2%
@@ -173,7 +173,7 @@ Exit load of 1%, if redeemed within 15 days.
 HDFC Flexi Cap Direct Plan-Growth
 Equity
 Very High
-2,134.18
+2,121.91
 0.75
 -6.0%
 14.1%
@@ -186,8 +186,8 @@ Exit load of 1% if redeemed within 1 year
 HDFC Defence Fund
 Equity
 Very High
-29.03
-0.89
+28.39
+0.9
 14.0%
 33.2%
 --
@@ -199,7 +199,7 @@ Exit load of 1%, if redeemed within 1 year.
 HDFC Pharma And Healthcare Fund
 Equity
 Very High
-20.80
+20.66
 1.05
 16.6%
 27.7%
@@ -212,8 +212,8 @@ Exit load of 1%, if redeemed within 30 days.
 HDFC Small Cap Fund
 Equity
 Very High
-150.80
-0.79
+148.39
+0.8
 -7.1%
 8.2%
 13.3%
@@ -225,7 +225,7 @@ Exit load of 1% if redeemed within 1 year
 HDFC NIFTY 50 Index Fund
 Equity
 Very High
-222.06
+221.22
 0.29
 -11.4%
 6.0%
@@ -238,7 +238,7 @@ Exit load of 0.25% if redeemed within 3 days
 HDFC Balanced Advantage Fund
 Hybrid
 Very High
-543.29
+539.44
 0.77
 -5.2%
 9.8%
@@ -252,7 +252,7 @@ See more
 HDFC Transportation and Logistics Fund
 Equity
 Very High
-18.75
+18.51
 1.16
 -0.6%
 20.9%
@@ -265,7 +265,7 @@ Exit load of 1%, if redeemed within 30 days.
 HDFC Multi Cap Fund
 Equity
 Very High
-18.43
+18.18
 0.96
 -9.0%
 9.3%
@@ -278,7 +278,7 @@ Exit load of 1% if redeemed within 1 year.
 HDFC NIFTY Next 50 Index Fund
 Equity
 Very High
-15.95
+15.59
 0.4
 -2.5%
 15.1%
@@ -291,7 +291,7 @@ Very High
 HDFC BSE Sensex Index Fund
 Equity
 Very High
-701.33
+700.20
 0.22
 -12.4%
 4.8%
@@ -304,7 +304,7 @@ Exit load of 0.25% if redeemed within 3 days
 HDFC Focused Fund
 Equity
 Very High
-254.65
+252.79
 0.83
 -6.6%
 14.0%
@@ -317,7 +317,7 @@ Exit load of 1% if redeemed within 1 year
 HDFC Liquid Direct Plan-Growth
 Debt
 Moderate
-5,610.44
+5,610.71
 0.2
 6.4%
 6.9%
@@ -331,7 +331,7 @@ See more
 HDFC Large Cap Fund
 Equity
 Very High
-1,145.05
+1,133.76
 1.02
 -9.4%
 7.4%
