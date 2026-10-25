@@ -122,7 +122,7 @@ HDFC Mutual Fund
 AUM
 ₹9,34,075.66Cr
 No of Schemes
-84
+83
 AMC Age
 26 years
 HDFC Asset Management Company Ltd., or
@@ -314,19 +314,6 @@ Very High
 4
 ₹37,293
 Exit load of 1% if redeemed within 1 year
-HDFC Focused Fund
-Equity
-Very High
-252.79
-0.83
--7.4%
-14.2%
-14.6%
-17.8%
-14.0%
-5
-₹26,552
-Exit load of 1% if redeemed within 1 year
 HDFC Liquid Direct Plan-Growth
 Debt
 Moderate
@@ -341,6 +328,19 @@ Moderate
 ₹66,295
 Exit load of 0.0070% if redeemed within 1 day, 0.0065% if redeemed within 2 days, 0.0060% if redeemed within 3 days, 0.0055% if redeemed within 4 days, 0.0050% if redeemed within 5 days, 0.0045% if redeemed within 6 days.
 See more
+HDFC Focused Fund
+Equity
+Very High
+252.79
+0.83
+-7.4%
+14.2%
+14.6%
+17.8%
+14.0%
+5
+₹26,552
+Exit load of 1% if redeemed within 1 year
 View All
 Returns calculator
 Fund Name
@@ -358,8 +358,8 @@ HDFC Multi Cap Fund Direct Growth
 HDFC NIFTY Next 50 Index Fund Direct Growth
 HDFC BSE Sensex Index Fund Direct Growth
 HDFC Large Cap Fund Direct Growth
-HDFC Focused Fund Direct Growth
 HDFC Liquid Direct Plan Growth
+HDFC Focused Fund Direct Growth
 No Data Available
 Key information
 about HDFC Mutual Fund
@@ -573,17 +573,6 @@ AUM
 ₹37,293Cr
 1Y Returns
 -10.3%
-HDFC Focused Fund Direct Growth
-Fund Performance:
-The fund's annualized returns for the past 3 years & 5 years has been around 14.22% & 14.62%. The HDFC Focused Fund comes under the Equity category of HDFC Mutual Funds.
-Minimum Investment Amount:
-Lump sum minimum amount for HDFC Focused Fund is ₹100 and for SIP, it is ₹100.
-Min Investment Amt
-₹100
-AUM
-₹26,552Cr
-1Y Returns
--7.4%
 HDFC Liquid Direct Plan Growth
 Fund Performance:
 The fund's annualized returns for the past 3 years & 5 years has been around 6.87% & 6.37%. The HDFC Liquid Direct Plan-Growth comes under the Debt category of HDFC Mutual Funds.
@@ -595,6 +584,17 @@ AUM
 ₹66,295Cr
 1Y Returns
 6.4%
+HDFC Focused Fund Direct Growth
+Fund Performance:
+The fund's annualized returns for the past 3 years & 5 years has been around 14.22% & 14.62%. The HDFC Focused Fund comes under the Equity category of HDFC Mutual Funds.
+Minimum Investment Amount:
+Lump sum minimum amount for HDFC Focused Fund is ₹100 and for SIP, it is ₹100.
+Min Investment Amt
+₹100
+AUM
+₹26,552Cr
+1Y Returns
+-7.4%
 View Mutual Funds from Other AMCs
 SEE ALL
 Mahindra Manulife Mutual Fund
