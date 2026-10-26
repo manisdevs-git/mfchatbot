@@ -122,7 +122,7 @@ HDFC Mutual Fund
 AUM
 ₹9,34,075.66Cr
 No of Schemes
-83
+84
 AMC Age
 26 years
 HDFC Asset Management Company Ltd., or
@@ -317,7 +317,7 @@ Exit load of 1% if redeemed within 1 year
 HDFC Liquid Direct Plan-Growth
 Debt
 Moderate
-5,611.76
+5,612.81
 0.2
 6.4%
 6.9%
