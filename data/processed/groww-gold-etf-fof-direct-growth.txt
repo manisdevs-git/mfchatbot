@@ -3,7 +3,7 @@ Groww — HDFC Gold ETF Fund of Fund Direct Plan Growth
 HDFC Gold ETF Fund of Fund Direct Plan Growth
 Expense ratio: 0.2%
 NAV: ₹43.76 as of 26-Oct-2026
-Minimum SIP: ₹0
+Minimum SIP: ₹100
 Minimum lumpsum: ₹0
 Exit load: Exit load of 1%, if redeemed within 15 days.
 Benchmark: Domestic Price of Gold
@@ -55,7 +55,7 @@ Check past data
 About
 HDFC Gold ETF Fund of Fund Direct Plan Growth
 HDFC Gold ETF Fund of Fund Direct Plan Growth is a Commodities Mutual Fund Scheme launched by HDFC Mutual Fund. This scheme was made available to investors on 10 Dec 1999. Arun Agarwal is the Current Fund Manager of HDFC Gold ETF Fund of Fund Direct Plan Growth fund. The fund currently has an Asset Under Management(AUM) of ₹9,34,076 Cr and the Latest NAV as of 26 Oct 2026 is ₹43.76.
-The HDFC Gold ETF Fund of Fund Direct Plan Growth is rated High risk. Exit load of 1%, if redeemed within 15 days.
+The HDFC Gold ETF Fund of Fund Direct Plan Growth is rated High risk. Minimum SIP Investment is set to ₹100. Exit load of 1%, if redeemed within 15 days.
 ;
 Investment Objective
 The Scheme seeks to generate capital appreciation by investing in units of HDFC Gold Exchange Traded Fund.
