@@ -314,19 +314,6 @@ Very High
 4
 ₹2,620
 -
-HDFC Transportation and Logistics Fund
-Equity
-Very High
-20.36
-1.15
-9.0%
-25.4%
---
---
---
---
-₹2,043
-Exit load of 1%, if redeemed within 30 days.
 HDFC Large & Mid Cap Fund
 Equity
 Very High
@@ -340,6 +327,19 @@ Very High
 3
 ₹28,542
 Exit load of 1% if redeemed within 1 year
+HDFC Transportation and Logistics Fund
+Equity
+Very High
+20.36
+1.15
+9.0%
+25.4%
+--
+--
+--
+--
+₹2,043
+Exit load of 1%, if redeemed within 30 days.
 View All
 Returns calculator
 Fund Name
@@ -357,8 +357,8 @@ HDFC BSE Sensex Index Fund Direct Growth
 HDFC Large Cap Fund Direct Growth
 HDFC Focused Fund Direct Growth
 HDFC NIFTY Next 50 Index Fund Direct Growth
-HDFC Transportation and Logistics Fund Direct Growth
 HDFC Large & Mid Cap Fund Direct Growth
+HDFC Transportation and Logistics Fund Direct Growth
 No Data Available
 Key information
 about HDFC Mutual Fund
@@ -572,17 +572,6 @@ AUM
 ₹2,620Cr
 1Y Returns
 2.8%
-HDFC Transportation and Logistics Fund Direct Growth
-Fund Performance:
-The HDFC Transportation and Logistics Fund comes under the Equity category of HDFC Mutual Funds.
-Minimum Investment Amount:
-Lump sum minimum amount for HDFC Transportation and Logistics Fund is ₹100 and for SIP, it is ₹100.
-Min Investment Amt
-₹100
-AUM
-₹2,043Cr
-1Y Returns
-9.0%
 HDFC Large & Mid Cap Fund Direct Growth
 Fund Performance:
 The fund's annualized returns for the past 3 years & 5 years has been around 13.52% & 13.17%. The HDFC Large & Mid Cap Fund comes under the Equity category of HDFC Mutual Funds.
@@ -594,6 +583,17 @@ AUM
 ₹28,542Cr
 1Y Returns
 -1.4%
+HDFC Transportation and Logistics Fund Direct Growth
+Fund Performance:
+The HDFC Transportation and Logistics Fund comes under the Equity category of HDFC Mutual Funds.
+Minimum Investment Amount:
+Lump sum minimum amount for HDFC Transportation and Logistics Fund is ₹100 and for SIP, it is ₹100.
+Min Investment Amt
+₹100
+AUM
+₹2,043Cr
+1Y Returns
+9.0%
 View Mutual Funds from Other AMCs
 SEE ALL
 Mahindra Manulife Mutual Fund
