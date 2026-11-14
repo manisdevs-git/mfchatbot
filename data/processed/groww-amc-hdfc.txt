@@ -147,7 +147,7 @@ Exit Load
 HDFC Flexi Cap Direct Plan-Growth
 Equity
 Very High
-2,374.13
+2,363.76
 0.74
 5.0%
 17.8%
@@ -160,7 +160,7 @@ Exit load of 1% if redeemed within 1 year
 HDFC Defence Fund
 Equity
 Very High
-30.58
+30.41
 0.89
 20.0%
 34.6%
@@ -173,8 +173,8 @@ Exit load of 1%, if redeemed within 1 year.
 HDFC Mid Cap Fund
 Equity
 Very High
-230.66
-0.74
+229.70
+0.73
 2.7%
 16.4%
 17.6%
@@ -186,8 +186,8 @@ Exit load of 1% if redeemed within 1 year.
 HDFC Silver ETF FoF Direct-Growth
 Commodities
 Very High
-29.59
-0.21
+29.12
+0.22
 13.2%
 34.3%
 --
@@ -199,7 +199,7 @@ Exit load of 1%, if redeemed within 15 days.
 HDFC Pharma And Healthcare Fund
 Equity
 Very High
-23.56
+23.49
 1.01
 32.0%
 31.3%
@@ -212,7 +212,7 @@ Exit load of 1%, if redeemed within 30 days.
 HDFC NIFTY 50 Index Fund
 Equity
 Very High
-247.71
+246.20
 0.29
 -1.5%
 10.1%
@@ -225,7 +225,7 @@ Exit load of 0.25% if redeemed within 3 days
 HDFC Small Cap Fund
 Equity
 Very High
-156.99
+156.58
 0.79
 -3.9%
 9.9%
@@ -238,7 +238,7 @@ Exit load of 1% if redeemed within 1 year
 HDFC Balanced Advantage Fund
 Hybrid
 Very High
-584.78
+581.69
 0.76
 1.2%
 12.1%
@@ -252,7 +252,7 @@ See more
 HDFC Multi Cap Fund
 Equity
 Very High
-20.10
+20.00
 0.95
 -1.4%
 12.2%
@@ -265,8 +265,8 @@ Exit load of 1% if redeemed within 1 year.
 HDFC BSE Sensex Index Fund
 Equity
 Very High
-784.59
-0.22
+781.54
+0.23
 -2.4%
 9.0%
 7.2%
@@ -278,8 +278,8 @@ Exit load of 0.25% if redeemed within 3 days
 HDFC Focused Fund
 Equity
 Very High
-282.23
-0.83
+281.37
+0.82
 4.3%
 17.5%
 17.3%
@@ -291,7 +291,7 @@ Exit load of 1% if redeemed within 1 year
 HDFC Large Cap Fund
 Equity
 Very High
-1,274.09
+1,264.56
 1.0
 0.5%
 11.0%
@@ -301,10 +301,23 @@ Very High
 4
 ₹37,466
 Exit load of 1% if redeemed within 1 year
+HDFC Transportation and Logistics Fund
+Equity
+Very High
+20.59
+1.13
+10.8%
+25.5%
+--
+--
+--
+--
+₹2,004
+Exit load of 1%, if redeemed within 30 days.
 HDFC Manufacturing Fund
 Equity
 Very High
-12.39
+12.32
 0.93
 8.0%
 --
@@ -317,7 +330,7 @@ Exit load of 1%, if redeemed within 1 month.
 HDFC Large & Mid Cap Fund
 Equity
 Very High
-373.68
+371.28
 0.91
 0.9%
 13.7%
@@ -327,19 +340,6 @@ Very High
 3
 ₹28,087
 Exit load of 1% if redeemed within 1 year
-HDFC Transportation and Logistics Fund
-Equity
-Very High
-20.82
-1.14
-10.8%
-25.5%
---
---
---
---
-₹2,004
-Exit load of 1%, if redeemed within 30 days.
 View All
 Returns calculator
 Fund Name
@@ -356,9 +356,9 @@ HDFC Multi Cap Fund Direct Growth
 HDFC BSE Sensex Index Fund Direct Growth
 HDFC Focused Fund Direct Growth
 HDFC Large Cap Fund Direct Growth
+HDFC Transportation and Logistics Fund Direct Growth
 HDFC Manufacturing Fund Direct Growth
 HDFC Large & Mid Cap Fund Direct Growth
-HDFC Transportation and Logistics Fund Direct Growth
 No Data Available
 Key information
 about HDFC Mutual Fund
@@ -561,6 +561,17 @@ AUM
 ₹37,466Cr
 1Y Returns
 0.5%
+HDFC Transportation and Logistics Fund Direct Growth
+Fund Performance:
+The HDFC Transportation and Logistics Fund comes under the Equity category of HDFC Mutual Funds.
+Minimum Investment Amount:
+Lump sum minimum amount for HDFC Transportation and Logistics Fund is ₹100 and for SIP, it is ₹100.
+Min Investment Amt
+₹100
+AUM
+₹2,004Cr
+1Y Returns
+10.8%
 HDFC Manufacturing Fund Direct Growth
 Fund Performance:
 The HDFC Manufacturing Fund comes under the Equity category of HDFC Mutual Funds.
@@ -583,17 +594,6 @@ AUM
 ₹28,087Cr
 1Y Returns
 0.9%
-HDFC Transportation and Logistics Fund Direct Growth
-Fund Performance:
-The HDFC Transportation and Logistics Fund comes under the Equity category of HDFC Mutual Funds.
-Minimum Investment Amount:
-Lump sum minimum amount for HDFC Transportation and Logistics Fund is ₹100 and for SIP, it is ₹100.
-Min Investment Amt
-₹100
-AUM
-₹2,004Cr
-1Y Returns
-10.8%
 View Mutual Funds from Other AMCs
 SEE ALL
 Mahindra Manulife Mutual Fund
