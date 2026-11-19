@@ -6,7 +6,8 @@ HELP
 MUTUAL FUNDS
 0% COMMISSION ON GROWW
 AMC/Fund Houses
-Mahindra Manulife Mutual Fund
+Canara Robeco Mutual Fund
+Carnelian Mutual Fund
 Monarch Mutual Fund
 ASK Mutual Fund
 Lakshya Mutual Fund
@@ -31,16 +32,16 @@ Bank of India Mutual Fund
 Mirae Asset Mutual Fund
 Aditya Birla Sun Life Mutual Fund
 Franklin Templeton Mutual Fund
-LIC Mutual Fund
 ITI Mutual Fund
 TRUST Mutual Fund
 NJ Mutual Fund
 Samco Mutual Fund
-Carnelian Mutual Fund
-Canara Robeco Mutual Fund
+Mahindra Manulife Mutual Fund
+Nuvama Mutual Fund
 Quant Mutual Fund
 ICICI Prudential Mutual Fund
 JM Financial Mutual Fund
+LIC Mutual Fund
 SBI Mutual Fund
 DSP Mutual Fund
 Tata Mutual Fund
@@ -301,19 +302,6 @@ Very High
 5
 ₹26,955
 Exit load of 1% if redeemed within 1 year
-HDFC Transportation and Logistics Fund
-Equity
-Very High
-20.41
-1.14
-10.3%
-23.1%
---
---
---
---
-₹2,004
-Exit load of 1%, if redeemed within 30 days.
 HDFC Liquid Fund
 Debt
 Moderate
@@ -328,6 +316,19 @@ Moderate
 ₹71,083
 Exit load of 0.0070% if redeemed within 1 day, 0.0065% if redeemed within 2 days, 0.0060% if redeemed within 3 days, 0.0055% if redeemed within 4 days, 0.0050% if redeemed within 5 days, 0.0045% if redeemed within 6 days.
 See more
+HDFC Transportation and Logistics Fund
+Equity
+Very High
+20.41
+1.14
+10.3%
+23.1%
+--
+--
+--
+--
+₹2,004
+Exit load of 1%, if redeemed within 30 days.
 HDFC Large & Mid Cap Fund
 Equity
 Very High
@@ -357,8 +358,8 @@ HDFC Multi Cap Fund Direct Growth
 HDFC BSE Sensex Index Fund Direct Growth
 HDFC Large Cap Fund Direct Growth
 HDFC Focused Fund Direct Growth
-HDFC Transportation and Logistics Fund Direct Growth
 HDFC Liquid Direct Plan Growth
+HDFC Transportation and Logistics Fund Direct Growth
 HDFC Large & Mid Cap Fund Direct Growth
 No Data Available
 Key information
@@ -562,17 +563,6 @@ AUM
 ₹26,955Cr
 1Y Returns
 3.5%
-HDFC Transportation and Logistics Fund Direct Growth
-Fund Performance:
-The HDFC Transportation and Logistics Fund comes under the Equity category of HDFC Mutual Funds.
-Minimum Investment Amount:
-Lump sum minimum amount for HDFC Transportation and Logistics Fund is ₹100 and for SIP, it is ₹100.
-Min Investment Amt
-₹100
-AUM
-₹2,004Cr
-1Y Returns
-10.3%
 HDFC Liquid Direct Plan Growth
 Fund Performance:
 The fund's annualized returns for the past 3 years & 5 years has been around 6.88% & 6.42%. The HDFC Liquid Fund comes under the Debt category of HDFC Mutual Funds.
@@ -584,6 +574,17 @@ AUM
 ₹71,083Cr
 1Y Returns
 6.5%
+HDFC Transportation and Logistics Fund Direct Growth
+Fund Performance:
+The HDFC Transportation and Logistics Fund comes under the Equity category of HDFC Mutual Funds.
+Minimum Investment Amount:
+Lump sum minimum amount for HDFC Transportation and Logistics Fund is ₹100 and for SIP, it is ₹100.
+Min Investment Amt
+₹100
+AUM
+₹2,004Cr
+1Y Returns
+10.3%
 HDFC Large & Mid Cap Fund Direct Growth
 Fund Performance:
 The fund's annualized returns for the past 3 years & 5 years has been around 12.41% & 13.5%. The HDFC Large & Mid Cap Fund comes under the Equity category of HDFC Mutual Funds.
@@ -597,8 +598,8 @@ AUM
 0.0%
 View Mutual Funds from Other AMCs
 SEE ALL
-Mahindra Manulife Mutual Fund
+Canara Robeco Mutual Fund
+Carnelian Mutual Fund
 Monarch Mutual Fund
 ASK Mutual Fund
-Lakshya Mutual Fund
 Explore all Mutual Funds on Groww
