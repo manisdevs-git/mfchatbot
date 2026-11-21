@@ -145,23 +145,10 @@ Expense Ratio
 Rating
 Fund Size (in Cr)
 Exit Load
-HDFC Defence Fund
-Equity
-Very High
-30.17
-0.89
-18.9%
-31.2%
---
---
---
---
-₹11,130
-Exit load of 1%, if redeemed within 1 year.
 HDFC Flexi Cap Fund
 Equity
 Very High
-2,395.85
+2,427.51
 0.74
 5.0%
 17.5%
@@ -171,10 +158,23 @@ Very High
 5
 ₹1,10,441
 Exit load of 1% if redeemed within 1 year
+HDFC Defence Fund
+Equity
+Very High
+30.10
+0.89
+18.9%
+31.2%
+--
+--
+--
+--
+₹11,130
+Exit load of 1%, if redeemed within 1 year.
 HDFC Silver ETF FoF
 Commodities
 Very High
-26.35
+25.08
 0.22
 0.9%
 27.8%
@@ -187,7 +187,7 @@ Exit load of 1%, if redeemed within 15 days.
 HDFC Pharma And Healthcare Fund
 Equity
 Very High
-23.52
+23.68
 1.08
 31.6%
 30.6%
@@ -200,8 +200,8 @@ Exit load of 1%, if redeemed within 30 days.
 HDFC Mid Cap Fund
 Equity
 Very High
-230.39
-0.74
+232.52
+0.73
 2.2%
 15.4%
 18.3%
@@ -213,7 +213,7 @@ Exit load of 1% if redeemed within 1 year.
 HDFC NIFTY 50 Index Fund
 Equity
 Very High
-249.81
+252.61
 0.29
 -1.3%
 9.9%
@@ -226,7 +226,7 @@ Exit load of 0.25% if redeemed within 3 days
 HDFC Small Cap Fund
 Equity
 Very High
-155.76
+156.23
 0.79
 -4.0%
 8.7%
@@ -239,7 +239,7 @@ Exit load of 1% if redeemed within 1 year
 HDFC Balanced Advantage Fund
 Hybrid
 Very High
-586.63
+590.81
 0.76
 1.1%
 11.6%
@@ -253,7 +253,7 @@ See more
 HDFC Multi Cap Fund
 Equity
 Very High
-20.09
+20.27
 0.95
 -1.5%
 11.2%
@@ -266,7 +266,7 @@ Exit load of 1% if redeemed within 1 year.
 HDFC BSE Sensex Index Fund
 Equity
 Very High
-795.20
+803.80
 0.23
 -1.9%
 9.0%
@@ -279,7 +279,7 @@ Exit load of 0.25% if redeemed within 3 days
 HDFC Focused Fund
 Equity
 Very High
-285.66
+289.46
 0.82
 4.5%
 17.4%
@@ -292,7 +292,7 @@ Exit load of 1% if redeemed within 1 year
 HDFC Large Cap Fund
 Equity
 Very High
-1,282.96
+1,298.57
 0.99
 0.8%
 10.7%
@@ -305,8 +305,8 @@ Exit load of 1% if redeemed within 1 year
 HDFC Transportation and Logistics Fund
 Equity
 Very High
-20.95
-1.15
+20.99
+1.13
 11.8%
 24.1%
 --
@@ -318,7 +318,7 @@ Exit load of 1%, if redeemed within 30 days.
 HDFC Manufacturing Fund
 Equity
 Very High
-12.31
+12.33
 0.94
 8.4%
 --
@@ -328,26 +328,25 @@ Very High
 --
 ₹9,726
 Exit load of 1%, if redeemed within 1 month.
-HDFC Liquid Fund
-Debt
-Moderate
-5,640.96
-0.2
-6.5%
-6.9%
-6.4%
-5.7%
-6.0%
+HDFC Large & Mid Cap Fund
+Equity
+Very High
+377.08
+0.91
+0.9%
+12.8%
+13.7%
+18.1%
+15.5%
 3
-₹71,083
-Exit load of 0.0070% if redeemed within 1 day, 0.0065% if redeemed within 2 days, 0.0060% if redeemed within 3 days, 0.0055% if redeemed within 4 days, 0.0050% if redeemed within 5 days, 0.0045% if redeemed within 6 days.
-See more
+₹28,087
+Exit load of 1% if redeemed within 1 year
 View All
 Returns calculator
 Fund Name
 Select a Fund
-HDFC Defence Fund Direct Growth
 HDFC Flexi Cap Direct Plan Growth
+HDFC Defence Fund Direct Growth
 HDFC Silver ETF FoF Direct Growth
 HDFC Pharma And Healthcare Fund Direct Growth
 HDFC Mid Cap Fund Direct Growth
@@ -360,7 +359,7 @@ HDFC Focused Fund Direct Growth
 HDFC Large Cap Fund Direct Growth
 HDFC Transportation and Logistics Fund Direct Growth
 HDFC Manufacturing Fund Direct Growth
-HDFC Liquid Direct Plan Growth
+HDFC Large & Mid Cap Fund Direct Growth
 No Data Available
 Key information
 about HDFC Mutual Fund
@@ -431,17 +430,6 @@ Let's have a closer look
 Now let us jump and check about these top
 15
 mutual fund schemes.
-HDFC Defence Fund Direct Growth
-Fund Performance:
-The HDFC Defence Fund comes under the Equity category of HDFC Mutual Funds.
-Minimum Investment Amount:
-Lump sum minimum amount for HDFC Defence Fund is ₹100 and for SIP, it is ₹100.
-Min Investment Amt
-₹100
-AUM
-₹11,130Cr
-1Y Returns
-18.9%
 HDFC Flexi Cap Direct Plan Growth
 Fund Performance:
 The fund's annualized returns for the past 3 years & 5 years has been around 17.54% & 17.56%. The HDFC Flexi Cap Fund comes under the Equity category of HDFC Mutual Funds.
@@ -453,6 +441,17 @@ AUM
 ₹1,10,441Cr
 1Y Returns
 5.0%
+HDFC Defence Fund Direct Growth
+Fund Performance:
+The HDFC Defence Fund comes under the Equity category of HDFC Mutual Funds.
+Minimum Investment Amount:
+Lump sum minimum amount for HDFC Defence Fund is ₹100 and for SIP, it is ₹100.
+Min Investment Amt
+₹100
+AUM
+₹11,130Cr
+1Y Returns
+18.9%
 HDFC Silver ETF FoF Direct Growth
 Fund Performance:
 The HDFC Silver ETF FoF comes under the Commodities category of HDFC Mutual Funds.
@@ -585,17 +584,17 @@ AUM
 ₹9,726Cr
 1Y Returns
 8.4%
-HDFC Liquid Direct Plan Growth
+HDFC Large & Mid Cap Fund Direct Growth
 Fund Performance:
-The fund's annualized returns for the past 3 years & 5 years has been around 6.88% & 6.43%. The HDFC Liquid Fund comes under the Debt category of HDFC Mutual Funds.
+The fund's annualized returns for the past 3 years & 5 years has been around 12.79% & 13.73%. The HDFC Large & Mid Cap Fund comes under the Equity category of HDFC Mutual Funds.
 Minimum Investment Amount:
-Lump sum minimum amount for HDFC Liquid Fund is ₹100 and for SIP, it is ₹100.
+Lump sum minimum amount for HDFC Large & Mid Cap Fund is ₹100 and for SIP, it is ₹100.
 Min Investment Amt
 ₹100
 AUM
-₹71,083Cr
+₹28,087Cr
 1Y Returns
-6.5%
+0.9%
 View Mutual Funds from Other AMCs
 SEE ALL
 Canara Robeco Mutual Fund
