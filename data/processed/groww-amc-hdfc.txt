@@ -276,6 +276,19 @@ Very High
 1
 ₹8,216
 Exit load of 0.25% if redeemed within 3 days
+HDFC Large Cap Fund
+Equity
+Very High
+1,298.57
+0.99
+1.7%
+11.1%
+11.9%
+13.8%
+13.6%
+4
+₹37,466
+Exit load of 1% if redeemed within 1 year
 HDFC Focused Fund
 Equity
 Very High
@@ -289,18 +302,18 @@ Very High
 5
 ₹26,955
 Exit load of 1% if redeemed within 1 year
-HDFC Large Cap Fund
+HDFC Large & Mid Cap Fund
 Equity
 Very High
-1,298.57
-0.99
+377.08
+0.91
 1.7%
-11.1%
-11.9%
-13.8%
-13.6%
-4
-₹37,466
+13.2%
+14.0%
+18.2%
+15.6%
+3
+₹28,087
 Exit load of 1% if redeemed within 1 year
 HDFC Transportation and Logistics Fund
 Equity
@@ -315,32 +328,19 @@ Very High
 --
 ₹2,004
 Exit load of 1%, if redeemed within 30 days.
-HDFC Manufacturing Fund
-Equity
-Very High
-12.33
-0.94
-8.3%
---
---
---
---
---
-₹9,726
-Exit load of 1%, if redeemed within 1 month.
-HDFC Large & Mid Cap Fund
-Equity
-Very High
-377.08
-0.91
-1.7%
-13.2%
-14.0%
-18.2%
-15.6%
+HDFC Short Term Fund
+Debt
+Moderate
+35.58
+0.39
+4.7%
+7.3%
+6.5%
+7.0%
+7.2%
 3
-₹28,087
-Exit load of 1% if redeemed within 1 year
+₹13,966
+-
 View All
 Returns calculator
 Fund Name
@@ -355,11 +355,11 @@ HDFC Small Cap Fund Direct Growth
 HDFC Balanced Advantage Fund Direct Growth
 HDFC Multi Cap Fund Direct Growth
 HDFC BSE Sensex Index Fund Direct Growth
-HDFC Focused Fund Direct Growth
 HDFC Large Cap Fund Direct Growth
-HDFC Transportation and Logistics Fund Direct Growth
-HDFC Manufacturing Fund Direct Growth
+HDFC Focused Fund Direct Growth
 HDFC Large & Mid Cap Fund Direct Growth
+HDFC Transportation and Logistics Fund Direct Growth
+HDFC Short Term Fund Direct Plan Growth
 No Data Available
 Key information
 about HDFC Mutual Fund
@@ -540,6 +540,17 @@ AUM
 ₹8,216Cr
 1Y Returns
 -1.3%
+HDFC Large Cap Fund Direct Growth
+Fund Performance:
+The fund's annualized returns for the past 3 years & 5 years has been around 11.14% & 11.91%. The HDFC Large Cap Fund comes under the Equity category of HDFC Mutual Funds.
+Minimum Investment Amount:
+Lump sum minimum amount for HDFC Large Cap Fund is ₹100 and for SIP, it is ₹100.
+Min Investment Amt
+₹100
+AUM
+₹37,466Cr
+1Y Returns
+1.7%
 HDFC Focused Fund Direct Growth
 Fund Performance:
 The fund's annualized returns for the past 3 years & 5 years has been around 17.95% & 18.43%. The HDFC Focused Fund comes under the Equity category of HDFC Mutual Funds.
@@ -551,15 +562,15 @@ AUM
 ₹26,955Cr
 1Y Returns
 5.7%
-HDFC Large Cap Fund Direct Growth
+HDFC Large & Mid Cap Fund Direct Growth
 Fund Performance:
-The fund's annualized returns for the past 3 years & 5 years has been around 11.14% & 11.91%. The HDFC Large Cap Fund comes under the Equity category of HDFC Mutual Funds.
+The fund's annualized returns for the past 3 years & 5 years has been around 13.23% & 13.96%. The HDFC Large & Mid Cap Fund comes under the Equity category of HDFC Mutual Funds.
 Minimum Investment Amount:
-Lump sum minimum amount for HDFC Large Cap Fund is ₹100 and for SIP, it is ₹100.
+Lump sum minimum amount for HDFC Large & Mid Cap Fund is ₹100 and for SIP, it is ₹100.
 Min Investment Amt
 ₹100
 AUM
-₹37,466Cr
+₹28,087Cr
 1Y Returns
 1.7%
 HDFC Transportation and Logistics Fund Direct Growth
@@ -573,28 +584,17 @@ AUM
 ₹2,004Cr
 1Y Returns
 12.2%
-HDFC Manufacturing Fund Direct Growth
+HDFC Short Term Fund Direct Plan Growth
 Fund Performance:
-The HDFC Manufacturing Fund comes under the Equity category of HDFC Mutual Funds.
+The fund's annualized returns for the past 3 years & 5 years has been around 7.28% & 6.54%. The HDFC Short Term Fund comes under the Debt category of HDFC Mutual Funds.
 Minimum Investment Amount:
-Lump sum minimum amount for HDFC Manufacturing Fund is ₹100 and for SIP, it is ₹100.
+Lump sum minimum amount for HDFC Short Term Fund is ₹100 and for SIP, it is ₹100.
 Min Investment Amt
 ₹100
 AUM
-₹9,726Cr
+₹13,966Cr
 1Y Returns
-8.3%
-HDFC Large & Mid Cap Fund Direct Growth
-Fund Performance:
-The fund's annualized returns for the past 3 years & 5 years has been around 13.23% & 13.96%. The HDFC Large & Mid Cap Fund comes under the Equity category of HDFC Mutual Funds.
-Minimum Investment Amount:
-Lump sum minimum amount for HDFC Large & Mid Cap Fund is ₹100 and for SIP, it is ₹100.
-Min Investment Amt
-₹100
-AUM
-₹28,087Cr
-1Y Returns
-1.7%
+4.7%
 View Mutual Funds from Other AMCs
 SEE ALL
 Canara Robeco Mutual Fund
