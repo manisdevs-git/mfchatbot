@@ -302,6 +302,33 @@ Very High
 1
 ₹8,216
 Exit load of 0.25% if redeemed within 3 days
+HDFC Liquid Fund
+Debt
+Moderate
+5,645.30
+0.2
+6.5%
+6.9%
+6.4%
+5.7%
+6.0%
+3
+₹71,083
+Exit load of 0.0070% if redeemed within 1 day, 0.0065% if redeemed within 2 days, 0.0060% if redeemed within 3 days, 0.0055% if redeemed within 4 days, 0.0050% if redeemed within 5 days, 0.0045% if redeemed within 6 days.
+See more
+HDFC Transportation and Logistics Fund
+Equity
+Very High
+20.82
+1.13
+11.8%
+23.9%
+--
+--
+--
+--
+₹2,004
+Exit load of 1%, if redeemed within 30 days.
 HDFC Large & Mid Cap Fund
 Equity
 Very High
@@ -315,33 +342,6 @@ Very High
 3
 ₹28,087
 Exit load of 1% if redeemed within 1 year
-HDFC Short Term Fund
-Debt
-Moderate
-35.59
-0.39
-4.7%
-7.3%
-6.5%
-7.0%
-7.2%
-3
-₹13,966
--
-HDFC Liquid Fund
-Debt
-Moderate
-5,644.28
-0.2
-6.5%
-6.9%
-6.4%
-5.7%
-6.0%
-3
-₹71,083
-Exit load of 0.0070% if redeemed within 1 day, 0.0065% if redeemed within 2 days, 0.0060% if redeemed within 3 days, 0.0055% if redeemed within 4 days, 0.0050% if redeemed within 5 days, 0.0045% if redeemed within 6 days.
-See more
 View All
 Returns calculator
 Fund Name
@@ -358,9 +358,9 @@ HDFC Multi Cap Fund Direct Growth
 HDFC Large Cap Fund Direct Growth
 HDFC Focused Fund Direct Growth
 HDFC BSE Sensex Index Fund Direct Growth
-HDFC Large & Mid Cap Fund Direct Growth
-HDFC Short Term Fund Direct Plan Growth
 HDFC Liquid Direct Plan Growth
+HDFC Transportation and Logistics Fund Direct Growth
+HDFC Large & Mid Cap Fund Direct Growth
 No Data Available
 Key information
 about HDFC Mutual Fund
@@ -563,28 +563,6 @@ AUM
 ₹8,216Cr
 1Y Returns
 -2.6%
-HDFC Large & Mid Cap Fund Direct Growth
-Fund Performance:
-The fund's annualized returns for the past 3 years & 5 years has been around 12.63% & 13.93%. The HDFC Large & Mid Cap Fund comes under the Equity category of HDFC Mutual Funds.
-Minimum Investment Amount:
-Lump sum minimum amount for HDFC Large & Mid Cap Fund is ₹100 and for SIP, it is ₹100.
-Min Investment Amt
-₹100
-AUM
-₹28,087Cr
-1Y Returns
-1.3%
-HDFC Short Term Fund Direct Plan Growth
-Fund Performance:
-The fund's annualized returns for the past 3 years & 5 years has been around 7.28% & 6.55%. The HDFC Short Term Fund comes under the Debt category of HDFC Mutual Funds.
-Minimum Investment Amount:
-Lump sum minimum amount for HDFC Short Term Fund is ₹100 and for SIP, it is ₹100.
-Min Investment Amt
-₹100
-AUM
-₹13,966Cr
-1Y Returns
-4.7%
 HDFC Liquid Direct Plan Growth
 Fund Performance:
 The fund's annualized returns for the past 3 years & 5 years has been around 6.88% & 6.43%. The HDFC Liquid Fund comes under the Debt category of HDFC Mutual Funds.
@@ -596,6 +574,28 @@ AUM
 ₹71,083Cr
 1Y Returns
 6.5%
+HDFC Transportation and Logistics Fund Direct Growth
+Fund Performance:
+The HDFC Transportation and Logistics Fund comes under the Equity category of HDFC Mutual Funds.
+Minimum Investment Amount:
+Lump sum minimum amount for HDFC Transportation and Logistics Fund is ₹100 and for SIP, it is ₹100.
+Min Investment Amt
+₹100
+AUM
+₹2,004Cr
+1Y Returns
+11.8%
+HDFC Large & Mid Cap Fund Direct Growth
+Fund Performance:
+The fund's annualized returns for the past 3 years & 5 years has been around 12.63% & 13.93%. The HDFC Large & Mid Cap Fund comes under the Equity category of HDFC Mutual Funds.
+Minimum Investment Amount:
+Lump sum minimum amount for HDFC Large & Mid Cap Fund is ₹100 and for SIP, it is ₹100.
+Min Investment Amt
+₹100
+AUM
+₹28,087Cr
+1Y Returns
+1.3%
 View Mutual Funds from Other AMCs
 SEE ALL
 Canara Robeco Mutual Fund
