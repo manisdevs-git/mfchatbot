@@ -158,19 +158,6 @@ Very High
 5
 ₹1,10,441
 Exit load of 1% if redeemed within 1 year
-HDFC Defence Fund
-Equity
-Very High
-29.93
-0.89
-21.1%
-30.8%
---
---
---
---
-₹11,130
-Exit load of 1%, if redeemed within 1 year.
 HDFC Pharma And Healthcare Fund
 Equity
 Very High
@@ -184,6 +171,19 @@ Very High
 5
 ₹3,665
 Exit load of 1%, if redeemed within 30 days.
+HDFC Defence Fund
+Equity
+Very High
+29.93
+0.89
+21.1%
+30.8%
+--
+--
+--
+--
+₹11,130
+Exit load of 1%, if redeemed within 1 year.
 HDFC Silver ETF FoF
 Commodities
 Very High
@@ -347,8 +347,8 @@ Returns calculator
 Fund Name
 Select a Fund
 HDFC Flexi Cap Direct Plan Growth
-HDFC Defence Fund Direct Growth
 HDFC Pharma And Healthcare Fund Direct Growth
+HDFC Defence Fund Direct Growth
 HDFC Silver ETF FoF Direct Growth
 HDFC Mid Cap Fund Direct Growth
 HDFC NIFTY 50 Index Fund Direct Growth
@@ -442,17 +442,6 @@ AUM
 ₹1,10,441Cr
 1Y Returns
 6.3%
-HDFC Defence Fund Direct Growth
-Fund Performance:
-The HDFC Defence Fund comes under the Equity category of HDFC Mutual Funds.
-Minimum Investment Amount:
-Lump sum minimum amount for HDFC Defence Fund is ₹100 and for SIP, it is ₹100.
-Min Investment Amt
-₹100
-AUM
-₹11,130Cr
-1Y Returns
-21.1%
 HDFC Pharma And Healthcare Fund Direct Growth
 Fund Performance:
 The HDFC Pharma And Healthcare Fund comes under the Equity category of HDFC Mutual Funds.
@@ -464,6 +453,17 @@ AUM
 ₹3,665Cr
 1Y Returns
 33.7%
+HDFC Defence Fund Direct Growth
+Fund Performance:
+The HDFC Defence Fund comes under the Equity category of HDFC Mutual Funds.
+Minimum Investment Amount:
+Lump sum minimum amount for HDFC Defence Fund is ₹100 and for SIP, it is ₹100.
+Min Investment Amt
+₹100
+AUM
+₹11,130Cr
+1Y Returns
+21.1%
 HDFC Silver ETF FoF Direct Growth
 Fund Performance:
 The HDFC Silver ETF FoF comes under the Commodities category of HDFC Mutual Funds.
